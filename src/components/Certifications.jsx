@@ -95,7 +95,7 @@ export default function Certifications({ setIsHovering }) {
   }, []);
 
   return (
-    <section id="certifications" style={{ padding: "7rem 0", background: "var(--navy-mid)", position: "relative", zIndex: 1 }}>
+    <section id="certifications" style={{ padding: "7rem 0", background: "linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(17,24,39,0.97) 100%)", position: "relative", zIndex: 1 }}>
       <div style={{ maxWidth: 1400, margin: "0 auto", width: "63%" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

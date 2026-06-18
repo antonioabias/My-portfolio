@@ -182,7 +182,7 @@ const rightGroups = [
 
 export default function Skills() {
   return (
-    <section id="skills" style={{ padding: "7rem 0", position: "relative", zIndex: 1 }}>
+    <section id="skills" style={{ padding: "7rem 0", position: "relative", zIndex: 1, background: "linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(10,15,30,0.95) 40%, rgba(108,59,255,0.12) 100%)" }}>
       <div style={{
         position: "relative", zIndex: 1,
         maxWidth: 1400, margin: "0 auto", width: "63%",

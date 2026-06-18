@@ -138,7 +138,7 @@ export default function Hero({ setIsHovering }) {
   };
 
   return (
-    <section style={{ minHeight: "100vh", position: "relative", overflow: "hidden" }}>
+    <section style={{ minHeight: "100vh", position: "relative", overflow: "hidden", background: "radial-gradient(ellipse 80% 60% at 60% 40%, rgba(108,59,255,0.18) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 20% 80%, rgba(0,212,255,0.12) 0%, transparent 60%)" }}>
 
       {/* Particles */}
       <canvas ref={canvasRef} style={{
