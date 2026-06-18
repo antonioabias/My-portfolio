@@ -152,8 +152,8 @@ export default function Hero({ setIsHovering }) {
         position: "relative", zIndex: 1,
         display: "grid", gridTemplateColumns: "1fr 1fr",
         alignItems: "center", gap: "4rem",
-        padding: "8rem 4rem 4rem",
-        maxWidth: 1300, margin: "0 auto", minHeight: "100vh",
+        padding: "8rem 3rem 4rem",
+        maxWidth: 1400, margin: "0 auto", minHeight: "100vh",
         gridAutoRows: "1fr",
       }}>
 

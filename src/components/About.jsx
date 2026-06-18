@@ -26,7 +26,7 @@ export default function About({ setIsHovering }) {
 
   return (
     <section id="about" style={{ padding: "7rem 0", position: "relative", zIndex: 1 }}>
-      <div style={{ maxWidth: 1300, margin: "0 auto", padding: "0 4rem" }}>
+      <div style={{ maxWidth: 1400, margin: "0 auto", width: "63%" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--cyan)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1.5rem" }}

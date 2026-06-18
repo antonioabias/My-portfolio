@@ -185,7 +185,7 @@ export default function Skills() {
     <section id="skills" style={{ padding: "7rem 0", position: "relative", zIndex: 1 }}>
       <div style={{
         position: "relative", zIndex: 1,
-        maxWidth: 1300, margin: "0 auto", padding: "0 4rem",
+        maxWidth: 1400, margin: "0 auto", width: "63%",
       }}>
 
         <div style={{

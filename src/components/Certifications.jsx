@@ -96,7 +96,7 @@ export default function Certifications({ setIsHovering }) {
 
   return (
     <section id="certifications" style={{ padding: "7rem 0", background: "var(--navy-mid)", position: "relative", zIndex: 1 }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 3rem" }}>
+      <div style={{ maxWidth: 1400, margin: "0 auto", width: "63%" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

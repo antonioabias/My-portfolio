@@ -674,7 +674,7 @@ export default function Projects({ setIsHovering }) {
 
   return (
     <section id="projects" style={{ padding: "7rem 0", position: "relative", zIndex: 1 }}>
-      <div style={{ maxWidth: 1300, margin: "0 auto", padding: "0 4rem" }}>
+      <div style={{ maxWidth: 1400, margin: "0 auto", width: "63%" }}>
         {/* Label */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

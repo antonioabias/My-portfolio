@@ -21,7 +21,7 @@ const links = [
 export default function Contact({ setIsHovering }) {
   return (
     <section id="contact" style={{ padding: "7rem 0", position: "relative", zIndex: 1 }}>    
-      <div style={{ maxWidth: 1300, margin: "0 auto", padding: "0 4rem" }}>
+      <div style={{ maxWidth: 1400, margin: "0 auto", width: "63%" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -41,7 +41,6 @@ export default function Contact({ setIsHovering }) {
             gridTemplateColumns: "minmax(0, 1.1fr) minmax(260px, 0.9fr)",
             gap: "2.5rem",
             alignItems: "start",
-            maxWidth: 920,
           }}
         >
           <div>
