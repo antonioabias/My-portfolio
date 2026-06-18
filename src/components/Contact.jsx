@@ -3,17 +3,17 @@ import { motion } from "framer-motion";
 const links = [
   {
     icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/1280px-Gmail_icon_%282020%29.svg.png",
-    label: "Gmail",
+    label: "Send an email",
     href: "https://mail.google.com/mail/?view=cm&to=antonioabias23.aa@gmail.com",
   },
   {
     icon: "https://cdn.simpleicons.org/github/FFFFFF",
-    label: "Github",
+    label: "View GitHub",
     href: "https://github.com/antonioabias",
   },
   {
     icon: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/webp/linkedin.webp",
-    label: "LinkedIn",
+    label: "Let's connect",
     href: "https://www.linkedin.com/in/antonio-abias-501a912b8/",
   },
 ];
