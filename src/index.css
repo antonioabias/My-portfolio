@@ -80,8 +80,6 @@ section {
   }
 }
 
-@media (max-width: 768px) {
-  section > div {
-    padding: 0 1.25rem !important;
-  }
+body.modal-open {
+  overflow: hidden;
 }

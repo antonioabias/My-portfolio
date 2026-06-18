@@ -8,7 +8,7 @@ export default function Footer() {
       viewport={{ once: true }}
       style={{ padding: "2rem 0", borderTop: "1px solid rgba(255,255,255,0.06)", position: "relative", zIndex: 1 }}
     >
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 3rem", display: "flex", alignItems: "center", justifyContent: "space-between", fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--muted)" }}>
+      <div style={{ maxWidth: 1300, margin: "0 auto", padding: "0 4rem", display: "flex", alignItems: "center", justifyContent: "space-between", fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--muted)" }}>
         <span>
           <span style={{ color: "var(--cyan)" }}>&lt;</span>
           AA

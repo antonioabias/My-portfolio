@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import aca2022 from "../images/ACA-2022.png";
+
 
 const certs = [
   {
@@ -77,6 +78,21 @@ const certs = [
 
 export default function Certifications({ setIsHovering }) {
   const [selected, setSelected] = useState(null);
+
+  useEffect(() => {
+    if (selected) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
+    }
+    return () => document.body.classList.remove("modal-open");
+  }, [selected]);
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") setSelected(null); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   return (
     <section id="certifications" style={{ padding: "7rem 0", background: "var(--navy-mid)", position: "relative", zIndex: 1 }}>

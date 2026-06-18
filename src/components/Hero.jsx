@@ -13,6 +13,7 @@ export default function Hero({ setIsHovering }) {
   const canvasRef = useRef(null);
   const animIdRef = useRef(null);
 
+  // Terminal typing effect
   useEffect(() => {
     const current = commands[cmdIdx];
     let timeout;
@@ -33,6 +34,7 @@ export default function Hero({ setIsHovering }) {
     return () => clearTimeout(timeout);
   }, [cmd, cmdIdx, deleting]);
 
+  // Glitch effect
   const glitch = useCallback((original, setter) => {
     let iter = 0;
     const interval = setInterval(() => {
@@ -51,6 +53,7 @@ export default function Hero({ setIsHovering }) {
     }, 40);
   }, []);
 
+  // Particle canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -136,35 +139,6 @@ export default function Hero({ setIsHovering }) {
 
   return (
     <section style={{ minHeight: "100vh", position: "relative", overflow: "hidden" }}>
-      <style>{`
-        .hero-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          align-items: center;
-          gap: 4rem;
-          padding: 8rem 3rem 4rem;
-          max-width: 1200px;
-          margin: 0 auto;
-          min-height: 100vh;
-        }
-
-        .hero-code-card {
-          display: block;
-        }
-
-        @media (max-width: 768px) {
-          .hero-grid {
-            grid-template-columns: 1fr;
-            padding: 7rem 1.25rem 3rem;
-            gap: 2.5rem;
-            min-height: unset;
-          }
-
-          .hero-code-card {
-            display: none;
-          }
-        }
-      `}</style>
 
       {/* Particles */}
       <canvas ref={canvasRef} style={{
@@ -174,7 +148,14 @@ export default function Hero({ setIsHovering }) {
       }} />
 
       {/* Main content grid */}
-      <div className="hero-grid" style={{ position: "relative", zIndex: 1 }}>
+      <div style={{
+        position: "relative", zIndex: 1,
+        display: "grid", gridTemplateColumns: "1fr 1fr",
+        alignItems: "center", gap: "4rem",
+        padding: "8rem 4rem 4rem",
+        maxWidth: 1300, margin: "0 auto", minHeight: "100vh",
+        gridAutoRows: "1fr",
+      }}>
 
         {/* Left side */}
         <motion.div
@@ -246,7 +227,7 @@ export default function Hero({ setIsHovering }) {
           </motion.p>
 
           {/* Buttons */}
-          <motion.div variants={itemVariants} style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          <motion.div variants={itemVariants} style={{ display: "flex", gap: "1rem" }}>
             {[
               { label: "View Projects", href: "#projects", primary: true },
               { label: "Let's Talk", href: "#contact", primary: false },
@@ -275,9 +256,8 @@ export default function Hero({ setIsHovering }) {
           </motion.div>
         </motion.div>
 
-        {/* Right side - Code Card (hidden on mobile) */}
+        {/* Right side - Code Card */}
         <motion.div
-          className="hero-code-card"
           initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}

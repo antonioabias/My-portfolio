@@ -21,7 +21,7 @@ const links = [
 export default function Contact({ setIsHovering }) {
   return (
     <section id="contact" style={{ padding: "7rem 0", position: "relative", zIndex: 1 }}>    
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 3rem" }}>
+      <div style={{ maxWidth: 1300, margin: "0 auto", padding: "0 4rem" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
