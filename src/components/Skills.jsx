@@ -54,7 +54,7 @@ const StatBar = ({ name, icon, level }) => {
       }}>
         {name}
       </span>
-      <div style={{ display: "flex", gap: 3, flex: 1 }}>
+      <div style={{ display: "flex", gap: 3, flex: 1, minWidth: 0 }}>
         {Array.from({ length: TOTAL }).map((_, i) => (
           <div key={i} style={{
             flex: 1, height: 8, borderRadius: 2,
@@ -182,12 +182,34 @@ const rightGroups = [
 
 export default function Skills() {
   return (
-    <section id="skills" style={{ padding: "7rem 0", position: "relative", zIndex: 1, background: "linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(10,15,30,0.95) 40%, rgba(108,59,255,0.12) 100%)" }}>
-      <div style={{
-        position: "relative", zIndex: 1,
-        maxWidth: 1400, margin: "0 auto", width: "63%",
-      }}>
+    <section id="skills" style={{
+      padding: "7rem 0",
+      position: "relative", zIndex: 1,
+      background: "linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(10,15,30,0.95) 40%, rgba(108,59,255,0.12) 100%)"
+    }}>
+      <style>{`
+        .skills-wrapper {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 0 1.5rem;
+          width: min(100%, 63%);
+        }
+        .skills-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0 2rem;
+        }
+        @media (max-width: 768px) {
+          .skills-wrapper {
+            width: 92%;
+          }
+          .skills-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
 
+      <div className="skills-wrapper">
         <div style={{
           fontFamily: "var(--font-mono)", fontSize: "0.75rem",
           color: "var(--cyan)", letterSpacing: "0.2em",
@@ -212,19 +234,17 @@ export default function Skills() {
             </h2>
             <p style={{
               fontFamily: "var(--font-display)", fontSize: "1rem",
-              lineHeight: 1.8, marginTop: "0.4rem",
-              marginBottom: 0,
+              lineHeight: 1.8, marginTop: "0.4rem", marginBottom: 0,
             }}>
               These bars aren't full yet. Got a project for me?
             </p>
           </div>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 2rem" }}>
+        <div className="skills-grid">
           <div>{leftGroups.map((g) => <CategoryBlock key={g.category} {...g} />)}</div>
           <div>{rightGroups.map((g) => <CategoryBlock key={g.category} {...g} />)}</div>
         </div>
-
       </div>
     </section>
   );
