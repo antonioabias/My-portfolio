@@ -9,23 +9,52 @@ const stats = [
 
 export default function About({ setIsHovering }) {
   const badges = [
-    {
-      name: "React.js",
-      logo: "https://cdn.simpleicons.org/react/00D4FF",
-    },
-    {
-      name: "Node.js",
-      logo: "https://cdn.simpleicons.org/nodedotjs/339933",
-    },
-    {
-      name: "Claude",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Claude_AI_symbol.svg/1280px-Claude_AI_symbol.svg.png",
-    },
+    { name: "React.js", logo: "https://cdn.simpleicons.org/react/00D4FF" },
+    { name: "Node.js", logo: "https://cdn.simpleicons.org/nodedotjs/339933" },
+    { name: "Claude", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Claude_AI_symbol.svg/1280px-Claude_AI_symbol.svg.png" },
   ];
 
   return (
     <section id="about" style={{ padding: "7rem 0", position: "relative", zIndex: 1 }}>
-      <div style={{ maxWidth: 1400, margin: "0 auto", width: "63%" }}>
+      <style>{`
+        .about-wrapper {
+          max-width: 1400px;
+          margin: 0 auto;
+          width: min(100%, 63%);
+        }
+        .about-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 5rem;
+          align-items: center;
+        }
+        .about-photo-col {
+          position: relative;
+        }
+        .about-badge {
+          position: absolute;
+          right: -20%;
+        }
+        @media (max-width: 768px) {
+          .about-wrapper {
+            width: 92%;
+          }
+          .about-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+          }
+          .about-photo-col {
+            max-width: 320px;
+            margin: 0 auto;
+            width: 100%;
+          }
+          .about-badge {
+            right: -8%;
+          }
+        }
+      `}</style>
+
+      <div className="about-wrapper">
         <motion.div
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--cyan)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1.5rem" }}
@@ -33,7 +62,7 @@ export default function About({ setIsHovering }) {
           About
         </motion.div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "center" }}>
+        <div className="about-grid">
           <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
             <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2rem,4vw,3rem)", fontWeight: 700, lineHeight: 1.15, marginBottom: "1.5rem", letterSpacing: "-0.02em" }}>
               A developer with an <span style={{ color: "var(--cyan)" }}>artist's eye.</span>
@@ -54,7 +83,10 @@ export default function About({ setIsHovering }) {
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} style={{ position: "relative" }}>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}
+            className="about-photo-col"
+          >
             <motion.div
               whileHover={{ scale: 1.02 }}
               style={{ aspectRatio: "3/4", borderRadius: 20, overflow: "hidden", border: "1px solid rgba(0,212,255,0.2)", position: "relative" }}
@@ -75,25 +107,20 @@ export default function About({ setIsHovering }) {
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
                 aria-label={badge.name}
+                className="about-badge"
                 style={{
-                  position: "absolute",
                   top: i === 0 ? "10%" : i === 1 ? "45%" : "75%",
-                  right: "-20%",
                   width: 68,
                   height: 68,
                   display: "grid",
                   placeItems: "center",
-                  background: "rgba(30,42,58,0.9)", backdropFilter: "blur(8px)",
+                  background: "rgba(30,42,58,0.9)",
+                  backdropFilter: "blur(8px)",
                   border: "1px solid rgba(0,212,255,0.3)",
                   borderRadius: 999,
-                  padding: 0,
                 }}
               >
-                <img
-                  src={badge.logo}
-                  alt={badge.name}
-                  style={{ width: 34, height: 34, objectFit: "contain" }}
-                />
+                <img src={badge.logo} alt={badge.name} style={{ width: 34, height: 34, objectFit: "contain" }} />
               </motion.div>
             ))}
           </motion.div>

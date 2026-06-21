@@ -13,7 +13,6 @@ export default function Hero({ setIsHovering }) {
   const canvasRef = useRef(null);
   const animIdRef = useRef(null);
 
-  // Terminal typing effect
   useEffect(() => {
     const current = commands[cmdIdx];
     let timeout;
@@ -34,7 +33,6 @@ export default function Hero({ setIsHovering }) {
     return () => clearTimeout(timeout);
   }, [cmd, cmdIdx, deleting]);
 
-  // Glitch effect
   const glitch = useCallback((original, setter) => {
     let iter = 0;
     const interval = setInterval(() => {
@@ -53,7 +51,6 @@ export default function Hero({ setIsHovering }) {
     }, 40);
   }, []);
 
-  // Particle canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -83,7 +80,6 @@ export default function Hero({ setIsHovering }) {
       animIdRef.current = requestAnimationFrame(draw);
       if (++frame % 2 !== 0) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -101,7 +97,6 @@ export default function Hero({ setIsHovering }) {
         }
       }
       ctx.globalAlpha = 1;
-
       particles.forEach((p) => {
         p.x += p.speedX;
         p.y += p.speedY;
@@ -139,32 +134,49 @@ export default function Hero({ setIsHovering }) {
 
   return (
     <section style={{ minHeight: "100vh", position: "relative", overflow: "hidden", background: "radial-gradient(ellipse 80% 60% at 60% 40%, rgba(108,59,255,0.18) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 20% 80%, rgba(0,212,255,0.12) 0%, transparent 60%)" }}>
+      <style>{`
+        .hero-grid {
+          position: relative;
+          z-index: 1;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          align-items: center;
+          gap: 4rem;
+          padding: 8rem 3rem 4rem;
+          max-width: 1400px;
+          margin: 0 auto;
+          min-height: 100vh;
+        }
+        .hero-name {
+          font-size: clamp(3rem, 6vw, 5.5rem);
+        }
+        .hero-card {
+          display: block;
+        }
+        @media (max-width: 768px) {
+          .hero-grid {
+            grid-template-columns: 1fr;
+            padding: 7rem 1.5rem 4rem;
+            gap: 2.5rem;
+            min-height: unset;
+          }
+          .hero-name {
+            font-size: clamp(2.8rem, 12vw, 4rem);
+          }
+          .hero-card {
+            display: none;
+          }
+        }
+      `}</style>
 
-      {/* Particles */}
       <canvas ref={canvasRef} style={{
         position: "fixed", top: 0, left: 0,
         width: "100%", height: "100%",
         zIndex: 0, pointerEvents: "none", opacity: 0.4,
       }} />
 
-      {/* Main content grid */}
-      <div style={{
-        position: "relative", zIndex: 1,
-        display: "grid", gridTemplateColumns: "1fr 1fr",
-        alignItems: "center", gap: "4rem",
-        padding: "8rem 3rem 4rem",
-        maxWidth: 1400, margin: "0 auto", minHeight: "100vh",
-        gridAutoRows: "1fr",
-      }}>
-
-        {/* Left side */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          style={{ minWidth: 0 }}
-        >
-          {/* Terminal */}
+      <div className="hero-grid">
+        <motion.div variants={containerVariants} initial="hidden" animate="visible" style={{ minWidth: 0 }}>
           <motion.div variants={itemVariants} style={{
             fontFamily: "var(--font-mono)", fontSize: "0.85rem",
             color: "var(--cyan)", marginBottom: "1.5rem",
@@ -172,20 +184,15 @@ export default function Hero({ setIsHovering }) {
           }}>
             <span style={{ opacity: 0.6 }}>~/antonio $</span>
             <span>{cmd}</span>
-            <motion.span
-              animate={{ opacity: [1, 0, 1] }}
-              transition={{ duration: 1, repeat: Infinity }}
-            >▋</motion.span>
+            <motion.span animate={{ opacity: [1, 0, 1] }} transition={{ duration: 1, repeat: Infinity }}>▋</motion.span>
           </motion.div>
 
-          {/* Name */}
           <motion.h1 variants={itemVariants} style={{
             fontFamily: "var(--font-display)",
-            fontSize: "clamp(3rem, 6vw, 5.5rem)",
             fontWeight: 700, lineHeight: 1.05,
             marginBottom: "1rem", letterSpacing: "-0.02em",
             minWidth: 0,
-          }}>
+          }} className="hero-name">
             <div style={{ overflow: "hidden", minWidth: 0 }}>
               <motion.span
                 whileHover={{ x: 8 }}
@@ -208,7 +215,6 @@ export default function Hero({ setIsHovering }) {
             </div>
           </motion.h1>
 
-          {/* Subtitle */}
           <motion.p variants={itemVariants} style={{
             fontFamily: "var(--font-display)", fontSize: "1.1rem",
             color: "var(--muted)", fontWeight: 400, marginBottom: "1rem",
@@ -218,7 +224,6 @@ export default function Hero({ setIsHovering }) {
             {" "}UI/UX Designer
           </motion.p>
 
-          {/* Description */}
           <motion.p variants={itemVariants} style={{
             fontSize: "1rem", color: "var(--muted)",
             maxWidth: 480, marginBottom: "2.5rem",
@@ -226,8 +231,7 @@ export default function Hero({ setIsHovering }) {
             CS graduate from Naga City crafting digital experiences where clean code meets visual arts.
           </motion.p>
 
-          {/* Buttons */}
-          <motion.div variants={itemVariants} style={{ display: "flex", gap: "1rem" }}>
+          <motion.div variants={itemVariants} style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
             {[
               { label: "View Projects", href: "#projects", primary: true },
               { label: "Let's Talk", href: "#contact", primary: false },
@@ -256,8 +260,8 @@ export default function Hero({ setIsHovering }) {
           </motion.div>
         </motion.div>
 
-        {/* Right side - Code Card */}
         <motion.div
+          className="hero-card"
           initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
@@ -270,7 +274,6 @@ export default function Hero({ setIsHovering }) {
             borderRadius: 12, overflow: "hidden",
             boxShadow: "0 0 60px rgba(0,212,255,0.08), 0 20px 60px rgba(0,0,0,0.5)",
           }}>
-            {/* Card header */}
             <div style={{
               display: "flex", alignItems: "center", gap: "0.5rem",
               padding: "0.8rem 1.2rem",
@@ -284,8 +287,6 @@ export default function Hero({ setIsHovering }) {
                 antonio.js
               </span>
             </div>
-
-            {/* Code */}
             <pre style={{ padding: "1.5rem", fontFamily: "var(--font-mono)", fontSize: "0.85rem", lineHeight: 2, overflow: "hidden" }}>
               <code>
                 <span style={{ color: "#FF79C6" }}>const </span>
