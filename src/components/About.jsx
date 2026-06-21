@@ -98,31 +98,6 @@ export default function About({ setIsHovering }) {
               />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,15,30,0.6) 0%, transparent 50%)" }} />
             </motion.div>
-
-            {badges.map((badge, i) => (
-              <motion.div
-                key={badge.name}
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 3 + i, repeat: Infinity, delay: i * 0.8 }}
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => setIsHovering(false)}
-                aria-label={badge.name}
-                className="about-badge"
-                style={{
-                  top: i === 0 ? "10%" : i === 1 ? "45%" : "75%",
-                  width: 68,
-                  height: 68,
-                  display: "grid",
-                  placeItems: "center",
-                  background: "rgba(30,42,58,0.9)",
-                  backdropFilter: "blur(8px)",
-                  border: "1px solid rgba(0,212,255,0.3)",
-                  borderRadius: 999,
-                }}
-              >
-                <img src={badge.logo} alt={badge.name} style={{ width: 34, height: 34, objectFit: "contain" }} />
-              </motion.div>
-            ))}
           </motion.div>
         </div>
       </div>
