@@ -1,91 +1,42 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import aca2022 from "../images/ACA-2022.png";
+import aca2022 from "../assets/aca2022.png";
 
+const ISSUER_LOGOS = {
+  "Cisco": "https://thesvg.org/icons/cisco/default.svg",
+  "Google Cloud Skills Boost": "https://images.seeklogo.com/logo-png/33/2/google-cloud-logo-png_seeklogo-336116.png",
+  "Amazon Web Services (AWS)": "https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/aws-color.png",
+  "Amazon": "https://learnsecurity.amazon.com/img/global/logo.svg",
+  "Sololearn": "https://blob.sololearn.com/avatars/sololearn.png",
+};
 
 const certs = [
-  {
-    href: "https://www.credly.com/badges/ff7d733e-0bc4-4eb4-8b24-334cb765520b/public_url",
-    image: "https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/twitter_thumb_201604_I2CS__1_.png",
-    issuer: "Cisco",
-    title: "Introduction to Cybersecurity",
-    alt: "Introduction to Cybersecurity",
-  },
-  {
-    href: "https://www.credly.com/badges/d276c12b-93ca-432c-93cf-939194450f2e/public_url",
-    image: "https://images.credly.com/size/340x340/images/cef82b2e-970a-4318-8e59-c3e26b7f5c19/image.png",
-    issuer: "Google Cloud Skills Boost",
-    title: "Prompt Design in Vertex AI Skill Badge",
-    alt: "Prompt Design in Vertex AI Skill Badge",
-  },
-  {
-    href: "https://www.credly.com/badges/2a9504f4-4647-4427-8b8c-ec729b1670e3/public_url",
-    image: "https://images.credly.com/size/340x340/images/e3541a0c-dd4a-4820-8052-5001006efc85/blob",
-    issuer: "Amazon Web Services (AWS)",
-    title: "Cloud Foundations",
-    alt: "Cloud Foundations",
-  },
-  {
-    href: "https://www.credly.com/badges/86272c73-d6fc-45bb-be5c-4775f3d5942c/public_url",
-    image: "https://images.credly.com/size/340x340/images/07e7ba52-aea4-431f-ba2d-a4113efd1d5a/blob",
-    issuer: "Amazon Web Services (AWS)",
-    title: "Cloud Operations",
-    alt: "Cloud Operations",
-  },
-  {
-    href: "https://www.credly.com/badges/cb1341ea-775d-489f-8149-da2f35459e15/public_url",
-    image: "https://images.credly.com/size/340x340/images/fcafd0c9-42da-4703-a191-0c397203dc1b/blob",
-    issuer: "Amazon Web Services (AWS)",
-    title: "Cloud Architecting",
-    alt: "Cloud Architecting",
-  },
-  {
-    href: "https://www.credly.com/badges/a15d5924-0d8a-4b89-ab2b-e46c6e03c64d/public_url",
-    image: "https://images.credly.com/size/340x340/images/bb3211c0-a562-44ec-a8b5-df54deb0e5e9/blob",
-    issuer: "Amazon Web Services (AWS)",
-    title: "Cloud Developing",
-    alt: "Cloud Developing",
-  },
-  {
-    href: "https://www.sololearn.com/certificates/CT-3IAYESW6",
-    image: "https://api2.sololearn.com/v2/certificates/CT-3IAYESW6/image/jpg?t=638455748691031950",
-    issuer: "Sololearn",
-    title: "Python Core",
-    alt: "Python certificate",
-  },
-  {
-    href: "https://www.sololearn.com/certificates/CT-EZI6DR5D",
-    image: "https://api2.sololearn.com/v2/certificates/CT-EZI6DR5D/image/jpg?t=638422726540805970",
-    issuer: "Sololearn",
-    title: "C",
-    alt: "C certificate",
-  },
-  {
-    href: "https://www.sololearn.com/certificates/CT-LMZMC23U",
-    image: "https://api2.sololearn.com/v2/certificates/CT-LMZMC23U/image/jpg?t=638755188080910400",
-    issuer: "Sololearn",
-    title: "SQL Fundamentals",
-    alt: "SQL certificate",
-  },
-  {
-    href: "https://drive.google.com/file/d/1yS7EZQEm0ySqfp4tfGDngfhvo8YH2OsM/view?usp=sharing",
-    image: aca2022,
-    issuer: "Amazon",
-    title: "Cybersecurity Awareness",
-    alt: "Cybersecurity Awareness",
-  },
+  { href: "https://www.credly.com/badges/2a9504f4-4647-4427-8b8c-ec729b1670e3/public_url", image: "https://images.credly.com/size/340x340/images/e3541a0c-dd4a-4820-8052-5001006efc85/blob", issuer: "Amazon Web Services (AWS)", title: "Cloud Foundations", alt: "Cloud Foundations" },
+  { href: "https://www.credly.com/badges/86272c73-d6fc-45bb-be5c-4775f3d5942c/public_url", image: "https://images.credly.com/size/340x340/images/07e7ba52-aea4-431f-ba2d-a4113efd1d5a/blob", issuer: "Amazon Web Services (AWS)", title: "Cloud Operations", alt: "Cloud Operations" },
+  { href: "https://www.credly.com/badges/cb1341ea-775d-489f-8149-da2f35459e15/public_url", image: "https://images.credly.com/size/340x340/images/fcafd0c9-42da-4703-a191-0c397203dc1b/blob", issuer: "Amazon Web Services (AWS)", title: "Cloud Architecting", alt: "Cloud Architecting" },
+  { href: "https://www.credly.com/badges/a15d5924-0d8a-4b89-ab2b-e46c6e03c64d/public_url", image: "https://images.credly.com/size/340x340/images/bb3211c0-a562-44ec-a8b5-df54deb0e5e9/blob", issuer: "Amazon Web Services (AWS)", title: "Cloud Developing", alt: "Cloud Developing" },
+  { href: "https://drive.google.com/file/d/1yS7EZQEm0ySqfp4tfGDngfhvo8YH2OsM/view?usp=sharing", image: aca2022, issuer: "Amazon", title: "Cybersecurity Awareness", alt: "Cybersecurity Awareness" },
+  { href: "https://www.credly.com/badges/d276c12b-93ca-432c-93cf-939194450f2e/public_url", image: "https://images.credly.com/size/340x340/images/cef82b2e-970a-4318-8e59-c3e26b7f5c19/image.png", issuer: "Google Cloud Skills Boost", title: "Prompt Design in Vertex AI Skill Badge", alt: "Prompt Design in Vertex AI Skill Badge" },
+  { href: "https://www.sololearn.com/certificates/CT-3IAYESW6", image: "https://api2.sololearn.com/v2/certificates/CT-3IAYESW6/image/jpg?t=638455748691031950", issuer: "Sololearn", title: "Python Core", alt: "Python certificate" },
+  { href: "https://www.sololearn.com/certificates/CT-EZI6DR5D", image: "https://api2.sololearn.com/v2/certificates/CT-EZI6DR5D/image/jpg?t=638422726540805970", issuer: "Sololearn", title: "C", alt: "C certificate" },
+  { href: "https://www.sololearn.com/certificates/CT-LMZMC23U", image: "https://api2.sololearn.com/v2/certificates/CT-LMZMC23U/image/jpg?t=638755188080910400", issuer: "Sololearn", title: "SQL Fundamentals", alt: "SQL certificate" },
+  { href: "https://www.credly.com/badges/ff7d733e-0bc4-4eb4-8b24-334cb765520b/public_url", image: "https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/twitter_thumb_201604_I2CS__1_.png", issuer: "Cisco", title: "Introduction to Cybersecurity", alt: "Introduction to Cybersecurity" },
+  
 ];
+
+const left = certs.slice(0, 5);
+const right = certs.slice(5, 10);
 
 export default function Certifications({ setIsHovering }) {
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     if (selected) {
-      document.body.classList.add("modal-open");
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.classList.remove("modal-open");
+      document.body.style.overflow = "";
     }
-    return () => document.body.classList.remove("modal-open");
+    return () => { document.body.style.overflow = ""; };
   }, [selected]);
 
   useEffect(() => {
@@ -96,7 +47,8 @@ export default function Certifications({ setIsHovering }) {
 
   return (
     <section id="certifications" style={{ padding: "7rem 0", background: "linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(17,24,39,0.97) 100%)", position: "relative", zIndex: 1 }}>
-      <div style={{ maxWidth: 1400, margin: "0 auto", width: "63%" }}>
+      <div style={{ maxWidth: 1400, margin: "0 auto", width: "min(63%, 90%)" }}>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -110,47 +62,87 @@ export default function Certifications({ setIsHovering }) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2rem,4vw,3rem)", fontWeight: 700, marginBottom: "3rem", letterSpacing: "-0.02em" }}
+          style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.5rem, 4vw, 4rem)", fontWeight: 900, marginBottom: "0.5rem", letterSpacing: "-0.03em" }}
         >
           Credentials
         </motion.h2>
+        <p style={{ marginBottom: "2.5rem", fontSize: "1rem" }}>
+          Planning to add more certifications in the future, but here are some of the ones I've earned so far. Click on any credential to view details and verify authenticity.
+        </p>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem" }}>
-          {certs.map((cert, i) => (
-            <motion.button
-              key={cert.title}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3 }}
-              whileHover={{ scale: 1.05, borderColor: "rgba(0,212,255,0.35)", zIndex: 10 }}
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
-              onClick={() => setSelected(cert)}
-              style={{
-                display: "flex", alignItems: "center", gap: "1rem",
-                background: "var(--slate)", border: "1px solid rgba(255,255,255,0.06)",
-                borderRadius: 10, padding: "1rem 1.25rem",
-                cursor: "pointer", textAlign: "left", position: "relative",
-                transition: "box-shadow 0.3s",
-              }}
-            >
-              <img
-                src={cert.image}
-                alt={cert.alt || cert.title}
-                loading="lazy"
-                style={{ width: 72, height: 72, objectFit: "contain", borderRadius: 10, flexShrink: 0 }}
-              />
-              <div>
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "var(--cyan)", opacity: 0.7, display: "block", marginBottom: "0.2rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
-                  {cert.issuer}
-                </span>
-                <h4 style={{ fontFamily: "var(--font-display)", fontSize: "0.9rem", fontWeight: 600, color: "var(--white)" }}>
-                  {cert.title}
-                </h4>
-              </div>
-            </motion.button>
-          ))}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "0 4rem" }}>
+          <div>
+            {left.map((cert, i) => (
+              <motion.button
+                key={cert.title}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05, duration: 0.4 }}
+                whileHover={{ x: 6 }}
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
+                onClick={() => setSelected(cert)}
+                style={{
+                  display: "flex", alignItems: "center", gap: "1.25rem",
+                  padding: "1.4rem 0",
+                  background: "transparent",
+                  border: "none",
+                  borderBottom: "2px solid rgba(255, 255, 255, 0.07)",
+                  cursor: "pointer", textAlign: "left", width: "100%",
+                  transition: "all 0.2s",
+                }}
+              >
+                <img src={ISSUER_LOGOS[cert.issuer]} alt={cert.issuer} loading="lazy"
+                  style={{ width: 48, height: 48, objectFit: "contain", flexShrink: 0 }} />
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", color: "var(--cyan)", opacity: 0.75, textTransform: "uppercase", letterSpacing: "0.1em", display: "block", marginBottom: "0.3rem" }}>
+                    {cert.issuer}
+                  </span>
+                  <span style={{ fontFamily: "var(--font-display)", fontSize: "1.15rem", fontWeight: 700, color: "var(--white)", display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", letterSpacing: "-0.01em" }}>
+                    {cert.title}
+                  </span>
+                </div>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--cyan)", opacity: 0.5, flexShrink: 0 }}>View →</span>
+              </motion.button>
+            ))}
+          </div>
+          <div>
+            {right.map((cert, i) => (
+              <motion.button
+                key={cert.title}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05, duration: 0.4 }}
+                whileHover={{ x: 6 }}
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
+                onClick={() => setSelected(cert)}
+                style={{
+                  display: "flex", alignItems: "center", gap: "1.25rem",
+                  padding: "1.4rem 0",
+                  background: "transparent",
+                  border: "none",
+                  borderBottom: "2px solid rgba(255, 255, 255, 0.07)",
+                  cursor: "pointer", textAlign: "left", width: "100%",
+                  transition: "all 0.2s",
+                }}
+              >
+                <img src={ISSUER_LOGOS[cert.issuer]} alt={cert.issuer} loading="lazy"
+                  style={{ width: 48, height: 48, objectFit: "contain", flexShrink: 0 }} />
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", color: "var(--cyan)", opacity: 0.75, textTransform: "uppercase", letterSpacing: "0.1em", display: "block", marginBottom: "0.3rem" }}>
+                    {cert.issuer}
+                  </span>
+                  <span style={{ fontFamily: "var(--font-display)", fontSize: "1.15rem", fontWeight: 700, color: "var(--white)", display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", letterSpacing: "-0.01em" }}>
+                    {cert.title}
+                  </span>
+                </div>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--cyan)", opacity: 0.5, flexShrink: 0 }}>View →</span>
+              </motion.button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -165,7 +157,7 @@ export default function Certifications({ setIsHovering }) {
             style={{
               position: "fixed", inset: 0, background: "rgba(0,0,0,0.82)",
               backdropFilter: "blur(6px)", display: "flex",
-              alignItems: "center", justifyContent: "center", zIndex: 9999,
+              alignItems: "center", justifyContent: "center", zIndex: 2,
             }}
           >
             <motion.div

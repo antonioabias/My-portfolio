@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
+import pic from "../assets/pic.jpg";
 
 const stats = [
   { num: "6+", label: "Years Coding" },
   { num: "2+", label: "Years Professional" },
   { num: "10", label: "Certifications" },
 ];
-
-const MY_PHOTO = "https://scontent.fmnl9-3.fna.fbcdn.net/v/t39.30808-6/461184622_3974187352819243_3622181858532250600_n.jpg?stp=dst-jpg_tt6&cstp=mx960x954&ctp=s960x954&_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFCPa8UyUK6NZbioeOjcIsPJBr4TTs24K8kGvhNOzbgr38lJyVDJ_w4mKtQEctsRxMuwUOA-7W6aPiFvhPQ6Mbd&_nc_ohc=0uRmrJ2OE-gQ7kNvwH1sQNI&_nc_oc=AdqCvUV2NorLTzEqbuHeoPRn7pB3KwvbMgiR42erkB9Dydsh0iuzik_s6hKWXk--OTI&_nc_zt=23&_nc_ht=scontent.fmnl9-3.fna&_nc_gid=suIOkWPMzDScJPQp8v-ZNQ&_nc_ss=7b2a8&oh=00_Af-CmduombFFmEULtCLfKDNu6vkvUUdaaF5nlMI_qy9Scw&oe=6A35E7B9";
 
 export default function About({ setIsHovering }) {
   const badges = [
@@ -61,7 +60,7 @@ export default function About({ setIsHovering }) {
               style={{ aspectRatio: "3/4", borderRadius: 20, overflow: "hidden", border: "1px solid rgba(0,212,255,0.2)", position: "relative" }}
             >
               <img
-                src={MY_PHOTO}
+                src={pic}
                 alt="Antonio Abias Jr."
                 style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", filter: "grayscale(20%)" }}
               />
