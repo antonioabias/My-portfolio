@@ -28,6 +28,20 @@ export default function Navbar({ setIsHovering }) {
     { label: "Contact", href: "#contact" },
   ];
 
+  const StatusDot = () => (
+    <div style={{
+      display: "flex", alignItems: "center", gap: "0.5rem",
+      fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--muted)",
+    }}>
+      <motion.span
+        animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }}
+        transition={{ duration: 2, repeat: Infinity }}
+        style={{ display: "inline-block", width: 8, height: 8, borderRadius: "50%", background: "#22c55e" }}
+      />
+      Open to work
+    </div>
+  );
+
   return (
     <>
       <motion.nav
@@ -84,56 +98,44 @@ export default function Navbar({ setIsHovering }) {
           </ul>
         )}
 
-        {/* Desktop status / Mobile hamburger */}
+        {/* Right side */}
         {!isMobile ? (
-          <div style={{
-            display: "flex", alignItems: "center", gap: "0.5rem",
-            fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--muted)",
-          }}>
-            <motion.span
-              animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              style={{
-                display: "inline-block", width: 8, height: 8,
-                borderRadius: "50%", background: "#22c55e",
-              }}
-            />
-            Open to work
-          </div>
+          <StatusDot />
         ) : (
-          <button
-            onClick={() => setMenuOpen((v) => !v)}
-            style={{
-              background: "none", border: "none",
-              color: "var(--white)", zIndex: 101,
-              display: "flex", flexDirection: "column",
-              gap: 5, padding: "4px", cursor: "pointer",
-            }}
-          >
-            {[0, 1, 2].map((i) => (
-              <motion.span
-                key={i}
-                animate={
-                  menuOpen
-                    ? i === 0
-                      ? { rotate: 45, y: 7 }
-                      : i === 1
-                      ? { opacity: 0 }
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem", zIndex: 101 }}>
+            <StatusDot />
+            <button
+              onClick={() => setMenuOpen((v) => !v)}
+              style={{
+                background: "none", border: "none",
+                color: "var(--white)",
+                display: "flex", flexDirection: "column",
+                gap: 5, padding: "4px", cursor: "pointer",
+              }}
+            >
+              {[0, 1, 2].map((i) => (
+                <motion.span
+                  key={i}
+                  animate={
+                    menuOpen
+                      ? i === 0 ? { rotate: 45, y: 7 }
+                      : i === 1 ? { opacity: 0 }
                       : { rotate: -45, y: -7 }
-                    : { rotate: 0, y: 0, opacity: 1 }
-                }
-                transition={{ duration: 0.25 }}
-                style={{
-                  display: "block", width: 22, height: 2,
-                  background: "var(--cyan)", borderRadius: 2,
-                }}
-              />
-            ))}
-          </button>
+                      : { rotate: 0, y: 0, opacity: 1 }
+                  }
+                  transition={{ duration: 0.25 }}
+                  style={{
+                    display: "block", width: 22, height: 2,
+                    background: "var(--cyan)", borderRadius: 2,
+                  }}
+                />
+              ))}
+            </button>
+          </div>
         )}
       </motion.nav>
 
-      {/* Mobile menu drawer */}
+      {/* Mobile drawer */}
       <AnimatePresence>
         {isMobile && menuOpen && (
           <motion.div
@@ -164,26 +166,9 @@ export default function Navbar({ setIsHovering }) {
                   textTransform: "uppercase",
                 }}
               >
-                {link.link}
                 {link.label}
               </motion.a>
             ))}
-
-            <div style={{
-              display: "flex", alignItems: "center", gap: "0.5rem",
-              fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--muted)",
-              marginTop: "0.5rem",
-            }}>
-              <motion.span
-                animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                style={{
-                  display: "inline-block", width: 8, height: 8,
-                  borderRadius: "50%", background: "#22c55e",
-                }}
-              />
-              Open to work
-            </div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -41,7 +41,7 @@ const IconBadge = ({ icon }) => {
 const StatBar = ({ name, icon, level }) => {
   const { label, color } = levelInfo(level);
   return (
-    <div style={{
+    <div className="stat-bar-row" style={{
       display: "flex", alignItems: "center", gap: "0.75rem",
       padding: "0.45rem 0",
       borderBottom: "1px solid rgba(255,255,255,0.04)",
@@ -54,7 +54,7 @@ const StatBar = ({ name, icon, level }) => {
       }}>
         {name}
       </span>
-      <div style={{ display: "flex", gap: 3, flex: 1, minWidth: 0 }}>
+      <div className="stat-bar-track" style={{ display: "flex", gap: 3, flex: 1 }}>
         {Array.from({ length: TOTAL }).map((_, i) => (
           <div key={i} style={{
             flex: 1, height: 8, borderRadius: 2,
@@ -188,6 +188,16 @@ export default function Skills() {
       background: "linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(10,15,30,0.95) 40%, rgba(108,59,255,0.12) 100%)"
     }}>
       <style>{`
+        @media (max-width: 768px) {
+          .stat-bar-row {
+            flex-wrap: wrap;
+          }
+          .stat-bar-track {
+            order: 4;
+            width: 100%;
+            margin-top: 0.3rem;
+          }
+        }
         .skills-wrapper {
           max-width: 1400px;
           margin: 0 auto;

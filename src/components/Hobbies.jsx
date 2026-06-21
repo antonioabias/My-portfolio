@@ -146,7 +146,7 @@ export default function Hobbies({ setIsHovering }) {
     <section id="hobbies" style={{ padding: "clamp(4rem, 8vw, 7rem) 0", position: "relative", zIndex: 0 }}>
       <style>{`.tab-scroll::-webkit-scrollbar { display: none; }`}</style>
 
-      <div style={{ maxWidth: 1400, margin: "0 auto", width: "min(92%, 63rem)" }}>
+      <div style={{ maxWidth: 1400, margin: "0 auto", width: "min(92%, 1200px)" }}>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
