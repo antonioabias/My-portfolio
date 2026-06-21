@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const links = [
   { icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/1280px-Gmail_icon_%282020%29.svg.png", label: "antonioabias23.aa@gmail.com", href: "https://mail.google.com/mail/?view=cm&to=antonioabias23.aa@gmail.com" },
@@ -7,9 +8,18 @@ const links = [
 ];
 
 export default function Contact() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   return (
     <section id="contact" style={{
-      padding: "8rem 4rem",
+      padding: isMobile ? "5rem 1.5rem" : "8rem 4rem",
       borderBottom: "1px solid var(--border)",
       background: "var(--cream)",
     }}>
@@ -17,25 +27,33 @@ export default function Contact() {
         <motion.p
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--cyan)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1.5rem" }}
-        
+          style={{
+            fontFamily: "var(--font-mono)", fontSize: "0.75rem",
+            color: "var(--cyan)", letterSpacing: "0.2em",
+            textTransform: "uppercase", marginBottom: "1.5rem",
+          }}
         >
           Contact
         </motion.p>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6rem", alignItems: "start" }}>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+          gap: isMobile ? "2.5rem" : "6rem",
+          alignItems: "start",
+        }}>
           <motion.div
             initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.8 }}
           >
             <h2 style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.5rem, 4vw, 4.5rem)",
+              fontSize: isMobile ? "2.5rem" : "clamp(2.5rem, 4vw, 4.5rem)",
               fontWeight: 900, lineHeight: 1.05,
               letterSpacing: "-0.03em", color: "var(--ink)",
               marginBottom: "1.5rem",
             }}>
-              Let's build<br />
+              Let's build
               something<br />
               <em style={{ fontStyle: "italic", color: "var(--cyan)" }}>together.</em>
             </h2>
@@ -47,7 +65,7 @@ export default function Contact() {
           <motion.div
             initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }}
-            style={{ paddingTop: "1rem" }}
+            style={{ paddingTop: isMobile ? "0" : "1rem" }}
           >
             {links.map(({ icon, label, href }, i) => (
               <motion.a
@@ -62,14 +80,25 @@ export default function Contact() {
                 whileHover={{ x: 6 }}
                 style={{
                   display: "flex", alignItems: "center", gap: "1rem",
-                  padding: "1.5rem 0", borderBottom: "1px solid var(--border)",
-                  color: "var(--ink)", transition: "color 0.2s",
+                  padding: "1.25rem 0",
                   borderBottom: "2px solid rgba(255, 255, 255, 0.07)",
+                  color: "var(--ink)", transition: "color 0.2s",
+                  minWidth: 0,
                 }}
               >
                 <img src={icon} alt={label} style={{ width: 20, height: 20, objectFit: "contain", flexShrink: 0 }} />
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.82rem", color: "var(--muted)" }}>{label}</span>
-                <span style={{ marginLeft: "auto", fontSize: "0.8rem", color: "var(--accent)" }}>→</span>
+                <span style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: isMobile ? "0.72rem" : "0.82rem",
+                  color: "var(--muted)",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                  minWidth: 0,
+                }}>
+                  {label}
+                </span>
+                <span style={{ marginLeft: "auto", fontSize: "0.8rem", color: "var(--accent)", flexShrink: 0 }}>→</span>
               </motion.a>
             ))}
           </motion.div>

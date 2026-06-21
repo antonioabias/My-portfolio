@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import aca2022 from "../assets/aca2022.png";
+import aca2022 from "../assets/ACA-2022.png";
 
 const ISSUER_LOGOS = {
   "Cisco": "https://thesvg.org/icons/cisco/default.svg",
@@ -67,7 +67,7 @@ export default function Certifications({ setIsHovering }) {
           Credentials
         </motion.h2>
         <p style={{ marginBottom: "2.5rem", fontSize: "1rem" }}>
-          Planning to add more certifications in the future, but here are some of the ones I've earned so far. Click on any credential to view details and verify authenticity.
+          Planning to earn more in the future; here are the ones I've earned so far. Click any credential to view details and verify authenticity.
         </p>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "0 4rem" }}>
