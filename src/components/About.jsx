@@ -4,7 +4,7 @@ import pic from "../assets/pic.jpg";
 const stats = [
   { num: "6+", label: "Years Coding" },
   { num: "2+", label: "Years Professional" },
-  { num: "10", label: "Certifications" },
+  { num: "11", label: "Certifications" },
 ];
 
 export default function About({ setIsHovering }) {

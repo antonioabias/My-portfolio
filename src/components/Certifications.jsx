@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import aca2022 from "../assets/ACA-2022.png";
+import claude101 from "../assets/claude101.jpg";
 
 const ISSUER_LOGOS = {
   "Cisco": "https://thesvg.org/icons/cisco/default.svg",
@@ -17,7 +18,7 @@ const certs = [
   { href: "https://www.credly.com/badges/cb1341ea-775d-489f-8149-da2f35459e15/public_url", image: "https://images.credly.com/size/340x340/images/fcafd0c9-42da-4703-a191-0c397203dc1b/blob", issuer: "Amazon Web Services (AWS)", title: "Cloud Architecting", alt: "Cloud Architecting" },
   { href: "https://www.credly.com/badges/a15d5924-0d8a-4b89-ab2b-e46c6e03c64d/public_url", image: "https://images.credly.com/size/340x340/images/bb3211c0-a562-44ec-a8b5-df54deb0e5e9/blob", issuer: "Amazon Web Services (AWS)", title: "Cloud Developing", alt: "Cloud Developing" },
   { href: "https://drive.google.com/file/d/1yS7EZQEm0ySqfp4tfGDngfhvo8YH2OsM/view?usp=sharing", image: aca2022, issuer: "Amazon", title: "Cybersecurity Awareness", alt: "Cybersecurity Awareness" },
-  { href: "https://verify.skilljar.com/c/s3q85r47e7gg", image: "https://shorturl.at/k9bhg", issuer: "Anthropic", title: "Claude 101", alt: "Claude 101" },
+  { href: "https://verify.skilljar.com/c/s3q85r47e7gg", image: claude101, issuer: "Anthropic", title: "Claude 101", alt: "Claude 101" },
 
   { href: "https://www.credly.com/badges/d276c12b-93ca-432c-93cf-939194450f2e/public_url", image: "https://images.credly.com/size/340x340/images/cef82b2e-970a-4318-8e59-c3e26b7f5c19/image.png", issuer: "Google Cloud Skills Boost", title: "Prompt Design in Vertex AI Skill Badge", alt: "Prompt Design in Vertex AI Skill Badge" },
   { href: "https://www.sololearn.com/certificates/CT-3IAYESW6", image: "https://api2.sololearn.com/v2/certificates/CT-3IAYESW6/image/jpg?t=638455748691031950", issuer: "Sololearn", title: "Python Core", alt: "Python certificate" },

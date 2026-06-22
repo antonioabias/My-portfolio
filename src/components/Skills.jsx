@@ -38,61 +38,57 @@ const IconBadge = ({ icon }) => {
   return <img src={src} alt={icon} style={{ width: 22, height: 22, flexShrink: 0, objectFit: "contain" }} />;
 };
 
-const StatBar = ({ name, icon, level }) => {
+import { useState, useEffect } from "react";
+
+const StatBar = ({ name, icon, level, isMobile }) => {
   const { label, color } = levelInfo(level);
+
+  if (isMobile) {
+    return (
+      <div style={{ padding: "0.55rem 0", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          <IconBadge icon={icon} />
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "rgba(255,255,255,0.8)", flex: 1, letterSpacing: "0.02em" }}>
+            {name}
+          </span>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", color, letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0 }}>
+            {label}
+          </span>
+        </div>
+        <div style={{ display: "flex", gap: 3, marginTop: "0.35rem" }}>
+          {Array.from({ length: TOTAL }).map((_, i) => (
+            <div key={i} style={{ flex: 1, height: 8, borderRadius: 2, background: i < level ? "#f0fdf4" : "rgba(255,255,255,0.06)" }} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="stat-bar-row" style={{
-      display: "flex", alignItems: "center", gap: "0.75rem",
-      padding: "0.45rem 0",
-      borderBottom: "1px solid rgba(255,255,255,0.04)",
-    }}>
+    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.45rem 0", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
       <IconBadge icon={icon} />
-      <span style={{
-        fontFamily: "var(--font-mono)", fontSize: "0.7rem",
-        color: "rgba(255,255,255,0.8)", width: 90, flexShrink: 0,
-        letterSpacing: "0.02em",
-      }}>
+      <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "rgba(255,255,255,0.8)", width: 90, flexShrink: 0, letterSpacing: "0.02em" }}>
         {name}
       </span>
-      <div className="stat-bar-track" style={{ display: "flex", gap: 3, flex: 1 }}>
+      <div style={{ display: "flex", gap: 3, flex: 1, minWidth: 60 }}>
         {Array.from({ length: TOTAL }).map((_, i) => (
-          <div key={i} style={{
-            flex: 1, height: 8, borderRadius: 2,
-            background: i < level ? "#f0fdf4" : "rgba(255,255,255,0.06)",
-          }} />
+          <div key={i} style={{ flex: 1, height: 8, borderRadius: 2, background: i < level ? "#f0fdf4" : "rgba(255,255,255,0.06)" }} />
         ))}
       </div>
-      <span style={{
-        fontFamily: "var(--font-mono)", fontSize: "0.58rem",
-        color, letterSpacing: "0.1em",
-        width: 60, textAlign: "right", flexShrink: 0,
-        textTransform: "uppercase",
-      }}>
+      <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", color, letterSpacing: "0.1em", minWidth: 48, textAlign: "right", flexShrink: 0, textTransform: "uppercase" }}>
         {label}
       </span>
     </div>
   );
 };
 
-const CategoryBlock = ({ category, items }) => (
-  <div style={{
-    marginBottom: "1.25rem",
-    background: "var(--navy)",
-    border: "1px solid rgba(255,255,255,0.07)",
-    borderRadius: 16,
-    padding: "1.25rem 1.5rem",
-  }}>
-    <div style={{
-      fontFamily: "var(--font-display)", fontSize: "0.85rem",
-      color: "#ffffff", letterSpacing: "0.25em",
-      textTransform: "uppercase", fontWeight: 600,
-      marginBottom: "0.85rem", paddingBottom: "0.5rem",
-      borderBottom: "1px solid rgba(74,222,128,0.15)",
-    }}>
+const CategoryBlock = ({ category, items, isMobile }) => (
+  <div style={{ marginBottom: "1.25rem", background: "var(--navy)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 16, padding: "1.25rem 1.5rem" }}>
+    <div style={{ fontFamily: "var(--font-display)", fontSize: "0.85rem", color: "#ffffff", letterSpacing: "0.25em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.85rem", paddingBottom: "0.5rem", borderBottom: "1px solid rgba(74,222,128,0.15)" }}>
       {category}
     </div>
     {items.map((item) => (
-      <StatBar key={item.name} {...item} />
+      <StatBar key={item.name} {...item} isMobile={isMobile} />
     ))}
   </div>
 );
@@ -181,28 +177,23 @@ const rightGroups = [
 ];
 
 export default function Skills() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   return (
-    <section id="skills" style={{
-      padding: "7rem 0",
-      position: "relative", zIndex: 1,
-      background: "linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(10,15,30,0.95) 40%, rgba(108,59,255,0.12) 100%)"
-    }}>
+    <section id="skills" style={{ padding: "7rem 0", position: "relative", zIndex: 1, background: "linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(10,15,30,0.95) 40%, rgba(108,59,255,0.12) 100%)" }}>
       <style>{`
-        @media (max-width: 768px) {
-          .stat-bar-row {
-            flex-wrap: wrap;
-          }
-          .stat-bar-track {
-            order: 4;
-            width: 100%;
-            margin-top: 0.3rem;
-          }
-        }
         .skills-wrapper {
           max-width: 1400px;
           margin: 0 auto;
           padding: 0 1.5rem;
-          width: min(100%, 63%);
+          width: min(92%, 1200px);
         }
         .skills-grid {
           display: grid;
@@ -210,9 +201,6 @@ export default function Skills() {
           gap: 0 2rem;
         }
         @media (max-width: 768px) {
-          .skills-wrapper {
-            width: 92%;
-          }
           .skills-grid {
             grid-template-columns: 1fr;
           }
@@ -220,40 +208,22 @@ export default function Skills() {
       `}</style>
 
       <div className="skills-wrapper">
-        <div style={{
-          fontFamily: "var(--font-mono)", fontSize: "0.75rem",
-          color: "var(--cyan)", letterSpacing: "0.2em",
-          textTransform: "uppercase", marginBottom: "1.5rem",
-        }}>
+        <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--cyan)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1.5rem" }}>
           Skills
         </div>
-
-        <div style={{
-          display: "flex", alignItems: "flex-end",
-          justifyContent: "space-between",
-          marginBottom: "2.5rem",
-          flexWrap: "wrap", gap: "1rem",
-        }}>
+        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "2.5rem", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <h2 style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(2rem,4vw,3rem)",
-              fontWeight: 700, letterSpacing: "-0.02em", margin: 0,
-            }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2rem,4vw,3rem)", fontWeight: 700, letterSpacing: "-0.02em", margin: 0 }}>
               Stats
             </h2>
-            <p style={{
-              fontFamily: "var(--font-display)", fontSize: "1rem",
-              lineHeight: 1.8, marginTop: "0.4rem", marginBottom: 0,
-            }}>
+            <p style={{ fontFamily: "var(--font-display)", fontSize: "1rem", lineHeight: 1.8, marginTop: "0.4rem", marginBottom: 0 }}>
               These bars aren't full yet. Got a project for me?
             </p>
           </div>
         </div>
-
         <div className="skills-grid">
-          <div>{leftGroups.map((g) => <CategoryBlock key={g.category} {...g} />)}</div>
-          <div>{rightGroups.map((g) => <CategoryBlock key={g.category} {...g} />)}</div>
+          <div>{leftGroups.map((g) => <CategoryBlock key={g.category} {...g} isMobile={isMobile} />)}</div>
+          <div>{rightGroups.map((g) => <CategoryBlock key={g.category} {...g} isMobile={isMobile} />)}</div>
         </div>
       </div>
     </section>
