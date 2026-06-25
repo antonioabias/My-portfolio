@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import aca2022 from "../assets/ACA-2022.png";
-import claude101 from "../assets/claude101.jpg";
+import aca2022 from "../assets/Certificate/ACA-2022.png";
+import claude101 from "../assets/Certificate/claude101.jpg";
 
 const ISSUER_LOGOS = {
   "Cisco": "https://thesvg.org/icons/cisco/default.svg",

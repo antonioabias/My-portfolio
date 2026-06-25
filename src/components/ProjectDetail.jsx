@@ -19,9 +19,9 @@ export default function ProjectDetail({ project, onBack, onNext, onPrev, setIsHo
     >
       <style>{`
         .detail-wrapper {
-          max-width: 900px;
+          max-width: 1200px;
           margin: 0 auto;
-          width: 92%;
+          width: 96%;
           padding-bottom: 4rem;
         }
         .breadcrumb {
@@ -70,12 +70,12 @@ export default function ProjectDetail({ project, onBack, onNext, onPrev, setIsHo
           background: #0A0F1E;
         }
         .detail-contact {
-          background: linear-gradient(180deg, rgba(0,212,255,0.04) 0%, rgba(108,59,255,0.06) 100%);
+          background: rgba(0, 0, 0, 0.75);
           border-top: 1px solid rgba(255,255,255,0.06);
-          padding: 5rem 0;
+          padding: 5rem 2rem;
         }
         .detail-contact-inner {
-          max-width: 900px;
+          max-width: 1200px;
           margin: 0 auto;
           width: 92%;
           display: grid;
@@ -120,31 +120,7 @@ export default function ProjectDetail({ project, onBack, onNext, onPrev, setIsHo
           </button>
           <span style={{ opacity: 0.4 }}>/</span>
           <span>{project.title}</span>
-        </div>
-
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          style={{ marginBottom: "2rem" }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.75rem" }}>
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "var(--cyan)", opacity: 0.55 }}>{project.num}</span>
-            <span style={{
-              fontFamily: "var(--font-mono)", fontSize: "0.65rem",
-              color: project.statusColor,
-              border: `1px solid ${project.statusColor}44`,
-              borderRadius: 100, padding: "0.2rem 0.65rem", letterSpacing: "0.08em"
-            }}>{project.status}</span>
-          </div>
-          <h1 style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(2rem, 5vw, 3.5rem)",
-            fontWeight: 700, letterSpacing: "-0.03em",
-            color: "var(--white)", lineHeight: 1.05, marginBottom: "0.5rem"
-          }}>{project.title}</h1>
-          <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.85rem", color: "var(--muted)", margin: 0 }}>{project.subtitle}</p>
-        </motion.div>
+        </div>    
 
         {/* Accent line */}
         <div style={{ height: 3, background: project.statusColor, borderRadius: 2, marginBottom: "2rem", opacity: 0.8 }} />
@@ -169,7 +145,7 @@ export default function ProjectDetail({ project, onBack, onNext, onPrev, setIsHo
             <img
               src={project.gallery[activeImg]}
               alt={`${project.title} screenshot ${activeImg + 1}`}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
             />
           </motion.div>
 
@@ -191,7 +167,7 @@ export default function ProjectDetail({ project, onBack, onNext, onPrev, setIsHo
                   src={img}
                   alt={`thumb ${i + 1}`}
                   style={{
-                    width: "100%", height: "100%", objectFit: "cover",
+                    width: "100%", height: "100%", objectFit: "contain",
                     opacity: i === activeImg ? 1 : 0.4,
                     transition: "opacity 0.2s"
                   }}
