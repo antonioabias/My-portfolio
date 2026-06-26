@@ -6,13 +6,23 @@ import coverZombie from "../assets/Zombie Maze/covers.zombie.jpeg";
 const PLACEHOLDER = (label) =>
   `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500' style='background:%231E2A3A'><text x='50%25' y='50%25' fill='%2300D4FF' font-family='monospace' font-size='18' dominant-baseline='middle' text-anchor='middle'>${encodeURIComponent(label)}</text></svg>`;
 
-const ebGallery = Object.values(
-  import.meta.glob("../assets/e-Buddy/eb*.png", { eager: true })
-).map(m => m.default);
 
-const sisGallery = Object.values(
+const sisGallery = Object.entries(
   import.meta.glob("../assets/Sales Info/sis*.png", { eager: true })
-).map(m => m.default);
+)
+  .sort(([pathA], [pathB]) => 
+    pathA.localeCompare(pathB, undefined, { numeric: true })
+  )
+  .map(([, mod]) => mod.default);
+
+const ebGallery = Object.entries(
+  import.meta.glob("../assets/e-Buddy/eb*.png", { eager: true })
+)
+  .sort(([pathA], [pathB]) => 
+    pathA.localeCompare(pathB, undefined, { numeric: true })
+  )
+  .map(([, mod]) => mod.default);
+
 
 export const projects = [
   {
@@ -21,8 +31,8 @@ export const projects = [
     shortDesc: "Visual-first portfolio site for an architectural design studio.",
     fullDesc: "A portfolio website for AC Architectural Studio showcasing projects, services, and design philosophy with a clean, visual-first approach. Built with React and Framer Motion for smooth page transitions. Designed to feel as refined as the architecture it represents.",
     highlights: ["Visual-first layout, imagery-led", "Framer Motion page transitions", "CMS-ready project grid", "Mobile-first responsive design"],
-    gallery: [PLACEHOLDER("Archi Studio · Screenshot 1 — Replace me"), PLACEHOLDER("Archi Studio · Screenshot 2 — Replace me"), PLACEHOLDER("Archi Studio · Screenshot 3 — Replace me")],
-    coverImg: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80",
+    gallery: [PLACEHOLDER("Archi Studio · Screenshot 1"), PLACEHOLDER("Archi Studio · Screenshot 2"), PLACEHOLDER("Archi Studio · Screenshot 3")],
+    coverImg: "https://i.pinimg.com/1200x/a0/25/81/a025811caddd217f972b2cc88b40f03c.jpg",
   },
   {
     id: "ebuddy", link: "https://e-buddy-8c08f.web.app/", num: "02", title: "e-Buddy", subtitle: "Adaptive Board Exam Reviewer",
@@ -31,7 +41,7 @@ export const projects = [
     fullDesc: "E-Buddy is a personalized web-based board exam reviewer for criminology students. It uses the C4.5 decision tree algorithm to adapt study sessions dynamically, recommending topics to retake based on the student's actual performance data. Built with React on the front-end, Node.js for the API layer, and Firebase for real-time data and auth.",
     highlights: ["C4.5 decision tree algorithm for adaptive sessions", "Real-time performance tracking via Firebase", "Auth system with role-based access", "Mobile-responsive reviewer interface"],
     gallery: ebGallery,
-    coverImg: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80",
+    coverImg: "https://i.pinimg.com/736x/2a/86/27/2a86276bd2decac2301941f90d6780d8.jpg",
   },
   {
     id: "sales", link: null, num: "03", title: "Sales Information System", subtitle: "Inventory & Sales Management",
@@ -41,7 +51,7 @@ export const projects = [
     highlights: ["Special card loyalty module with full CRUD", "Product inventory management and tracking", "Customer records with database-linked profiles","Sales monitoring dashboard with transaction history","Role-based auth with login and signup",],
     hasCode: false,
     gallery: sisGallery,
-    coverImg: "https://i.pinimg.com/1200x/cc/1d/e5/cc1de5f5e05d74a5508ccfc1005d13eb.jpg",
+    coverImg: "https://i.pinimg.com/736x/5d/2d/18/5d2d18d7d5c48a781f2c2e8bcd4115d4.jpg",
   },
   {
     id: "zombie", link: "https://zombie-maze-demo.vercel.app/", num: "04", title: "Zombie Maze", subtitle: "SHS Software Festival",
