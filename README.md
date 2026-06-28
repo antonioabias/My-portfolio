@@ -1,45 +1,35 @@
-Antonio Abias Jr. — Portfolio
-Personal portfolio website built with React and Vite. Features a custom fluid cursor, particle canvas background, scroll-triggered animations, and a project showcase with full detail views.
-Live site: antonioabias.vercel.app
+<h1 align="center">Antonio Abias Jr. — Portfolio</h1>
+<p align="center">
+Personal portfolio website built with React and Vite. Custom fluid cursor, particle canvas background, scroll animations, and a project showcase with full detail views.
+</p>
+<p align="center">
+<a href="https://antonioabias.vercel.app">🔗 Live Site</a>
+</p>
 
-Tech Stack
+<h2 align="center">Tech Stack</h2>
+<p align="center">
+React + Vite &nbsp;|&nbsp; Framer Motion &nbsp;|&nbsp; Vercel
+</p>
+<p align="center">
+Space Grotesk / Inter / Space Mono
+</p>
 
-React + Vite
-Framer Motion
-Space Grotesk / Inter / Space Mono (Google Fonts)
-Deployed on Vercel
+<h2 align="center">Sections</h2>
+<p align="center">
+Hero &nbsp;·&nbsp; About &nbsp;·&nbsp; Skills &nbsp;·&nbsp; Projects &nbsp;·&nbsp; Certifications &nbsp;·&nbsp; Beyond the Code &nbsp;·&nbsp; Contact
+</p>
 
+<h2 align="center">Projects</h2>
+<p align="center">
+AC Architectural Studio &nbsp;·&nbsp; E-Buddy &nbsp;·&nbsp; Sales Information System &nbsp;·&nbsp; Zombie Maze
+</p>
 
-Sections
+<h2 align="center">Run Locally</h2>
+<p align="center">
+bashnpm install && npm run dev
+</p>
 
-Hero — animated terminal typewriter + glitch name effect
-About — bio, stats, photo
-Skills — categorized skill bars with icons
-Projects — card grid with full detail view per project
-Certifications — clickable credential list with modal preview
-Beyond the Code — hobbies, interests, and pets with flip cards
-Contact — links to email, GitHub, LinkedIn
-
-
-Projects Featured
-
-AC Architectural Studio Website (React, Framer Motion)
-E-Buddy Board Exam Reviewer (React, Node.js, Firebase)
-Sales Information System (PHP, MySQL, JavaScript)
-Zombie Maze Game (Java, SHS Software Festival)
-
-
-Run Locally
-bashnpm install
-npm run dev
-Open http://localhost:5173
-
-Build
-bashnpm run build
-
-Contact
-antonioabias23.aa@gmail.com
-
-github.com/antonioabias
-
-linkedin.com/in/antonio-abias
+<h2 align="center">Contact</h2>
+<p align="center">
+antonioabias23.aa@gmail.com &nbsp;·&nbsp; <a href="https://github.com/antonioabias">GitHub</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/antonio-abias-501a912b8/">LinkedIn</a>
+</p>
