@@ -82,7 +82,8 @@ export default function Certifications({ setIsHovering }) {
         .certs-wrapper {
           max-width: 1400px;
           margin: 0 auto;
-          width: min(63%, 90%);
+          width: min(92%, 1200px);
+          padding: 0 1.5rem;
         }
         .certs-grid {
           display: grid;
