@@ -19,26 +19,50 @@
   </tr>
 </table>
 
-React + Vite
-Framer Motion
-Space Grotesk / Inter / Space Mono (Google Fonts)
-Deployed on Vercel
+* React + Vite
+* Framer Motion
+* Space Grotesk / Inter / Space Mono (Google Fonts)
+* Deployed on Vercel
 
 
-📄 Sections
-SectionWhat's in itHeroAnimated terminal typewriter + glitch name effectAboutBio, stats, photoSkillsCategorized skill bars with iconsProjectsCard grid with full detail view per projectCertificationsClickable credential list with modal previewBeyond the CodeHobbies, interests, and pets with flip cardsContactLinks to email, GitHub, LinkedIn
 
-🚀 Projects Featured
-AC Architectural Studio Website — React, Framer Motion
-E-Buddy Board Exam Reviewer — React, Node.js, Firebase
-Sales Information System — PHP, MySQL, JavaScript
-Zombie Maze Game — Java, SHS Software Festival
+### 📄 Sections
 
-🖥️ Run Locally
-bashnpm install
+| Section | What's in it |
+|:---|:---|
+| Hero | Animated terminal typewriter + glitch name effect |
+| About | Bio, stats, photo |
+| Skills | Categorized skill bars with icons |
+| Projects | Card grid with full detail view per project |
+| Certifications | Clickable credential list with modal preview |
+| Beyond the Code | Hobbies, interests, and pets with flip cards |
+| Contact | Links to email, GitHub, LinkedIn |
+
+---
+
+### 🚀 Projects Featured
+
+| Project | Stack |
+|:---|:---|
+| [AC Architectural Studio](https://ac-archi-demo.vercel.app/) | React, Framer Motion |
+| [E-Buddy Board Exam Reviewer](https://e-buddy-8c08f.web.app/) | React, Node.js, Firebase |
+| Sales Information System | PHP, MySQL, JavaScript |
+| Zombie Maze Game | Java, SHS Software Festival |
+
+---
+
+### 🖥️ Run Locally
+
+\```bash
+npm install
 npm run dev
-Open http://localhost:5173
-bashnpm run build
+\```
+
+Open `http://localhost:5173`
+
+\```bash
+npm run build
+\```
 
 📬 Contact
 <p align="left">
