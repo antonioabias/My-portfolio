@@ -5,13 +5,15 @@
 </h1>
 <p align="center">Personal portfolio website built with React and Vite. Features a custom fluid cursor, particle canvas background, scroll-triggered animations, and a project showcase with full detail views.</p>
 <p align="center">
-  <a href="https://antonioabias.vercel.app"><img src="https://img.shields.io/badge/Live Site-00D4FF?style=for-the-badge&logo=vercel&logoColor=black" /></a>
+  <a href="https://antonioabias.vercel.app](https://antonioabiasjr.vercel.app"><img src="https://img.shields.io/badge/Live Site-00D4FF?style=for-the-badge&logo=vercel&logoColor=black" /></a>
 </p>
 
 ⚙️ Tech Stack
-<p align="left">
-  <img src="https://skillicons.dev/icons?i=react,vite,js,css,html" />
-</p>
+<img src="https://skillicons.dev/icons?i=react" width="48" />React
+<img src="https://skillicons.dev/icons?i=vite" width="48" />Vite
+<img src="https://skillicons.dev/icons?i=js" width="48" />JavaScript
+<img src="https://skillicons.dev/icons?i=css" width="48" />CSS
+<img src="https://skillicons.dev/icons?i=html" width="48" />HTML
 
 React + Vite
 Framer Motion
