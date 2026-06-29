@@ -9,11 +9,15 @@
 </p>
 
 ⚙️ Tech Stack
-<img src="https://skillicons.dev/icons?i=react" width="48" />React
-<img src="https://skillicons.dev/icons?i=vite" width="48" />Vite
-<img src="https://skillicons.dev/icons?i=js" width="48" />JavaScript
-<img src="https://skillicons.dev/icons?i=css" width="48" />CSS
-<img src="https://skillicons.dev/icons?i=html" width="48" />HTML
+<table>
+  <tr>
+    <td align="center"><img src="https://skillicons.dev/icons?i=react" width="48" /><br/>React</td>
+    <td align="center"><img src="https://skillicons.dev/icons?i=vite" width="48" /><br/>Vite</td>
+    <td align="center"><img src="https://skillicons.dev/icons?i=js" width="48" /><br/>JavaScript</td>
+    <td align="center"><img src="https://skillicons.dev/icons?i=css" width="48" /><br/>CSS</td>
+    <td align="center"><img src="https://skillicons.dev/icons?i=html" width="48" /><br/>HTML</td>
+  </tr>
+</table>
 
 React + Vite
 Framer Motion
