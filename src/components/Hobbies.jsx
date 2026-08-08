@@ -30,8 +30,8 @@ const hobbies = {
   ],
   sports: [
     { name: "Billiards", description: "I see the angles.", image: "https://i.pinimg.com/736x/d7/2e/ca/d72eca7a5fb02773f1ab436040578360.jpg" },
-    { name: "Badminton", description: "Speed and reflexes. Best played with gf.", image: "https://i.pinimg.com/736x/30/0b/83/300b83676693906ceea86a960b3425c8.jpg" },
-    { name: "Basketball", description: "Teamwork and hustle. Classic Sundays with the boys.", image: "https://i.pinimg.com/1200x/df/25/26/df2526fe4b20a4e8ae39923e8444645a.jpg" },
+    { name: "Badminton", description: "Speed and reflexes. Best played with my gf.", image: "https://i.pinimg.com/736x/30/0b/83/300b83676693906ceea86a960b3425c8.jpg" },
+    { name: "Basketball", description: "Shooting only!", image: "https://i.pinimg.com/1200x/df/25/26/df2526fe4b20a4e8ae39923e8444645a.jpg" },
     { name: "Archery", description: "Breathe, aim, release. Requires a lot of focus.", image: "https://i.pinimg.com/736x/dd/dc/b4/dddcb4f4b02a899077658d6bbba7ba79.jpg" },
   ],
   passions: [
