@@ -77,7 +77,7 @@ export const projects = [
     shortDesc: "2D maze survival game built for the SHS Software Festival.",
     fullDesc: "A 2D maze survival game designed and developed for the Senior High School Software Festival. Players navigate procedurally-arranged maze levels while avoiding zombies with pathfinding AI. Everything including gameplay mechanics, sprite design, and sound was handled by the team, combining technical execution with Visual Arts training.",
     highlights: ["Custom zombie pathfinding AI", "Multi-level maze progression", "Hand-drawn sprite assets", "Led the team, handled majority of development"],
-    gallery: [PLACEHOLDER("Zombie Maze · Screenshot 1 — Add your photo"), PLACEHOLDER("Zombie Maze · Screenshot 2 — Add your photo"), PLACEHOLDER("Zombie Maze · Screenshot 3 — Add your photo")],
+    gallery: [PLACEHOLDER("Zombie Maze · Coming Soon")],
     coverImg: coverZombie,
   },
 ];
