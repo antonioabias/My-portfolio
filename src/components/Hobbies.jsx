@@ -49,7 +49,7 @@ const hobbies = {
   companions: [
     { name: "Combi", description: "Baby combs", image: "https://i.pinimg.com/736x/7e/8c/94/7e8c94fd5b1ede675e97297091253fe9.jpg" },
     { name: "Mochi", description: "My babyba", image: "https://i.pinimg.com/736x/14/f3/9d/14f39d4473009970549c659366a4cf92.jpg" },
-    { name: "Koki", description: "Koking pasaway", image: "https://i.pinimg.com/736x/d1/8e/1e/d18e1ecd303ac535702d641cad08bb7e.jpg" },
+    { name: "Koki", description: "Koking pasaway", image: "https://i.pinimg.com/736x/e6/9b/90/e69b90326c604901611cf13665649785.jpg" },
     { name: "Kobe", description: "Kobeng bait", image: "https://i.pinimg.com/736x/7e/8c/94/7e8c94fd5b1ede675e97297091253fe9.jpg" },
     { name: "Rococo", description: "Big boy", image: "https://i.pinimg.com/736x/7e/8c/94/7e8c94fd5b1ede675e97297091253fe9.jpg" },
     { name: "Oli", description: "Oliko", image: "https://i.pinimg.com/736x/7e/8c/94/7e8c94fd5b1ede675e97297091253fe9.jpg" },

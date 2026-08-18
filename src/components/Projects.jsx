@@ -39,7 +39,7 @@ export const projects = [
     status: "PLANNED", statusColor: "#7A8BA0", tags: ["React.js", "Booking System"],
     shortDesc: "Booking and reservation scheduler for a small car rental business.",
     fullDesc: "A scheduling and reservation system for a car rental business running a small fleet of 2 cars. Handles booking requests, availability tracking, and reservation management so the fleet stays organized without double bookings.",
-    highlights: ["Real time availability tracking", "Booking and reservation flow", "Built for a 2 car fleet", "Not yet developed"],
+    highlights: ["Real time availability tracking", "Booking and reservation flow", "Built for a 2 car fleet", "In progress"],
     gallery: [PLACEHOLDER("Autona · Coming Soon")],
     coverImg: "https://kenh14cdn.com/203336854389633024/2024/11/6/fpperformance-14561046-1730870958640-1730870959348632333986.jpeg",
   },
