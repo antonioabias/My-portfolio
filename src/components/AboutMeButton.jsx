@@ -1,7 +1,17 @@
 import { liquidMetalFragmentShader, ShaderMount } from "@paper-design/shaders";
 import { useEffect, useRef, useState } from "react";
 
-export default function LiquidMetalButton({ href = "#about", label = "About Me", onMouseEnter, onMouseLeave }) {
+export default function LiquidButton({
+  href,
+  onClick,
+  label,
+  icon,
+  shape = "pill", // "pill" or "circle"
+  size = 46,
+  disabled = false,
+  onMouseEnter,
+  onMouseLeave,
+}) {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const [ripples, setRipples] = useState([]);
@@ -10,29 +20,31 @@ export default function LiquidMetalButton({ href = "#about", label = "About Me",
   const buttonRef = useRef(null);
   const rippleId = useRef(0);
 
+  const isCircle = shape === "circle";
+  const radius = isCircle ? "50%" : 100;
+
   useEffect(() => {
-    const styleId = "liquid-metal-button-styles";
+    const styleId = "liquid-button-styles";
     if (!document.getElementById(styleId)) {
       const style = document.createElement("style");
       style.id = styleId;
       style.textContent = `
-        .liquid-metal-button-shader canvas {
+        .liquid-button-shader canvas {
           width: 100% !important;
           height: 100% !important;
           display: block !important;
           position: absolute !important;
           inset: 0 !important;
-          border-radius: 100px !important;
         }
-        @keyframes liquid-metal-ripple {
+        @keyframes liquid-button-ripple {
           0% { transform: translate(-50%, -50%) scale(0); opacity: 0.6; }
           100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
         }
-        .liquid-metal-btn-wrap {
+        .liquid-btn-pill {
           width: clamp(120px, 32vw, 142px);
           height: clamp(40px, 10vw, 46px);
         }
-        .liquid-metal-btn-label {
+        .liquid-btn-label {
           font-size: clamp(12px, 3vw, 14px);
         }
       `;
@@ -62,7 +74,7 @@ export default function LiquidMetalButton({ href = "#about", label = "About Me",
           u_offsetY: -0.1,
         },
         undefined,
-        0.6,
+        0.6
       );
     }
 
@@ -73,6 +85,7 @@ export default function LiquidMetalButton({ href = "#about", label = "About Me",
   }, []);
 
   const handleMouseEnter = () => {
+    if (disabled) return;
     setIsHovered(true);
     shaderMount.current?.setSpeed?.(1);
     onMouseEnter?.();
@@ -86,6 +99,7 @@ export default function LiquidMetalButton({ href = "#about", label = "About Me",
   };
 
   const handleClick = (event) => {
+    if (disabled) return;
     shaderMount.current?.setSpeed?.(2.4);
     window.setTimeout(() => {
       shaderMount.current?.setSpeed?.(isHovered ? 1 : 0.6);
@@ -103,42 +117,52 @@ export default function LiquidMetalButton({ href = "#about", label = "About Me",
         setRipples((current) => current.filter((item) => item.id !== ripple.id));
       }, 600);
     }
+
+    onClick?.(event);
   };
+
+  const Tag = href ? "a" : "button";
 
   return (
     <div style={{ perspective: "1000px", perspectiveOrigin: "50% 50%" }}>
       <div
-        className="liquid-metal-btn-wrap"
+        className={isCircle ? "" : "liquid-btn-pill"}
         style={{
           position: "relative",
           transformStyle: "preserve-3d",
           transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
+          width: isCircle ? size : undefined,
+          height: isCircle ? size : undefined,
+          flexShrink: 0,
+          opacity: disabled ? 0.4 : 1,
         }}
       >
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            transform: "translateZ(20px)",
-            zIndex: 30,
-            pointerEvents: "none",
-          }}
-        >
-          <span
-            className="liquid-metal-btn-label"
+        {(label || icon) && (
+          <div
             style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transform: "translateZ(20px)",
+              zIndex: 30,
+              pointerEvents: "none",
               color: "#fdfdfd",
-              fontWeight: 400,
-              textShadow: "0 1px 2px rgba(0, 0, 0, 0.5)",
-              whiteSpace: "nowrap",
             }}
           >
-            {label}
-          </span>
-        </div>
+            {label ? (
+              <span
+                className="liquid-btn-label"
+                style={{ fontWeight: 400, textShadow: "0 1px 2px rgba(0,0,0,0.5)", whiteSpace: "nowrap" }}
+              >
+                {label}
+              </span>
+            ) : (
+              icon
+            )}
+          </div>
+        )}
 
         <div
           style={{
@@ -155,11 +179,9 @@ export default function LiquidMetalButton({ href = "#about", label = "About Me",
               width: "calc(100% - 8px)",
               height: "calc(100% - 8px)",
               margin: 4,
-              borderRadius: 100,
+              borderRadius: radius,
               background: "linear-gradient(180deg, #202020 0%, #000000 100%)",
-              boxShadow: isPressed
-                ? "inset 0 2px 4px rgba(0, 0, 0, 0.4)"
-                : "none",
+              boxShadow: isPressed ? "inset 0 2px 4px rgba(0,0,0,0.4)" : "none",
             }}
           />
         </div>
@@ -177,42 +199,46 @@ export default function LiquidMetalButton({ href = "#about", label = "About Me",
             style={{
               width: "100%",
               height: "100%",
-              borderRadius: 100,
+              borderRadius: radius,
               overflow: "hidden",
               boxShadow: isHovered
-                ? "0 0 0 1px rgba(255, 255, 255, 0.25), 0 0 12px rgba(255, 255, 255, 0.2), 0 12px 6px rgba(0, 0, 0, 0.05)"
-                : "0 0 0 1px rgba(255, 255, 255, 0.18), 0 0 8px rgba(255, 255, 255, 0.12), 0 20px 12px rgba(0, 0, 0, 0.08)",
+                ? "0 0 0 1px rgba(255,255,255,0.25), 0 0 12px rgba(255,255,255,0.2), 0 12px 6px rgba(0,0,0,0.05)"
+                : "0 0 0 1px rgba(255,255,255,0.18), 0 0 8px rgba(255,255,255,0.12), 0 20px 12px rgba(0,0,0,0.08)",
             }}
           >
             <div
               ref={shaderRef}
-              className="liquid-metal-button-shader"
+              className="liquid-button-shader"
               aria-hidden="true"
-              style={{ position: "relative", width: "100%", height: "100%", borderRadius: 100, overflow: "hidden", filter: "contrast(1.35) brightness(1.25)" }}
+              style={{ position: "relative", width: "100%", height: "100%", borderRadius: radius, overflow: "hidden", filter: "contrast(1.35) brightness(1.25)" }}
             />
           </div>
         </div>
-    
-        <a
-          ref={buttonRef}          
-          href={href}
+
+        <Tag
+          ref={buttonRef}
+          href={disabled ? undefined : href}
+          target={href ? "_blank" : undefined}
+          rel={href ? "noreferrer" : undefined}
           onClick={handleClick}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onMouseDown={() => setIsPressed(true)}
           onMouseUp={() => setIsPressed(false)}
-          aria-label={label}
+          disabled={Tag === "button" ? disabled : undefined}
+          aria-label={label || "button"}
           style={{
             position: "absolute",
             inset: 0,
             zIndex: 40,
             display: "block",
             overflow: "hidden",
-            borderRadius: 100,
+            borderRadius: radius,
             background: "transparent",
+            border: "none",
             outline: "none",
             transform: "translateZ(25px)",
-            cursor: "pointer",
+            cursor: disabled ? "default" : "pointer",
           }}
         >
           {ripples.map((ripple) => (
@@ -226,13 +252,13 @@ export default function LiquidMetalButton({ href = "#about", label = "About Me",
                 width: 20,
                 height: 20,
                 borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%)",
+                background: "radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%)",
                 pointerEvents: "none",
-                animation: "liquid-metal-ripple 0.6s ease-out",
+                animation: "liquid-button-ripple 0.6s ease-out",
               }}
             />
           ))}
-        </a>
+        </Tag>
       </div>
     </div>
   );

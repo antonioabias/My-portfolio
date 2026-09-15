@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const links = [
   { icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/1280px-Gmail_icon_%282020%29.svg.png", label: "antonioabias23.aa@gmail.com", href: "https://mail.google.com/mail/?view=cm&to=antonioabias23.aa@gmail.com" },
@@ -7,6 +8,14 @@ const links = [
 ];
 
 export default function Contact() {
+  const [showTop, setShowTop] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 500);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <section id="contact" className="contact-section">
       <style>{`
@@ -120,7 +129,42 @@ export default function Contact() {
             </motion.a>
           ))}
         </motion.div>
-      </div>
+            </div>
+
+      <AnimatePresence>
+        {showTop && (
+          <motion.button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            whileHover={{ y: -3 }}
+            aria-label="Back to top"
+            style={{
+              position: "fixed",
+              bottom: "2rem",
+              right: "2rem",
+              width: 48,
+              height: 48,
+              borderRadius: "50%",
+              border: "1px solid var(--cyan)",
+              background: "rgba(0,212,255,0.1)",
+              color: "var(--cyan)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              zIndex: 50,
+              backdropFilter: "blur(6px)",
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="12" y1="19" x2="12" y2="5" />
+              <polyline points="5 12 12 5 19 12" />
+            </svg>
+          </motion.button>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

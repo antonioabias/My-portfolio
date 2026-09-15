@@ -95,7 +95,7 @@ export default function ParticleTypography({
     let transitionStart = null;
     let renderedText = null;
 
-    const createParticles = (nextText, previousParticles = []) => {
+    const createParticles = (nextText, previousParticles = [], instant = false) => {
       const container = containerRef.current;
       if (!container) return;
 
@@ -147,8 +147,8 @@ export default function ParticleTypography({
             const previous = previousParticles[nextParticles.length % previousParticles.length];
             const spawnRadius = Math.max(containerWidth, containerHeight) * (0.7 + Math.random() * 0.7);
             const angle = Math.random() * Math.PI * 2;
-            const startX = previous?.x ?? containerWidth / 2 + Math.cos(angle) * spawnRadius;
-            const startY = previous?.y ?? containerHeight / 2 + Math.sin(angle) * spawnRadius;
+            const startX = instant ? originX : previous?.x ?? containerWidth / 2 + Math.cos(angle) * spawnRadius;
+            const startY = instant ? originY : previous?.y ?? containerHeight / 2 + Math.sin(angle) * spawnRadius;
 
             nextParticles.push(
               new Particle(originX, originY, particleSize, color, dispersionStrength, returnSpeed, startX, startY)
@@ -161,9 +161,9 @@ export default function ParticleTypography({
       renderedText = nextText;
       transitionStart = null;
     };
-
+    
     const init = () => {
-      createParticles(textRef.current);
+      createParticles(textRef.current, [], true);
       transitionStart = null;
     };
 

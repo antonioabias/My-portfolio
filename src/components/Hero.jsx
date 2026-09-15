@@ -45,7 +45,7 @@ export default function Hero({ setIsHovering }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setRoleIdx((i) => (i + 1) % roles.length);
-    }, 10000);
+    }, 2800);
     return () => clearInterval(interval);
   }, []);
 

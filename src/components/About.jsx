@@ -415,7 +415,7 @@ export default function About({ setIsHovering, onSelectProject }) {
       <style>{`
         .about-wrapper { max-width: 1300px; margin: 0 auto; width: min(94%, 1300px); }
         .ig-header { display: flex; gap: 2.5rem; align-items: stretch; margin-bottom: 3rem; }
-        .ig-avatar { aspect-ratio: 1/1; height: 100%; max-width: 220px; border-radius: 24px; flex-shrink: 0; border: 1px solid var(--line); padding: 4px; }
+        .ig-avatar { aspect-ratio: 1/1; height: 100%; max-width: 220px; border-radius: 50%; flex-shrink: 0; border: 1px solid var(--line); padding: 4px; }
         .ig-buttons-row { display: flex; gap: 0.75rem; margin-top: 1.25rem; max-width: 420px; }
         .ig-btn {
           flex: 1; text-align: center; font-family: var(--font-mono); font-size: 0.88rem;
@@ -431,15 +431,13 @@ export default function About({ setIsHovering, onSelectProject }) {
           padding: 1.1rem 0; background: none; border: none; cursor: pointer;
           font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase;
         }
-        .ig-fullname { font-family: var(--font-serif); font-size: clamp(1.6rem, 2.6vw, 2.2rem); font-weight: 600; color: var(--ink); }
-        .ig-handle { font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.25rem; }
-        .ig-stats-line { font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); margin: 1.1rem 0; }
-        .ig-bio-strong { font-family: var(--font-serif); font-size: clamp(1.1rem, 1.6vw, 1.4rem); color: var(--ink); font-weight: 600; margin: 0 0 0.4rem; max-width: 700px; }
-        .ig-bio { font-size: clamp(0.95rem, 1.1vw, 1.05rem); line-height: 1.75; color: var(--ink-soft); margin: 0; max-width: 700px; }
+        .ig-fullname { font-family: var(--font-display); font-size: clamp(1.6rem, 2.6vw, 2.2rem); font-weight: 600; color: #ffffff; }
+        .ig-handle { font-family: var(--font-body); font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.25rem; }
+        .ig-stats-line { display: flex; gap: 1.5rem; font-family: var(--font-body); font-size: 0.85rem; color: var(--ink-soft); margin: 1.1rem 0; }
+        .ig-stats-line strong { color: var(--ink); font-weight: 700; }
+        .ig-bio { font-size: clamp(0.95rem, 1.1vw, 1.05rem); line-height: 1.75; color: #ffffff; margin: 0; max-width: 700px; }
         @media (max-width: 640px) {
-          .ig-header { flex-direction: column; text-align: center; gap: 1.25rem; align-items: center; }
-          .ig-avatar { width: 140px; height: 140px; max-width: none; }
-          .ig-bio, .ig-bio-strong { max-width: 100%; }
+          .ig-stats-line { justify-content: center; gap: 1.2rem; }
         }
       `}</style>
 
@@ -450,26 +448,31 @@ export default function About({ setIsHovering, onSelectProject }) {
           className="ig-header"
         >
           <div className="ig-avatar">
-            <img src={pic} alt="Antonio Abias Jr." style={{ width: "100%", height: "100%", borderRadius: 20, objectFit: "cover", display: "block" }} />
+            <img src={pic} alt="Antonio Abias Jr." style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover", display: "block" }} />
           </div>
 
           <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-            <div className="ig-fullname">Antonio V. Abias Jr.</div>
+            <div className="ig-fullname" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
+            Antonio V. Abias Jr.
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-label="Verified" style={{ flexShrink: 0 }}>
+              <path d="M12 2l2.4 1.4 2.75-.3 1.4 2.4 2.4 1.4-.3 2.75 1.4 2.4-1.4 2.4.3 2.75-2.4 1.4-1.4 2.4-2.75-.3L12 22l-2.4-1.4-2.75.3-1.4-2.4-2.4-1.4.3-2.75L2 12l1.4-2.4-.3-2.75 2.4-1.4 1.4-2.4 2.75.3z" fill="var(--cyan)" />
+              <path d="M8.5 12.5l2.2 2.2 4.3-4.9" stroke="var(--paper)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            </svg>
+          </div>
             <div className="ig-handle">@antonioabias_</div>
 
             <div className="ig-stats-line">
-              10+ Years Coding &middot; 2+ Years Professional &middot; {CERT_COUNT} Certifications
+              <span><strong>10</strong> Years Coding</span>
+              <span><strong>2</strong> Years Professional</span>
+              <span><strong>{CERT_COUNT}</strong> Certifications</span>
             </div>
 
-            <p className="ig-bio-strong">I build software that feels like art.</p>
-            <p className="ig-bio">
-              CS graduate with a Visual Arts background, working with React, Node.js, and Firebase, currently freelancing while bringing AI tools into real client work.
+            <p className="ig-bio">I don't just build software. I design it. Computer Science grad with a Visual Arts background.
             </p>
 
             <div className="ig-buttons-row">
               <a
-                href="https://mail.google.com/mail/?view=cm&to=antonioabias23.aa@gmail.com"
-                target="_blank" rel="noreferrer"
+                href="#contact"
                 className="ig-btn"
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
