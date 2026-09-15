@@ -77,7 +77,7 @@ export default function Certifications({ setIsHovering }) {
   const right = certs.slice(6);
 
   return (
-    <section id="certifications" style={{ padding: "7rem 0", background: "linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(17,24,39,0.97) 100%)", position: "relative", zIndex: 1 }}>
+    <section id="certifications" style={{ padding: "1rem 0 2rem", position: "relative", zIndex: 1 }}>
       <style>{`
         .certs-wrapper {
           max-width: 1400px;
@@ -107,23 +107,6 @@ export default function Certifications({ setIsHovering }) {
       `}</style>
 
       <div className="certs-wrapper">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--cyan)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1.5rem" }}
-        >
-          Certifications
-        </motion.div>
-
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.5rem, 4vw, 4rem)", fontWeight: 900, marginBottom: "0.5rem", letterSpacing: "-0.03em" }}
-        >
-          Credentials
-        </motion.h2>
-        <p style={{ marginBottom: "2.5rem", fontSize: "1rem" }}>
-          Planning to earn more in the future. Click any credential to view and verify.
-        </p>
-
         {/* Desktop: two columns */}
         <div className="certs-grid">
           <div>{left.map((cert, i) => <CertRow key={cert.title} cert={cert} i={i} setIsHovering={setIsHovering} onClick={() => setSelected(cert)} />)}</div>

@@ -1,9 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState, useCallback } from "react";
 import pic from "../assets/pic.jpg";
-import aca2022 from "../assets/Certificate/ACA-2022.png";
-import claude101 from "../assets/Certificate/claude101.jpg";
-import { projects } from "./Projects";
+import Projects from "./Projects";
+import Certifications from "./Certifications";
+import Skills from "./Skills";
 
 const STORY_DURATION = 4500;
 const CERT_COUNT = 11;
@@ -127,60 +127,38 @@ const posts = [
 ];
 
 const tabs = [
-  { key: "timeline", label: "Timeline", icon: "grid" },
-  { key: "projects", label: "Projects", icon: "bookmark" },
-  { key: "skills", label: "Skills", icon: "repeat" },
-  { key: "certifications", label: "Certifications", icon: "tag" },
+  { key: "projects", label: "Projects", icon: "folder" },
+  { key: "skills", label: "Skills", icon: "chart" },
+  { key: "timeline", label: "Timeline", icon: "clock" },
+  { key: "certifications", label: "Certifications", icon: "award" },
 ];
 
 const TAB_ICONS = {
-  grid: (
+  folder: (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-      <rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" />
-      <rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" />
+      <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
     </svg>
   ),
-  bookmark: (
+  chart: (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+      <line x1="6" y1="20" x2="6" y2="10" />
+      <line x1="12" y1="20" x2="12" y2="4" />
+      <line x1="18" y1="20" x2="18" y2="14" />
     </svg>
   ),
-  repeat: (
+  clock: (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-      <path d="M17 1l4 4-4 4" /><path d="M3 11V9a4 4 0 0 1 4-4h14" />
-      <path d="M7 23l-4-4 4-4" /><path d="M21 13v2a4 4 0 0 1-4 4H3" />
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 3" />
     </svg>
   ),
-  tag: (
+  award: (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-      <rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" />
-      <path d="M21 15l-5-5L5 21" />
+      <circle cx="12" cy="8" r="5" />
+      <path d="M8.5 13l-2 8 5.5-3 5.5 3-2-8" />
     </svg>
   ),
 };
-
-const skillGridItems = [
-  { name: "React", icon: "react" },
-  { name: "Node.js", icon: "nodejs" },
-  { name: "JavaScript", icon: "javascript" },
-  { name: "Firebase", icon: "firebase" },
-  { name: "TypeScript", icon: "typescript" },
-  { name: "GitHub", icon: "github" },
-].map((s) => ({ name: s.name, image: `https://skillicons.dev/icons?i=${s.icon}` }));
-
-const certGridItems = [
-  { name: "Cloud Architecting", image: "https://images.credly.com/size/340x340/images/fcafd0c9-42da-4703-a191-0c397203dc1b/blob" },
-  { name: "Cloud Developing", image: "https://images.credly.com/size/340x340/images/bb3211c0-a562-44ec-a8b5-df54deb0e5e9/blob" },
-  { name: "Cybersecurity Awareness", image: aca2022 },
-  { name: "Claude 101", image: claude101 },
-  { name: "Prompt Design", image: "https://images.credly.com/size/340x340/images/cef82b2e-970a-4318-8e59-c3e26b7f5c19/image.png" },
-  { name: "Intro to Cybersecurity", image: "https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/twitter_thumb_201604_I2CS__1_.png" },
-];
-
-function scrollToSection(id) {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth" });
-}
 
 function HighlightCircle({ group, onOpen, setIsHovering }) {
   return (
@@ -195,7 +173,7 @@ function HighlightCircle({ group, onOpen, setIsHovering }) {
           <img src={group.items[0].image} alt={group.label} style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover", display: "block" }} />
         </div>
       </div>
-      <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.78rem", color: "var(--ink-soft)", letterSpacing: "0.02em" }}>
+      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--ink-soft)", letterSpacing: "0.02em" }}>
         {group.label}
       </span>
     </button>
@@ -333,75 +311,10 @@ function TimelineEntry({ post }) {
   );
 }
 
-function IGGrid({ items, setIsHovering }) {
-  return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.6rem" }}>
-      {items.map((item) => (
-        <button
-          key={item.name}
-          onClick={item.onClick}
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
-          style={{
-            position: "relative",
-            aspectRatio: "1/1",
-            borderRadius: 12,
-            overflow: "hidden",
-            border: "1px solid var(--line)",
-            background: "var(--paper-elevated)",
-            cursor: "pointer",
-            padding: item.contain ? "16%" : 0,
-          }}
-        >
-          <img
-            src={item.image}
-            alt={item.name}
-            style={{
-              position: "absolute",
-              inset: item.contain ? "16%" : 0,
-              width: item.contain ? "68%" : "100%",
-              height: item.contain ? "68%" : "100%",
-              objectFit: item.contain ? "contain" : "cover",
-              display: "block",
-            }}
-          />
-          <div style={{
-            position: "absolute", left: 0, right: 0, bottom: 0,
-            padding: "0.5rem 0.6rem",
-            background: "linear-gradient(to top, rgba(0,0,0,0.85), transparent)",
-          }}>
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.66rem", color: "#fff", letterSpacing: "0.02em" }}>
-              {item.name}
-            </span>
-          </div>
-        </button>
-      ))}
-    </div>
-  );
-}
-
 export default function About({ setIsHovering, onSelectProject }) {
   const [openGroup, setOpenGroup] = useState(null);
-  const [activeTab, setActiveTab] = useState("timeline");
+  const [activeTab, setActiveTab] = useState("projects");
   const ref = useRef(null);
-
-  const projectGridItems = projects.slice(0, 6).map((p) => ({
-    name: p.title,
-    image: p.coverImg,
-    onClick: () => onSelectProject && onSelectProject(p),
-  }));
-
-  const skillGrid = skillGridItems.map((s) => ({
-    ...s,
-    contain: true,
-    onClick: () => scrollToSection("skills"),
-  }));
-
-  const certGrid = certGridItems.map((c) => ({
-    ...c,
-    contain: true,
-    onClick: () => scrollToSection("certifications"),
-  }));
 
   return (
     <section id="about" ref={ref} style={{
@@ -414,28 +327,98 @@ export default function About({ setIsHovering, onSelectProject }) {
     }}>
       <style>{`
         .about-wrapper { max-width: 1300px; margin: 0 auto; width: min(94%, 1300px); }
-        .ig-header { display: flex; gap: 2.5rem; align-items: stretch; margin-bottom: 3rem; }
-        .ig-avatar { aspect-ratio: 1/1; height: 100%; max-width: 220px; border-radius: 50%; flex-shrink: 0; border: 1px solid var(--line); padding: 4px; }
+        .ig-header {
+          display: flex;
+          gap: 2.5rem;
+          align-items: center;
+          width: 100%;
+          max-width: min(640px, 92vw);
+          margin: 0 auto 3rem;
+        @media (max-width: 640px) {
+        .ig-header {
+          flex-direction: column;
+          text-align: center;
+          gap: 1.25rem;
+        }
+      }
+        }
+        .ig-avatar {
+          aspect-ratio: 1/1;
+          width: clamp(90px, 22vw, 220px);
+          height: auto;
+          max-width: 220px;
+          border-radius: 50%;
+          flex-shrink: 0;
+          border: 1px solid var(--line);
+          padding: 4px;
+        }
+        @media (max-width: 640px) {
+          .ig-avatar {
+            width: 96px;
+          }
+        }
         .ig-buttons-row { display: flex; gap: 0.75rem; margin-top: 1.25rem; max-width: 420px; }
+        @media (max-width: 640px) {
+          .ig-buttons-row {
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
         .ig-btn {
           flex: 1; text-align: center; font-family: var(--font-mono); font-size: 0.88rem;
           font-weight: 700; padding: 0.75rem 1.1rem; border-radius: 8px; cursor: pointer;
           border: 1px solid var(--line); background: var(--paper-elevated); color: var(--ink);
           transition: background 0.2s;
         }
-        .highlights-row { display: flex; gap: clamp(1.25rem, 2vw, 2rem); overflow-x: auto; scrollbar-width: none; padding: 0.25rem 0.25rem 0.5rem; margin-bottom: 3rem; }
+        .highlights-row {
+          display: flex;
+          gap: clamp(1.25rem, 2vw, 2rem);
+          overflow-x: auto;
+          scrollbar-width: none;
+          padding: 0.25rem 0.25rem 0.5rem;
+          width: 100%;
+          max-width: min(640px, 92vw);
+          margin: 0 auto 3rem;
+          justify-content: center;
+        }
+        @media (max-width: 640px) {
+          .highlights-row {
+            justify-content: flex-start;
+          }
+        }
         .highlights-row::-webkit-scrollbar { display: none; }
         .tab-bar { display: flex; border-top: 1px solid var(--line); }
         .tab-btn {
-          flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+          position: relative;
+          flex: 1; display: flex; align-items: center; justify-content: center;
           padding: 1.1rem 0; background: none; border: none; cursor: pointer;
           font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase;
         }
-        .ig-fullname { font-family: var(--font-display); font-size: clamp(1.6rem, 2.6vw, 2.2rem); font-weight: 600; color: #ffffff; }
-        .ig-handle { font-family: var(--font-body); font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.25rem; }
+        .tab-tooltip {
+          position: absolute;
+          bottom: 100%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-6px);
+          background: var(--paper-elevated);
+          border: 1px solid var(--line);
+          color: var(--ink);
+          padding: 0.35rem 0.7rem;
+          border-radius: 6px;
+          font-size: 0.62rem;
+          letter-spacing: 0.04em;
+          white-space: nowrap;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.2s ease;
+        }
+        .tab-btn:hover .tab-tooltip {
+          opacity: 1;
+        }
+        .ig-fullname { font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 1.7rem); font-weight: 600; color: #ffffff; }
+        .ig-handle { font-family: var(--font-body); font-size: 0.95rem; color: var(--ink-faint); margin-top: 0.05rem; }
         .ig-stats-line { display: flex; gap: 1.5rem; font-family: var(--font-body); font-size: 0.85rem; color: var(--ink-soft); margin: 1.1rem 0; }
         .ig-stats-line strong { color: var(--ink); font-weight: 700; }
-        .ig-bio { font-size: clamp(0.95rem, 1.1vw, 1.05rem); line-height: 1.75; color: #ffffff; margin: 0; max-width: 700px; }
+        .ig-bio { font-size: clamp(0.95rem, 1.1vw, 1.05rem); line-height: 1.75; color: var(--ink-soft); margin: 0; max-width: 700px; }
         @media (max-width: 640px) {
           .ig-stats-line { justify-content: center; gap: 1.2rem; }
         }
@@ -451,7 +434,7 @@ export default function About({ setIsHovering, onSelectProject }) {
             <img src={pic} alt="Antonio Abias Jr." style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover", display: "block" }} />
           </div>
 
-          <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <div className="ig-fullname" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
             Antonio V. Abias Jr.
             <svg width="18" height="18" viewBox="0 0 24 24" aria-label="Verified" style={{ flexShrink: 0 }}>
@@ -521,6 +504,7 @@ export default function About({ setIsHovering, onSelectProject }) {
                 }}
               >
                 {TAB_ICONS[t.icon]}
+                <span className="tab-tooltip">{t.label}</span>
               </button>
             );
           })}
@@ -528,9 +512,9 @@ export default function About({ setIsHovering, onSelectProject }) {
 
         <div style={{ paddingTop: "1.5rem" }}>
           {activeTab === "timeline" && posts.map((post) => <TimelineEntry key={post.id} post={post} />)}
-          {activeTab === "projects" && <IGGrid items={projectGridItems} setIsHovering={setIsHovering} />}
-          {activeTab === "skills" && <IGGrid items={skillGrid} setIsHovering={setIsHovering} />}
-          {activeTab === "certifications" && <IGGrid items={certGrid} setIsHovering={setIsHovering} />}
+          {activeTab === "projects" && <Projects setIsHovering={setIsHovering} onSelectProject={onSelectProject} />}
+          {activeTab === "skills" && <Skills />}
+          {activeTab === "certifications" && <Certifications setIsHovering={setIsHovering} />}
         </div>
       </div>
 

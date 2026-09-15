@@ -18,7 +18,8 @@ export default function Footer() {
       viewport={{ once: true }}
       style={{
         padding: "2rem 0",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
+        borderTop: "1px solid #2f3336",
+        background: "#000000",
         position: "relative",
         zIndex: 1,
       }}

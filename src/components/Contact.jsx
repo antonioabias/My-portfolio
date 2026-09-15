@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import AboutMeButton from "./AboutMeButton";
 
 const links = [
   { icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/1280px-Gmail_icon_%282020%29.svg.png", label: "antonioabias23.aa@gmail.com", href: "https://mail.google.com/mail/?view=cm&to=antonioabias23.aa@gmail.com" },
@@ -21,8 +22,8 @@ export default function Contact() {
       <style>{`
         .contact-section {
           padding: 8rem 4rem;
-          border-bottom: 1px solid var(--border);
-          background: var(--cream);
+          border-bottom: 1px solid #2f3336;
+          background: #000000;
         }
         .contact-grid {
           max-width: 1200px;
@@ -133,36 +134,29 @@ export default function Contact() {
 
       <AnimatePresence>
         {showTop && (
-          <motion.button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            whileHover={{ y: -3 }}
-            aria-label="Back to top"
             style={{
               position: "fixed",
               bottom: "2rem",
               right: "2rem",
-              width: 48,
-              height: 48,
-              borderRadius: "50%",
-              border: "1px solid var(--cyan)",
-              background: "rgba(0,212,255,0.1)",
-              color: "var(--cyan)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
               zIndex: 50,
-              backdropFilter: "blur(6px)",
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="12" y1="19" x2="12" y2="5" />
-              <polyline points="5 12 12 5 19 12" />
-            </svg>
-          </motion.button>
+            <AboutMeButton
+              shape="circle"
+              size={48}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              icon={
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="12" y1="19" x2="12" y2="5" />
+                  <polyline points="5 12 12 5 19 12" />
+                </svg>
+              }
+            />
+          </motion.div>
         )}
       </AnimatePresence>
     </section>

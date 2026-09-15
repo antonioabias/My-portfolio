@@ -1,10 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import Hero from "./components/Hero";
 import About from "./components/About";
-import Skills from "./components/Skills";
-import Projects from "./components/Projects";
-import Certifications from "./components/Certifications";
-import Hobbies from "./components/Hobbies";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ProjectDetail from "./components/ProjectDetail";
@@ -98,9 +94,6 @@ export default function App() {
           <>
             <Hero setIsHovering={setIsHovering} />
             <About setIsHovering={setIsHovering} onSelectProject={handleSelectProject} />
-            <Skills setIsHovering={setIsHovering} />
-            <Projects setIsHovering={setIsHovering} onSelectProject={handleSelectProject} />
-            <Certifications setIsHovering={setIsHovering} />
             <Contact setIsHovering={setIsHovering} />
           </>
         )}

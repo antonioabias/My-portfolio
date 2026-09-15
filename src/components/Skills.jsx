@@ -187,7 +187,7 @@ export default function Skills() {
   }, []);
 
   return (
-    <section id="skills" style={{ padding: "7rem 0", position: "relative", zIndex: 1, background: "linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(10,15,30,0.95) 40%, rgba(108,59,255,0.12) 100%)" }}>
+    <section id="skills" style={{ padding: "1rem 0 2rem", position: "relative", zIndex: 1 }}>
       <style>{`
         .skills-wrapper {
           max-width: 1400px;
@@ -208,19 +208,6 @@ export default function Skills() {
       `}</style>
 
       <div className="skills-wrapper">
-        <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--cyan)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1.5rem" }}>
-          Skills
-        </div>
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "2.5rem", flexWrap: "wrap", gap: "1rem" }}>
-          <div>
-            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2rem,4vw,3rem)", fontWeight: 700, letterSpacing: "-0.02em", margin: 0 }}>
-              Stats
-            </h2>
-            <p style={{ fontFamily: "var(--font-display)", fontSize: "1rem", lineHeight: 1.8, marginTop: "0.4rem", marginBottom: 0 }}>
-              These bars aren't full yet. Got a project for me?
-            </p>
-          </div>
-        </div>
         <div className="skills-grid">
           <div>{leftGroups.map((g) => <CategoryBlock key={g.category} {...g} isMobile={isMobile} />)}</div>
           <div>{rightGroups.map((g) => <CategoryBlock key={g.category} {...g} isMobile={isMobile} />)}</div>

@@ -167,17 +167,17 @@ function ProjectCard({ project, onClick, setIsHovering }) {
 
 export default function Projects({ setIsHovering, onSelectProject }) {
   return (
-    <section id="projects" style={{ padding: "7rem 0", position: "relative", zIndex: 1 }}>
+    <section id="projects" style={{ padding: "1rem 0 2rem", position: "relative", zIndex: 1 }}>
       <style>{`
         .projects-wrapper {
           max-width: 1400px;
           margin: 0 auto;
-          width: min(100%, 63%);
+          width: min(92%, 1200px);
         }
         .projects-grid {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 1.5rem;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.75rem;
         }
         @media (max-width: 768px) {
           .projects-wrapper {
@@ -190,25 +190,6 @@ export default function Projects({ setIsHovering, onSelectProject }) {
       `}</style>
 
       <div className="projects-wrapper">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--cyan)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1.5rem" }}
-        >
-          Projects
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          style={{ marginBottom: "3rem" }}
-        >
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 700, letterSpacing: "-0.02em", marginBottom: "0.5rem" }}>
-            Things I've built.
-          </h2>
-          <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.8rem", color: "var(--muted)" }}>
-            Click any card to see the full story.
-          </p>
-        </motion.div>
-
         <div className="projects-grid">
           {projects.map((project) => (
             <ProjectCard
