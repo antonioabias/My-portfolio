@@ -23,6 +23,9 @@ export default function LiquidButton({
   const isCircle = shape === "circle";
   const radius = isCircle ? "50%" : 100;
 
+  // Only real outside links (not "#about" style anchors) open in a new tab
+  const isExternal = href && !href.startsWith("#");
+
   useEffect(() => {
     const styleId = "liquid-button-styles";
     if (!document.getElementById(styleId)) {
@@ -218,8 +221,8 @@ export default function LiquidButton({
         <Tag
           ref={buttonRef}
           href={disabled ? undefined : href}
-          target={href ? "_blank" : undefined}
-          rel={href ? "noreferrer" : undefined}
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noreferrer" : undefined}
           onClick={handleClick}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
