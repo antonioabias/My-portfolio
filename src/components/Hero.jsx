@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import ParticleTypography from "./ParticleTypography";
+import LiquidMetalButton from "./LiquidMetalButton";
 
 const containerVariants = {
   hidden: {},
@@ -13,6 +14,7 @@ const itemVariants = {
 
 const commands = ["whoami", "ls ./projects", "cat about.md", "npm run dev"];
 const roles = ["SOFTWARE ENGINEER", "WEB DEVELOPER", "FRONTEND DEVELOPER"];
+const LONGEST_ROLE = "FRONTEND DEVELOPER";
 
 export default function Hero({ setIsHovering }) {
   const [cmd, setCmd] = useState("");
@@ -20,7 +22,6 @@ export default function Hero({ setIsHovering }) {
   const [deleting, setDeleting] = useState(false);
   const [roleIdx, setRoleIdx] = useState(0);
 
-  // Typewriter effect for the terminal line
   useEffect(() => {
     const current = commands[cmdIdx];
     let timeout;
@@ -41,11 +42,10 @@ export default function Hero({ setIsHovering }) {
     return () => clearTimeout(timeout);
   }, [cmd, cmdIdx, deleting]);
 
-  // Rotate the particle role text every 3.5s
   useEffect(() => {
     const interval = setInterval(() => {
       setRoleIdx((i) => (i + 1) % roles.length);
-    }, 3500);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 
@@ -80,27 +80,41 @@ export default function Hero({ setIsHovering }) {
           justify-content: center;
           text-align: center;
           padding: 8rem 1.5rem 4rem;
-          max-width: 1000px;
+          max-width: 1200px;
           margin: 0 auto;
         }
         .hero-role-canvas {
           width: 100%;
-          height: clamp(90px, 14vw, 170px);
+          height: clamp(170px, 24vw, 300px);
         }
         .hero-name {
-          font-size: clamp(1.1rem, 2.2vw, 1.6rem);
-          margin-top: 0.5rem;
+          font-size: clamp(2rem, 4vw, 3.2rem);
+          margin-top: 1rem;
+        }
+        .hero-name-shine {
+          position: relative;
+          display: inline-block;
+          background: linear-gradient(115deg, rgba(255,255,255,0.5) 25%, #ffffff 45%, rgba(255,255,255,0.5) 65%);
+          background-size: 220% 100%;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          animation: hero-shine-sweep 9s ease-in-out infinite;
+        }
+        @keyframes hero-shine-sweep {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
         }
         @media (max-width: 768px) {
           .hero-content { padding: 7rem 1.25rem 3rem; }
-          .hero-role-canvas { height: clamp(60px, 18vw, 100px); }
+          .hero-role-canvas { height: clamp(120px, 30vw, 190px); }
+          .hero-name { font-size: clamp(1.7rem, 7vw, 2.5rem); }
         }
         @media (prefers-reduced-motion: reduce) {
-          .hero-spin, .hero-spin-reverse { animation: none; }
+          .hero-spin, .hero-spin-reverse, .hero-name-shine { animation: none; }
         }
       `}</style>
 
-      {/* Spinning background icons */}
       <div
         className="hero-bg-layer"
         style={{
@@ -155,7 +169,6 @@ export default function Hero({ setIsHovering }) {
         </div>
       </div>
 
-      {/* Gradient overlay so content stays readable */}
       <div
         className="hero-bg-layer"
         style={{
@@ -164,7 +177,6 @@ export default function Hero({ setIsHovering }) {
         }}
       />
 
-      {/* Content */}
       <div className="hero-content">
         <motion.div variants={containerVariants} initial="hidden" animate="visible" style={{ width: "100%" }}>
           <motion.div variants={itemVariants} style={{
@@ -178,61 +190,32 @@ export default function Hero({ setIsHovering }) {
           </motion.div>
 
           <motion.div variants={itemVariants} className="hero-role-canvas">
-            <ParticleTypography text={roles[roleIdx]} color="#ffffff" fontSize={130} />
+            <ParticleTypography
+              text={roles[roleIdx]}
+              referenceText={LONGEST_ROLE}
+              color="#ffffff"
+              fontSize={150}
+            />
           </motion.div>
 
           <motion.p
             variants={itemVariants}
             className="hero-name"
-            style={{
-              fontFamily: "var(--font-display)",
-              color: "#ffffff",
-              fontWeight: 500,
-              letterSpacing: "0.02em",
-            }}
           >
-            Antonio V. Abias Jr.
+            <span
+              className="hero-name-shine"
+              style={{ fontFamily: "var(--font-serif)", fontWeight: 700, letterSpacing: "0.01em" }}
+            >
+              Antonio V. Abias Jr.
+            </span>
           </motion.p>
 
-          <motion.div variants={itemVariants} style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center", marginTop: "2.5rem" }}>
-            <motion.a
-              href="#projects"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.97 }}
+          <motion.div variants={itemVariants} style={{ display: "flex", justifyContent: "center", marginTop: "2.5rem" }}>
+            <LiquidMetalButton
+              href="#about"
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
-              style={{
-                display: "inline-flex", alignItems: "center",
-                padding: "0.75rem 1.75rem", borderRadius: 6,
-                fontFamily: "var(--font-mono)", fontSize: "0.85rem",
-                fontWeight: 700, letterSpacing: "0.05em",
-                background: "#ffffff",
-                color: "#05070f",
-                border: "1px solid #ffffff",
-                cursor: "none", transition: "all 0.25s",
-              }}
-            >
-              View Projects
-            </motion.a>
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
-              style={{
-                display: "inline-flex", alignItems: "center",
-                padding: "0.75rem 1.75rem", borderRadius: 6,
-                fontFamily: "var(--font-mono)", fontSize: "0.85rem",
-                fontWeight: 700, letterSpacing: "0.05em",
-                background: "transparent",
-                color: "#ffffff",
-                border: "1px solid rgba(255,255,255,0.3)",
-                cursor: "none", transition: "all 0.25s",
-              }}
-            >
-              Let's Talk
-            </motion.a>
+            />
           </motion.div>
         </motion.div>
       </div>

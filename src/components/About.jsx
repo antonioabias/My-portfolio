@@ -1,15 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState, useCallback } from "react";
 import pic from "../assets/pic.jpg";
+import aca2022 from "../assets/Certificate/ACA-2022.png";
+import claude101 from "../assets/Certificate/claude101.jpg";
+import { projects } from "./Projects";
 
 const STORY_DURATION = 4500;
 const CERT_COUNT = 11;
-
-const stats = [
-  { num: 10, suffix: "+", label: "Years Coding" },
-  { num: 2, suffix: "+", label: "Years Professional" },
-  { num: CERT_COUNT, suffix: "", label: "Certifications" },
-];
 
 const highlights = [
   {
@@ -81,38 +78,59 @@ const highlights = [
 const posts = [
   {
     id: "ac-archi",
-    period: "Jan 2024 - Present",
+    period: "2024 to Present",
     role: "Freelance Web Developer",
     company: "AC Architectural Studio",
     desc: "Building a full company website from scratch. Project gallery, services, client inquiry system, and a Gemini AI chatbot for international client acquisition.",
     tags: ["ReactJS", "GeminiAPI", "FramerMotion"],
-    active: true,
+  },
+  {
+    id: "working-student",
+    period: "2022 to 2024",
+    role: "Working Student",
+    company: "University of Nueva Caceres",
+    desc: "Balanced coursework with real work at the same time. Graduated with a Computer Science degree.",
+    tags: ["ComputerScience", "Graduated"],
   },
   {
     id: "broadlume",
-    period: "Nov 2021 - Aug 2023",
-    role: "Data & Advertising Operations",
+    period: "2021 to 2023",
+    role: "Data and Advertising Operations",
     company: "Wide-out Workforces Inc. (Broadlume)",
-    desc: "Managed product datasets across hundreds of client websites. Data audits, catalog accuracy, and cross-team marketing alignment.",
+    desc: "Paused college to work full time. Managed product datasets across hundreds of client websites, data audits, catalog accuracy, and cross team marketing alignment.",
     tags: ["Salesforce", "Excel", "Floorforce"],
-    active: false,
   },
   {
-    id: "education",
-    period: "2018 - 2024",
+    id: "college",
+    period: "2018 to 2020",
     role: "BS Computer Science",
     company: "University of Nueva Caceres",
-    desc: "Also completed Visual Arts and Computer Programming tracks in senior high, the mix that shapes how I approach design and code together.",
-    tags: ["VisualArts", "ComputerProgramming"],
-    active: false,
+    desc: "Started the Computer Science program. This is where the real foundation got built.",
+    tags: ["ComputerScience"],
+  },
+  {
+    id: "shs",
+    period: "2016 to 2018",
+    role: "Computer Programming",
+    company: "Camarines Sur National High School",
+    desc: "Developed Zombie Maze and a Sales Information System. First real taste of shipping software.",
+    tags: ["Java", "PHP", "MySQL"],
+  },
+  {
+    id: "jhs",
+    period: "2012 to 2016",
+    role: "Visual Arts",
+    company: "Camarines Sur National High School",
+    desc: "Trained in painting, drawing, and sculpture. Still shapes every design decision I make now.",
+    tags: ["Painting", "Drawing", "Sculpture"],
   },
 ];
 
 const tabs = [
-  { key: "about", label: "About", icon: "grid" },
+  { key: "timeline", label: "Timeline", icon: "grid" },
   { key: "projects", label: "Projects", icon: "bookmark" },
   { key: "skills", label: "Skills", icon: "repeat" },
-  { key: "credentials", label: "Credentials", icon: "tag" },
+  { key: "certifications", label: "Certifications", icon: "tag" },
 ];
 
 const TAB_ICONS = {
@@ -141,34 +159,27 @@ const TAB_ICONS = {
   ),
 };
 
-function useCountUp(target, duration = 900, triggered = false) {
-  const [value, setValue] = useState(0);
-  useEffect(() => {
-    if (!triggered) return;
-    let start = 0;
-    const step = target / (duration / 16);
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= target) { setValue(target); clearInterval(timer); }
-      else setValue(Math.floor(start));
-    }, 16);
-    return () => clearInterval(timer);
-  }, [target, duration, triggered]);
-  return value;
-}
+const skillGridItems = [
+  { name: "React", icon: "react" },
+  { name: "Node.js", icon: "nodejs" },
+  { name: "JavaScript", icon: "javascript" },
+  { name: "Firebase", icon: "firebase" },
+  { name: "TypeScript", icon: "typescript" },
+  { name: "GitHub", icon: "github" },
+].map((s) => ({ name: s.name, image: `https://skillicons.dev/icons?i=${s.icon}` }));
 
-function StatCell({ num, suffix, label, triggered }) {
-  const val = useCountUp(num, 900, triggered);
-  return (
-    <div style={{ textAlign: "center" }}>
-      <span style={{ display: "block", fontFamily: "var(--font-serif)", fontSize: "clamp(1.6rem, 2.2vw, 2rem)", fontWeight: 600, color: "var(--ink)" }}>
-        {val}{suffix}
-      </span>
-      <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "var(--ink-faint)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
-        {label}
-      </span>
-    </div>
-  );
+const certGridItems = [
+  { name: "Cloud Architecting", image: "https://images.credly.com/size/340x340/images/fcafd0c9-42da-4703-a191-0c397203dc1b/blob" },
+  { name: "Cloud Developing", image: "https://images.credly.com/size/340x340/images/bb3211c0-a562-44ec-a8b5-df54deb0e5e9/blob" },
+  { name: "Cybersecurity Awareness", image: aca2022 },
+  { name: "Claude 101", image: claude101 },
+  { name: "Prompt Design", image: "https://images.credly.com/size/340x340/images/cef82b2e-970a-4318-8e59-c3e26b7f5c19/image.png" },
+  { name: "Intro to Cybersecurity", image: "https://images.credly.com/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/twitter_thumb_201604_I2CS__1_.png" },
+];
+
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth" });
 }
 
 function HighlightCircle({ group, onOpen, setIsHovering }) {
@@ -179,7 +190,7 @@ function HighlightCircle({ group, onOpen, setIsHovering }) {
       onMouseLeave={() => setIsHovering(false)}
       style={{ background: "none", border: "none", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.6rem", flexShrink: 0, width: "clamp(88px, 8vw, 104px)" }}
     >
-      <div style={{ width: "clamp(78px, 7vw, 92px)", height: "clamp(78px, 7vw, 92px)", borderRadius: "50%", padding: 3, background: "conic-gradient(from 180deg, var(--accent), #D98A5E, var(--accent))" }}>
+      <div style={{ width: "clamp(78px, 7vw, 92px)", height: "clamp(78px, 7vw, 92px)", borderRadius: "50%", padding: 3, background: "conic-gradient(from 180deg, var(--cyan), #ffffff, var(--cyan))" }}>
         <div style={{ width: "100%", height: "100%", borderRadius: "50%", padding: 3, background: "var(--paper)" }}>
           <img src={group.items[0].image} alt={group.label} style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover", display: "block" }} />
         </div>
@@ -293,21 +304,13 @@ function StoryModal({ group, onClose, setIsHovering }) {
   );
 }
 
-function PostCard({ post }) {
+function TimelineEntry({ post }) {
   return (
     <div style={{ padding: "1.75rem 0", borderBottom: "1px solid var(--line)" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.9rem" }}>
         <img src={pic} alt="Antonio Abias Jr." style={{ width: 38, height: 38, borderRadius: "50%", objectFit: "cover", flexShrink: 0 }} />
-        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.88rem", fontWeight: 700, color: "var(--ink)" }}>antonioabias_</span>
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--ink-faint)" }}>{post.period}</span>
-          {post.active && (
-            <span style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#4CAF61", display: "inline-block" }} />
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", color: "#4CAF61" }}>Active now</span>
-            </span>
-          )}
-        </div>
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.88rem", fontWeight: 700, color: "var(--ink)" }}>antonioabias_</span>
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--ink-faint)", marginLeft: "auto" }}>{post.period}</span>
       </div>
 
       <div style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(1.3rem, 1.8vw, 1.55rem)", fontWeight: 600, color: "var(--ink)", marginBottom: "0.2rem" }}>
@@ -330,20 +333,75 @@ function PostCard({ post }) {
   );
 }
 
-export default function About({ setIsHovering }) {
+function IGGrid({ items, setIsHovering }) {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.6rem" }}>
+      {items.map((item) => (
+        <button
+          key={item.name}
+          onClick={item.onClick}
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+          style={{
+            position: "relative",
+            aspectRatio: "1/1",
+            borderRadius: 12,
+            overflow: "hidden",
+            border: "1px solid var(--line)",
+            background: "var(--paper-elevated)",
+            cursor: "pointer",
+            padding: item.contain ? "16%" : 0,
+          }}
+        >
+          <img
+            src={item.image}
+            alt={item.name}
+            style={{
+              position: "absolute",
+              inset: item.contain ? "16%" : 0,
+              width: item.contain ? "68%" : "100%",
+              height: item.contain ? "68%" : "100%",
+              objectFit: item.contain ? "contain" : "cover",
+              display: "block",
+            }}
+          />
+          <div style={{
+            position: "absolute", left: 0, right: 0, bottom: 0,
+            padding: "0.5rem 0.6rem",
+            background: "linear-gradient(to top, rgba(0,0,0,0.85), transparent)",
+          }}>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.66rem", color: "#fff", letterSpacing: "0.02em" }}>
+              {item.name}
+            </span>
+          </div>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export default function About({ setIsHovering, onSelectProject }) {
   const [openGroup, setOpenGroup] = useState(null);
-  const [activeTab, setActiveTab] = useState("about");
-  const [triggered, setTriggered] = useState(false);
+  const [activeTab, setActiveTab] = useState("timeline");
   const ref = useRef(null);
 
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setTriggered(true); obs.disconnect(); } },
-      { threshold: 0.2 }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, []);
+  const projectGridItems = projects.slice(0, 6).map((p) => ({
+    name: p.title,
+    image: p.coverImg,
+    onClick: () => onSelectProject && onSelectProject(p),
+  }));
+
+  const skillGrid = skillGridItems.map((s) => ({
+    ...s,
+    contain: true,
+    onClick: () => scrollToSection("skills"),
+  }));
+
+  const certGrid = certGridItems.map((c) => ({
+    ...c,
+    contain: true,
+    onClick: () => scrollToSection("certifications"),
+  }));
 
   return (
     <section id="about" ref={ref} style={{
@@ -355,10 +413,9 @@ export default function About({ setIsHovering }) {
       color: "var(--ink)",
     }}>
       <style>{`
-        .about-wrapper { max-width: 1100px; margin: 0 auto; width: min(94%, 1100px); }
-        .ig-header { display: flex; gap: 2.5rem; align-items: center; margin-bottom: 3rem; }
-        .ig-avatar { width: clamp(120px, 11vw, 150px); height: clamp(120px, 11vw, 150px); border-radius: 50%; flex-shrink: 0; border: 1px solid var(--line); padding: 4px; }
-        .ig-stats-row { display: flex; gap: clamp(1.5rem, 3vw, 3rem); margin: 1.1rem 0; }
+        .about-wrapper { max-width: 1300px; margin: 0 auto; width: min(94%, 1300px); }
+        .ig-header { display: flex; gap: 2.5rem; align-items: stretch; margin-bottom: 3rem; }
+        .ig-avatar { aspect-ratio: 1/1; height: 100%; max-width: 220px; border-radius: 24px; flex-shrink: 0; border: 1px solid var(--line); padding: 4px; }
         .ig-buttons-row { display: flex; gap: 0.75rem; margin-top: 1.25rem; max-width: 420px; }
         .ig-btn {
           flex: 1; text-align: center; font-family: var(--font-mono); font-size: 0.88rem;
@@ -374,43 +431,39 @@ export default function About({ setIsHovering }) {
           padding: 1.1rem 0; background: none; border: none; cursor: pointer;
           font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase;
         }
-        .ig-username { font-family: var(--font-mono); font-size: clamp(1.1rem, 1.4vw, 1.3rem); font-weight: 700; color: var(--ink); }
-        .ig-fullname { font-family: var(--font-serif); font-size: clamp(1.1rem, 1.3vw, 1.25rem); color: var(--ink-soft); margin-top: 0.25rem; }
-        .ig-bio { font-size: clamp(0.95rem, 1.1vw, 1.05rem); line-height: 1.75; color: var(--ink-soft); margin: 0; max-width: 560px; }
+        .ig-fullname { font-family: var(--font-serif); font-size: clamp(1.6rem, 2.6vw, 2.2rem); font-weight: 600; color: var(--ink); }
+        .ig-handle { font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-faint); margin-top: 0.25rem; }
+        .ig-stats-line { font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); margin: 1.1rem 0; }
+        .ig-bio-strong { font-family: var(--font-serif); font-size: clamp(1.1rem, 1.6vw, 1.4rem); color: var(--ink); font-weight: 600; margin: 0 0 0.4rem; max-width: 700px; }
+        .ig-bio { font-size: clamp(0.95rem, 1.1vw, 1.05rem); line-height: 1.75; color: var(--ink-soft); margin: 0; max-width: 700px; }
         @media (max-width: 640px) {
-          .ig-header { flex-direction: column; text-align: center; gap: 1.25rem; }
-          .ig-avatar { width: 108px; height: 108px; }
-          .ig-stats-row { justify-content: center; }
-          .ig-bio { max-width: 100%; }
+          .ig-header { flex-direction: column; text-align: center; gap: 1.25rem; align-items: center; }
+          .ig-avatar { width: 140px; height: 140px; max-width: none; }
+          .ig-bio, .ig-bio-strong { max-width: 100%; }
         }
       `}</style>
 
       <div className="about-wrapper">
 
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
           className="ig-header"
         >
           <div className="ig-avatar">
-            <img src={pic} alt="Antonio Abias Jr." style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover", display: "block" }} />
+            <img src={pic} alt="Antonio Abias Jr." style={{ width: "100%", height: "100%", borderRadius: 20, objectFit: "cover", display: "block" }} />
           </div>
 
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap", justifyContent: "inherit" }}>
-              <span className="ig-username">antonioabias_</span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", color: "#4CAF61", background: "rgba(76,175,97,0.12)", border: "1px solid rgba(76,175,97,0.35)", borderRadius: 100, padding: "0.2rem 0.7rem", letterSpacing: "0.04em", textTransform: "uppercase" }}>
-                Open to work
-              </span>
-            </div>
+          <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <div className="ig-fullname">Antonio V. Abias Jr.</div>
+            <div className="ig-handle">@antonioabias_</div>
 
-            <div className="ig-stats-row">
-              {stats.map((s) => <StatCell key={s.label} {...s} triggered={triggered} />)}
+            <div className="ig-stats-line">
+              10+ Years Coding &middot; 2+ Years Professional &middot; {CERT_COUNT} Certifications
             </div>
 
+            <p className="ig-bio-strong">I build software that feels like art.</p>
             <p className="ig-bio">
-              CS graduate from UNC with a background in Visual Arts. Building with React, Node.js, and Firebase, currently freelancing while integrating AI tools into real client work.
+              CS graduate with a Visual Arts background, working with React, Node.js, and Firebase, currently freelancing while bringing AI tools into real client work.
             </p>
 
             <div className="ig-buttons-row">
@@ -438,7 +491,6 @@ export default function About({ setIsHovering }) {
           </div>
         </motion.div>
 
-        {/* Highlights */}
         <motion.div
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
           className="highlights-row"
@@ -448,26 +500,21 @@ export default function About({ setIsHovering }) {
           ))}
         </motion.div>
 
-        {/* Tab bar */}
         <div className="tab-bar">
           {tabs.map((t) => {
             const active = activeTab === t.key;
-            const enabled = t.key === "about";
             return (
               <button
                 key={t.key}
                 className="tab-btn"
-                disabled={!enabled}
-                title={enabled ? t.label : `${t.label} - coming soon`}
-                onClick={() => enabled && setActiveTab(t.key)}
-                onMouseEnter={() => enabled && setIsHovering(true)}
-                onMouseLeave={() => enabled && setIsHovering(false)}
+                onClick={() => setActiveTab(t.key)}
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
                 style={{
                   color: active ? "var(--ink)" : "var(--ink-faint)",
                   borderTop: active ? "2px solid var(--ink)" : "2px solid transparent",
                   marginTop: -1,
-                  opacity: enabled ? 1 : 0.45,
-                  cursor: enabled ? "pointer" : "default",
+                  cursor: "pointer",
                 }}
               >
                 {TAB_ICONS[t.icon]}
@@ -476,12 +523,12 @@ export default function About({ setIsHovering }) {
           })}
         </div>
 
-        {/* Feed */}
-        {activeTab === "about" && (
-          <div>
-            {posts.map((post) => <PostCard key={post.id} post={post} />)}
-          </div>
-        )}
+        <div style={{ paddingTop: "1.5rem" }}>
+          {activeTab === "timeline" && posts.map((post) => <TimelineEntry key={post.id} post={post} />)}
+          {activeTab === "projects" && <IGGrid items={projectGridItems} setIsHovering={setIsHovering} />}
+          {activeTab === "skills" && <IGGrid items={skillGrid} setIsHovering={setIsHovering} />}
+          {activeTab === "certifications" && <IGGrid items={certGrid} setIsHovering={setIsHovering} />}
+        </div>
       </div>
 
       <AnimatePresence>

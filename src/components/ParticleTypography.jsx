@@ -1,13 +1,15 @@
 import { useEffect, useRef } from "react";
 
 class Particle {
-  constructor(x, y, size, color, dispersion, returnSpd) {
-    this.x = x + (Math.random() - 0.5) * 10;
-    this.y = y + (Math.random() - 0.5) * 10;
-    this.originX = x;
-    this.originY = y;
-    this.vx = (Math.random() - 0.5) * 5;
-    this.vy = (Math.random() - 0.5) * 5;
+  constructor(originX, originY, size, color, dispersion, returnSpd, startX, startY) {
+    this.originX = originX;
+    this.originY = originY;
+    this.startX = startX;
+    this.startY = startY;
+    this.x = startX;
+    this.y = startY;
+    this.vx = 0;
+    this.vy = 0;
     this.size = size;
     this.color = color;
     this.dispersion = dispersion;
@@ -56,8 +58,13 @@ class Particle {
   }
 }
 
+const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
 export default function ParticleTypography({
   text,
+  referenceText,
+  assembleDuration = 1100,
   fontSize = 90,
   fontFamily = "Space Grotesk, sans-serif",
   particleSize = 1.5,
@@ -69,6 +76,8 @@ export default function ParticleTypography({
 }) {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
+  const textRef = useRef(text);
+  textRef.current = text;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -83,8 +92,10 @@ export default function ParticleTypography({
     let mouseY = -1000;
     let containerWidth = 0;
     let containerHeight = 0;
+    let transitionStart = null;
+    let renderedText = null;
 
-    const init = () => {
+    const createParticles = (nextText, previousParticles = []) => {
       const container = containerRef.current;
       if (!container) return;
 
@@ -101,28 +112,28 @@ export default function ParticleTypography({
       ctx.scale(dpr, dpr);
       ctx.clearRect(0, 0, containerWidth, containerHeight);
 
-      // horizontal padding so the text never touches the edges
-      const maxTextWidth = containerWidth * 0.94;
+      const maxTextWidth = containerWidth * 0.9;
 
-      // start from the requested font size, capped by container height
-      let effectiveFontSize = Math.min(fontSize, containerHeight * 0.85);
+      // Extra headroom so ascenders and dots never touch the canvas edge
+      let effectiveFontSize = Math.min(fontSize, containerHeight * 0.68);
 
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.font = `bold ${effectiveFontSize}px ${fontFamily}`;
 
-      // measure and shrink until the text actually fits the container width
-      let measuredWidth = ctx.measureText(text).width;
+      // Size against the longest role so every word renders at the same size
+      const sizeSample = referenceText || text;
+      let measuredWidth = ctx.measureText(sizeSample).width;
       if (measuredWidth > maxTextWidth) {
         effectiveFontSize = effectiveFontSize * (maxTextWidth / measuredWidth);
         ctx.font = `bold ${effectiveFontSize}px ${fontFamily}`;
       }
 
       ctx.fillStyle = color;
-      ctx.fillText(text, containerWidth / 2, containerHeight / 2);
+      ctx.fillText(nextText, containerWidth / 2, containerHeight / 2);
 
       const textCoordinates = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      particles = [];
+      const nextParticles = [];
       const step = Math.max(1, Math.floor(particleDensity * dpr));
 
       for (let y = 0; y < textCoordinates.height; y += step) {
@@ -130,18 +141,68 @@ export default function ParticleTypography({
           const index = (y * textCoordinates.width + x) * 4;
           const alpha = textCoordinates.data[index + 3] || 0;
           if (alpha > 128) {
-            particles.push(
-              new Particle(x / dpr, y / dpr, particleSize, color, dispersionStrength, returnSpeed)
+            const originX = x / dpr;
+            const originY = y / dpr;
+
+            const previous = previousParticles[nextParticles.length % previousParticles.length];
+            const spawnRadius = Math.max(containerWidth, containerHeight) * (0.7 + Math.random() * 0.7);
+            const angle = Math.random() * Math.PI * 2;
+            const startX = previous?.x ?? containerWidth / 2 + Math.cos(angle) * spawnRadius;
+            const startY = previous?.y ?? containerHeight / 2 + Math.sin(angle) * spawnRadius;
+
+            nextParticles.push(
+              new Particle(originX, originY, particleSize, color, dispersionStrength, returnSpeed, startX, startY)
             );
           }
         }
       }
+
+      particles = nextParticles;
+      renderedText = nextText;
+      transitionStart = null;
     };
 
-    const animate = () => {
+    const init = () => {
+      createParticles(textRef.current);
+      transitionStart = null;
+    };
+
+    const transitionTo = (nextText) => {
+      const previousParticles = particles;
+      createParticles(nextText, previousParticles);
+      transitionStart = null;
+
+      particles.forEach((particle, index) => {
+        const previous = previousParticles[index % previousParticles.length];
+        if (previous) {
+          particle.x = previous.x;
+          particle.y = previous.y;
+          particle.startX = previous.x;
+          particle.startY = previous.y;
+        }
+      });
+      transitionStart = performance.now();
+    };
+
+    const animate = (ts) => {
+      if (textRef.current !== renderedText) transitionTo(textRef.current);
+
+      const elapsed = transitionStart === null ? assembleDuration : ts - transitionStart;
+      const assembling = elapsed < assembleDuration;
+      const t = assembling
+        ? transitionStart === null
+          ? easeOutCubic(Math.min(1, elapsed / assembleDuration))
+          : easeInOutCubic(Math.min(1, elapsed / assembleDuration))
+        : 1;
+
       ctx.clearRect(0, 0, containerWidth, containerHeight);
       particles.forEach((p) => {
-        p.update(mouseX, mouseY);
+        if (assembling) {
+          p.x = p.startX + (p.originX - p.startX) * t;
+          p.y = p.startY + (p.originY - p.startY) * t;
+        } else {
+          p.update(mouseX, mouseY);
+        }
         p.draw(ctx);
       });
       animationFrameId = requestAnimationFrame(animate);
@@ -162,7 +223,7 @@ export default function ParticleTypography({
 
     const timeoutId = setTimeout(() => {
       init();
-      animate();
+      animationFrameId = requestAnimationFrame(animate);
     }, 100);
 
     const resizeObserver = new ResizeObserver(handleResize);
@@ -178,7 +239,7 @@ export default function ParticleTypography({
       canvas.removeEventListener("mouseleave", handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [text, fontSize, fontFamily, particleSize, particleDensity, dispersionStrength, returnSpeed, color]);
+  }, [referenceText, assembleDuration, fontSize, fontFamily, particleSize, particleDensity, dispersionStrength, returnSpeed, color]);
 
   return (
     <div

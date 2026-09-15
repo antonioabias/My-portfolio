@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Skills from "./components/Skills";
@@ -87,8 +86,6 @@ export default function App() {
       </div>
 
       <main className="app-shell">
-        {!selectedProject && <Navbar setIsHovering={setIsHovering} />}
-
         {selectedProject ? (
           <ProjectDetail
             project={selectedProject}
@@ -100,7 +97,7 @@ export default function App() {
         ) : (
           <>
             <Hero setIsHovering={setIsHovering} />
-            <About setIsHovering={setIsHovering} />
+            <About setIsHovering={setIsHovering} onSelectProject={handleSelectProject} />
             <Skills setIsHovering={setIsHovering} />
             <Projects setIsHovering={setIsHovering} onSelectProject={handleSelectProject} />
             <Certifications setIsHovering={setIsHovering} />
