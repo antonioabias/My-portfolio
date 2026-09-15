@@ -1,7 +1,7 @@
 import { liquidMetalFragmentShader, ShaderMount } from "@paper-design/shaders";
 import { useEffect, useRef, useState } from "react";
 
-export default function LiquidMetalButton({ href = "#about", label = "Meet Me", onMouseEnter, onMouseLeave }) {
+export default function LiquidMetalButton({ href = "#about", label = "About Me", onMouseEnter, onMouseLeave }) {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const [ripples, setRipples] = useState([]);
@@ -28,8 +28,20 @@ export default function LiquidMetalButton({ href = "#about", label = "Meet Me", 
           0% { transform: translate(-50%, -50%) scale(0); opacity: 0.6; }
           100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
         }
+        .liquid-metal-btn-wrap {
+          width: clamp(120px, 32vw, 142px);
+          height: clamp(40px, 10vw, 46px);
+        }
+        .liquid-metal-btn-label {
+          font-size: clamp(12px, 3vw, 14px);
+        }
       `;
       document.head.appendChild(style);
+    }
+
+    if (shaderMount.current?.destroy) {
+      shaderMount.current.destroy();
+      shaderMount.current = null;
     }
 
     if (shaderRef.current) {
@@ -96,10 +108,9 @@ export default function LiquidMetalButton({ href = "#about", label = "Meet Me", 
   return (
     <div style={{ perspective: "1000px", perspectiveOrigin: "50% 50%" }}>
       <div
+        className="liquid-metal-btn-wrap"
         style={{
           position: "relative",
-          width: 142,
-          height: 46,
           transformStyle: "preserve-3d",
           transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
         }}
@@ -117,9 +128,9 @@ export default function LiquidMetalButton({ href = "#about", label = "Meet Me", 
           }}
         >
           <span
+            className="liquid-metal-btn-label"
             style={{
-              fontSize: 14,
-              color: "#666666",
+              color: "#fdfdfd",
               fontWeight: 400,
               textShadow: "0 1px 2px rgba(0, 0, 0, 0.5)",
               whiteSpace: "nowrap",
@@ -141,8 +152,8 @@ export default function LiquidMetalButton({ href = "#about", label = "Meet Me", 
         >
           <div
             style={{
-              width: 134,
-              height: 38,
+              width: "calc(100% - 8px)",
+              height: "calc(100% - 8px)",
               margin: 4,
               borderRadius: 100,
               background: "linear-gradient(180deg, #202020 0%, #000000 100%)",
@@ -164,8 +175,8 @@ export default function LiquidMetalButton({ href = "#about", label = "Meet Me", 
         >
           <div
             style={{
-              width: 142,
-              height: 46,
+              width: "100%",
+              height: "100%",
               borderRadius: 100,
               overflow: "hidden",
               boxShadow: isHovered
@@ -177,13 +188,13 @@ export default function LiquidMetalButton({ href = "#about", label = "Meet Me", 
               ref={shaderRef}
               className="liquid-metal-button-shader"
               aria-hidden="true"
-              style={{ position: "relative", width: 142, height: 46, borderRadius: 100, overflow: "hidden", filter: "contrast(1.35) brightness(1.25)" }}
+              style={{ position: "relative", width: "100%", height: "100%", borderRadius: 100, overflow: "hidden", filter: "contrast(1.35) brightness(1.25)" }}
             />
           </div>
         </div>
-
+    
         <a
-          ref={buttonRef}
+          ref={buttonRef}          
           href={href}
           onClick={handleClick}
           onMouseEnter={handleMouseEnter}

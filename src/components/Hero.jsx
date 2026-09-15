@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import ParticleTypography from "./ParticleTypography";
-import LiquidMetalButton from "./LiquidMetalButton";
+import AboutMeButton from "./AboutMeButton";
 
 const containerVariants = {
   hidden: {},
@@ -85,11 +85,11 @@ export default function Hero({ setIsHovering }) {
         }
         .hero-role-canvas {
           width: 100%;
-          height: clamp(170px, 24vw, 300px);
+          height: clamp(110px, 16vw, 200px);
         }
         .hero-name {
-          font-size: clamp(2rem, 4vw, 3.2rem);
-          margin-top: 1rem;
+          font-size: clamp(1.4rem, 2.5vw, 2rem);
+          margin-top: 0;
         }
         .hero-name-shine {
           position: relative;
@@ -107,8 +107,8 @@ export default function Hero({ setIsHovering }) {
         }
         @media (max-width: 768px) {
           .hero-content { padding: 7rem 1.25rem 3rem; }
-          .hero-role-canvas { height: clamp(120px, 30vw, 190px); }
-          .hero-name { font-size: clamp(1.7rem, 7vw, 2.5rem); }
+          .hero-role-canvas { height: clamp(90px, 20vw, 130px); }
+          .hero-name { font-size: clamp(1.1rem, 5vw, 1.6rem); }
         }
         @media (prefers-reduced-motion: reduce) {
           .hero-spin, .hero-spin-reverse, .hero-name-shine { animation: none; }
@@ -181,7 +181,7 @@ export default function Hero({ setIsHovering }) {
         <motion.div variants={containerVariants} initial="hidden" animate="visible" style={{ width: "100%" }}>
           <motion.div variants={itemVariants} style={{
             fontFamily: "var(--font-mono)", fontSize: "0.85rem",
-            color: "#ffffff", marginBottom: "1.5rem",
+            color: "#ffffff", marginTop: "1rem", marginBottom: "0.5rem",
             display: "flex", alignItems: "center", justifyContent: "center", gap: "0.4rem",
           }}>
             <span style={{ opacity: 0.6 }}>~/antonio $</span>
@@ -211,7 +211,7 @@ export default function Hero({ setIsHovering }) {
           </motion.p>
 
           <motion.div variants={itemVariants} style={{ display: "flex", justifyContent: "center", marginTop: "2.5rem" }}>
-            <LiquidMetalButton
+            <AboutMeButton
               href="#about"
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}

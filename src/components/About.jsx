@@ -103,7 +103,7 @@ const posts = [
   {
     id: "college",
     period: "2018 to 2020",
-    role: "BS Computer Science",
+    role: "Bacherlor of Science in Computer Science",
     company: "University of Nueva Caceres",
     desc: "Started the Computer Science program. This is where the real foundation got built.",
     tags: ["ComputerScience"],
