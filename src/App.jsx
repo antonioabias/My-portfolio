@@ -104,7 +104,6 @@ export default function App() {
             <Skills setIsHovering={setIsHovering} />
             <Projects setIsHovering={setIsHovering} onSelectProject={handleSelectProject} />
             <Certifications setIsHovering={setIsHovering} />
-            <Hobbies setIsHovering={setIsHovering} />
             <Contact setIsHovering={setIsHovering} />
           </>
         )}

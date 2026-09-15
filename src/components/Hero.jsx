@@ -105,8 +105,8 @@ export default function Hero({ setIsHovering }) {
         className="hero-bg-layer"
         style={{
           perspective: "1200px",
-          transform: "perspective(1200px) rotateX(15deg)",
-          transformOrigin: "center bottom",
+          transform: "perspective(1200px) rotateX(15deg) scale(0.85)",
+          transformOrigin: "center center",
         }}
       >
         <div className="hero-spin" style={{ position: "absolute", inset: 0 }}>

@@ -24,7 +24,6 @@ export default function Navbar({ setIsHovering }) {
     { label: "Skills", href: "#skills" },
     { label: "Projects", href: "#projects" },
     { label: "Certifications", href: "#certifications" },
-    { label: "Beyond", href: "#hobbies" },
     { label: "Contact", href: "#contact" },
   ];
 
