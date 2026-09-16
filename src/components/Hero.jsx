@@ -218,7 +218,9 @@ export default function Hero({ setIsHovering }) {
 
           <motion.div variants={itemVariants} style={{ display: "flex", justifyContent: "center", marginTop: "2.5rem" }}>
             <AboutMeButton
-              href="#about"
+              onClick={() => {
+                document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+              }}
               label="About Me"
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}

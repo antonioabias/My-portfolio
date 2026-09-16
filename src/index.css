@@ -28,7 +28,10 @@
   --font-serif: 'Fraunces', serif;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  background: var(--navy);
+}
 
 body {
   background: var(--navy);

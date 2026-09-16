@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
 import pic from "../assets/pic.jpg";
 import Projects from "./Projects";
 import Certifications from "./Certifications";
@@ -16,7 +17,7 @@ const highlights = [
       { name: "Warcraft III", caption: "Where it all started. The game that got me into gaming.", image: "https://i.pinimg.com/736x/81/e3/4c/81e34c6c9894c19f9748b65cc7816d3e.jpg" },
       { name: "Dota 2", caption: "Still can't uninstall. 6000+ hours and counting.", image: "https://i.pinimg.com/736x/86/c9/58/86c958db7a90145f4ff566e819a4b284.jpg" },
       { name: "PUBG Mobile", caption: "Mobile survival tactics at its best.", image: "https://i.pinimg.com/736x/35/61/cc/3561ccebadac5b4a1db3bbe731a2f8a3.jpg" },
-      { name: "Mobile Legends", caption: "Rapid MOBA action. Classic Friday nights.", image: "https://media.tenor.com/TXtYVnrto5gAAAAM/mobile-legends.gif" },
+      { name: "Mobile Legends", caption: "Rapid MOBA action. Classic Friday nights.", image: "https://www.youtube.com/shorts/DT0_bn7djOk?feature=share" },
       { name: "PUBG PC", caption: "Tactical battle royale. Way harder than mobile.", image: "https://i.pinimg.com/1200x/d4/3f/26/d43f26c0feb995992405ce05cb248309.jpg" },
       { name: "GTA Series", caption: "San Andreas to GTA V. Never gets old.", image: "https://i.pinimg.com/1200x/00/a7/bf/00a7bf0ec1548105dee8314de81a0a1e.jpg" },
       { name: "State of Decay", caption: "Zombie survival management done right.", image: "https://wallpapers.com/images/high/giant-zombie-state-of-decay-2-vwd7vpgxw5hwhxhw.webp" },
@@ -27,7 +28,7 @@ const highlights = [
     key: "sports",
     label: "Sports",
     items: [
-      { name: "Billiards", caption: "I see the angles.", image: "https://i.pinimg.com/736x/d7/2e/ca/d72eca7a5fb02773f1ab436040578360.jpg" },
+      { name: "Billiards", caption: "I see the angles.", image: "https://i.pinimg.com/736x/10/3b/76/103b76913b8ab538c82ea76d31fef1c0.jpg" },
       { name: "Badminton", caption: "Speed and reflexes. Best played with my gf.", image: "https://i.pinimg.com/736x/30/0b/83/300b83676693906ceea86a960b3425c8.jpg" },
       { name: "Basketball", caption: "Shooting only!", image: "https://i.pinimg.com/1200x/df/25/26/df2526fe4b20a4e8ae39923e8444645a.jpg" },
       { name: "Archery", caption: "Breathe, aim, release. Requires a lot of focus.", image: "https://i.pinimg.com/736x/dd/dc/b4/dddcb4f4b02a899077658d6bbba7ba79.jpg" },
@@ -168,7 +169,7 @@ function HighlightCircle({ group, onOpen, setIsHovering }) {
       onMouseLeave={() => setIsHovering(false)}
       style={{ background: "none", border: "none", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.6rem", flexShrink: 0, width: "clamp(88px, 8vw, 104px)" }}
     >
-      <div style={{ width: "clamp(78px, 7vw, 92px)", height: "clamp(78px, 7vw, 92px)", borderRadius: "50%", padding: 3, background: "conic-gradient(from 180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.15), rgba(255,255,255,0.9))" }}>
+      <div style={{ width: "clamp(78px, 7vw, 92px)", height: "clamp(78px, 7vw, 92px)", borderRadius: "50%", padding: 3, background: "linear-gradient(135deg, #1877F2, #42A5F5, #1877F2)" }}>
         <div style={{ width: "100%", height: "100%", borderRadius: "50%", padding: 3, background: "var(--paper)" }}>
           <img src={group.items[0].image} alt={group.label} style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover", display: "block" }} />
         </div>
@@ -184,6 +185,7 @@ function StoryModal({ group, onClose, setIsHovering }) {
   const [index, setIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [muted, setMuted] = useState(false);
   const rafRef = useRef(null);
   const startRef = useRef(null);
   const elapsedRef = useRef(0);
@@ -225,6 +227,7 @@ function StoryModal({ group, onClose, setIsHovering }) {
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowRight") goNext();
       if (e.key === "ArrowLeft") goPrev();
+      if (e.key === " ") setPaused((p) => !p);
     };
     window.addEventListener("keydown", onKey);
     document.body.classList.add("modal-open");
@@ -234,34 +237,79 @@ function StoryModal({ group, onClose, setIsHovering }) {
     };
   }, [onClose, goNext, goPrev]);
 
-  return (
+  const iconBtn = {
+    background: "rgba(0,0,0,0.35)", border: "none", color: "#fff",
+    width: 40, height: 40, borderRadius: "50%", cursor: "pointer",
+    display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+  };
+
+  return createPortal(
     <motion.div
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      style={{ position: "fixed", inset: 0, zIndex: 9999, background: "rgba(0,0,0,0.94)", display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem" }}
+      onClick={onClose}
+      style={{ position: "fixed", inset: 0, zIndex: 9999, background: "rgba(0,0,0,0.94)", display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}
     >
       <motion.div
         initial={{ scale: 0.92, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.92, opacity: 0 }}
         transition={{ type: "spring", stiffness: 280, damping: 26 }}
-        style={{ position: "relative", width: "min(420px, 100%)", aspectRatio: "9/16", maxHeight: "88vh", borderRadius: 16, overflow: "hidden", background: "#000" }}
+        onClick={(e) => e.stopPropagation()}
+        style={{ position: "relative", height: "88vh", aspectRatio: "9/16", maxWidth: "95vw", minHeight: "480px", borderRadius: 16, overflow: "hidden", background: "#000" }}
       >
+        {/* Progress bars */}
         <div style={{ position: "absolute", top: 10, left: 10, right: 10, display: "flex", gap: 4, zIndex: 3 }}>
           {group.items.map((_, i) => (
             <div key={i} style={{ flex: 1, height: 3, borderRadius: 2, background: "rgba(255,255,255,0.3)", overflow: "hidden" }}>
-              <div style={{ height: "100%", background: "#fff", width: i < index ? "100%" : i === index ? `${progress}%` : "0%" }} />
+              <div style={{ height: "100%", background: "#fff", width: i < index ? "100%" : i === index ? `${progress}%` : "0%", transition: paused ? "none" : undefined }} />
             </div>
           ))}
         </div>
 
-        <div style={{ position: "absolute", top: 22, left: 14, right: 14, display: "flex", alignItems: "center", justifyContent: "space-between", zIndex: 3 }}>
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.78rem", color: "#fff", letterSpacing: "0.05em" }}>{group.label}</span>
-          <button
-            onClick={onClose}
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
-            style={{ background: "rgba(255,255,255,0.15)", border: "none", color: "#fff", width: 28, height: 28, borderRadius: "50%", cursor: "pointer", fontSize: "0.9rem" }}
-          >&#x2715;</button>
+        {/* Top bar: label + controls */}
+        <div style={{ position: "absolute", top: 22, left: 14, right: 14, display: "flex", alignItems: "center", justifyContent: "space-between", zIndex: 3, gap: "0.5rem" }}>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.78rem", color: "#fff", letterSpacing: "0.05em", flex: 1 }}>{group.label}</span>
+          <div style={{ display: "flex", gap: "0.4rem", alignItems: "center" }}>
+            {/* Pause / Play */}
+            <button
+              onClick={() => setPaused((p) => !p)}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+              style={iconBtn}
+              title={paused ? "Play" : "Pause"}
+            >
+              {paused ? (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+              ) : (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>
+              )}
+            </button>
+            {/* Mute / Unmute */}
+            <button
+              onClick={() => setMuted((m) => !m)}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+              style={iconBtn}
+              title={muted ? "Unmute" : "Mute"}
+            >
+              {muted ? (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="#fff" stroke="none"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              ) : (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="#fff" stroke="none"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              )}
+            </button>
+            {/* Close */}
+            <button
+              onClick={onClose}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+              style={iconBtn}
+              title="Close"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
         </div>
 
+        {/* Image */}
         <AnimatePresence mode="wait">
           <motion.img
             key={index} src={current.image} alt={current.name}
@@ -270,15 +318,18 @@ function StoryModal({ group, onClose, setIsHovering }) {
           />
         </AnimatePresence>
 
+        {/* Caption */}
         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "3rem 1.25rem 1.5rem", background: "linear-gradient(to top, rgba(0,0,0,0.85), transparent)" }}>
           <div style={{ fontFamily: "var(--font-serif)", fontSize: "1.3rem", fontWeight: 600, color: "#fff", marginBottom: "0.3rem" }}>{current.name}</div>
           <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.82rem", color: "rgba(255,255,255,0.75)" }}>{current.caption}</div>
         </div>
 
-        <div onPointerDown={() => setPaused(true)} onPointerUp={() => setPaused(false)} onClick={goPrev} style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: "40%", zIndex: 2, cursor: "pointer" }} />
-        <div onPointerDown={() => setPaused(true)} onPointerUp={() => setPaused(false)} onClick={goNext} style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: "60%", zIndex: 2, cursor: "pointer" }} />
+        {/* Tap zones */}
+        <div onClick={goPrev} style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: "40%", zIndex: 2, cursor: "pointer" }} />
+        <div onClick={goNext} style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: "60%", zIndex: 2, cursor: "pointer" }} />
       </motion.div>
-    </motion.div>
+    </motion.div>,
+    document.body
   );
 }
 
@@ -334,8 +385,16 @@ function HeartButton({ count, liked, onToggle, setIsHovering }) {
   );
 }
 
+function hashSeed(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash * 31 + str.charCodeAt(i)) % 900000;
+  }
+  return 100000 + hash;
+}
+
 function TimelineEntry({ post, setIsHovering }) {
-  const seed = 100000 + ((post.id.length * 91234) % 900000);
+  const seed = hashSeed(post.id);
   const { count, liked, toggleLike } = useLikeCount(seed);
 
   return (
@@ -376,14 +435,18 @@ export default function About({ setIsHovering, onSelectProject }) {
   const ref = useRef(null);
 
   return (
-    <section id="about" ref={ref} style={{
-      minHeight: "100vh",
-      padding: "7.5rem 0 4rem",
-      position: "relative",
-      isolation: "isolate",
-      background: "var(--paper)",
-      color: "var(--ink)",
-    }}>
+    <section
+      id="about"
+      ref={ref}
+      style={{
+        minHeight: "100vh",
+        padding: "7.5rem 0 4rem",
+        position: "relative",
+        isolation: "isolate",
+        background: "var(--paper)",
+        color: "var(--ink)",
+      }}
+    >
       <style>{`
         .about-wrapper { max-width: 1300px; margin: 0 auto; width: min(94%, 1300px); }
         .ig-header {
@@ -431,6 +494,11 @@ export default function About({ setIsHovering, onSelectProject }) {
           font-weight: 700; padding: 0.75rem 1.1rem; border-radius: 8px; cursor: pointer;
           border: 1px solid var(--line); background: var(--paper-elevated); color: var(--ink);
           transition: background 0.2s;
+        }
+        .ig-btn:hover {
+          background: rgba(255,255,255,0.12);
+          border-color: rgba(255,255,255,0.4);
+          transform: translateY(-2px);
         }
         .highlights-row {
           display: flex;
@@ -493,32 +561,85 @@ export default function About({ setIsHovering, onSelectProject }) {
       `}</style>
 
       <div className="about-wrapper">
-
         <motion.div
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="ig-header"
         >
           <div className="ig-avatar">
-            <img src={pic} alt="Antonio Abias Jr." style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover", display: "block" }} />
+            <img
+              src={pic}
+              alt="Antonio Abias Jr."
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "50%",
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", width: "100%", minWidth: 0 }}>
-            <div className="ig-fullname" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
-            Antonio V. Abias Jr.
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-label="Verified" style={{ flexShrink: 0 }}>
-              <path d="M12 2l2.4 1.4 2.75-.3 1.4 2.4 2.4 1.4-.3 2.75 1.4 2.4-1.4 2.4.3 2.75-2.4 1.4-1.4 2.4-2.75-.3L12 22l-2.4-1.4-2.75.3-1.4-2.4-2.4-1.4.3-2.75L2 12l1.4-2.4-.3-2.75 2.4-1.4 1.4-2.4 2.75.3z" fill="#3B82F6" />
-              <path d="M8.5 12.5l2.2 2.2 4.3-4.9" stroke="var(--paper)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-            </svg>
-          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-start",
+              width: "100%",
+              minWidth: 0,
+            }}
+          >
+            <div
+              className="ig-fullname"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
+              }}
+            >
+              Antonio V. Abias Jr.
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                aria-label="Verified"
+                style={{ flexShrink: 0 }}
+              >
+                <path
+                  d="M12 2l2.4 1.4 2.75-.3 1.4 2.4 2.4 1.4-.3 2.75 1.4 2.4-1.4 2.4.3 2.75-2.4 1.4-1.4 2.4-2.75-.3L12 22l-2.4-1.4-2.75.3-1.4-2.4-2.4-1.4.3-2.75L2 12l1.4-2.4-.3-2.75 2.4-1.4 1.4-2.4 2.75.3z"
+                  fill="#3B82F6"
+                />
+                <path
+                  d="M8.5 12.5l2.2 2.2 4.3-4.9"
+                  stroke="var(--paper)"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
+                />
+              </svg>
+            </div>
             <div className="ig-handle">@antonioabias_</div>
 
             <div className="ig-stats-line">
-              <span><strong>10</strong> Years Coding</span>
-              <span><strong>2</strong> Years Professional</span>
-              <span><strong>{CERT_COUNT}</strong> Certifications</span>
+              <span>
+                <strong>10</strong> Years Coding
+              </span>
+              <span>
+                <strong>2</strong> Years Professional
+              </span>
+              <span>
+                <strong>{CERT_COUNT}</strong> Certifications
+              </span>
             </div>
 
-            <p className="ig-bio">I'm a web developer with a Computer Science background. I code with AI tools like Claude and Cursor to move faster and ship cleaner work. I love turning rough ideas into real things people can use.
+            <p className="ig-bio">
+              I'm a web developer with a Computer Science background. I code
+              with AI tools like Claude and Cursor to move faster and ship
+              cleaner work. I love turning rough ideas into real things people
+              can use.
             </p>
 
             <div className="ig-buttons-row">
@@ -533,7 +654,8 @@ export default function About({ setIsHovering, onSelectProject }) {
               </a>
               <a
                 href="/resume.pdf"
-                target="_blank" rel="noreferrer"
+                target="_blank"
+                rel="noreferrer"
                 className="ig-btn"
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
@@ -546,11 +668,19 @@ export default function About({ setIsHovering, onSelectProject }) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
           className="highlights-row"
         >
           {highlights.map((group) => (
-            <HighlightCircle key={group.key} group={group} onOpen={setOpenGroup} setIsHovering={setIsHovering} />
+            <HighlightCircle
+              key={group.key}
+              group={group}
+              onOpen={setOpenGroup}
+              setIsHovering={setIsHovering}
+            />
           ))}
         </motion.div>
 
@@ -566,7 +696,9 @@ export default function About({ setIsHovering, onSelectProject }) {
                 onMouseLeave={() => setIsHovering(false)}
                 style={{
                   color: active ? "var(--ink)" : "var(--ink-faint)",
-                  borderTop: active ? "2px solid var(--ink)" : "2px solid transparent",
+                  borderTop: active
+                    ? "2px solid var(--ink)"
+                    : "2px solid transparent",
                   marginTop: -1,
                   cursor: "pointer",
                 }}
@@ -579,16 +711,34 @@ export default function About({ setIsHovering, onSelectProject }) {
         </div>
 
         <div style={{ paddingTop: "1.5rem" }}>
-          {activeTab === "timeline" && posts.map((post) => <TimelineEntry key={post.id} post={post} setIsHovering={setIsHovering} />)}  
-          {activeTab === "projects" && <Projects setIsHovering={setIsHovering} onSelectProject={onSelectProject} />}
+          {activeTab === "timeline" &&
+            posts.map((post) => (
+              <TimelineEntry
+                key={post.id}
+                post={post}
+                setIsHovering={setIsHovering}
+              />
+            ))}
+          {activeTab === "projects" && (
+            <Projects
+              setIsHovering={setIsHovering}
+              onSelectProject={onSelectProject}
+            />
+          )}
           {activeTab === "skills" && <Skills />}
-          {activeTab === "certifications" && <Certifications setIsHovering={setIsHovering} />}
+          {activeTab === "certifications" && (
+            <Certifications setIsHovering={setIsHovering} />
+          )}
         </div>
       </div>
 
       <AnimatePresence>
         {openGroup && (
-          <StoryModal group={openGroup} onClose={() => setOpenGroup(null)} setIsHovering={setIsHovering} />
+          <StoryModal
+            group={openGroup}
+            onClose={() => setOpenGroup(null)}
+            setIsHovering={setIsHovering}
+          />
         )}
       </AnimatePresence>
     </section>

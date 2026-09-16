@@ -130,7 +130,7 @@ export default function Certifications({ setIsHovering }) {
               initial={{ scale: 0.88, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.88, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
               onClick={(e) => e.stopPropagation()}
-              style={{ position: "relative", background: "var(--slate)", border: "1px solid rgba(0,212,255,0.2)", borderRadius: 16, padding: "1.5rem", maxWidth: 560, width: "100%", boxShadow: "0 24px 80px rgba(0,0,0,0.6)" }}
+              style={{ position: "relative", background: "var(--slate)", border: "1px solid rgba(255, 255, 255, 0.2)", borderRadius: 16, padding: "1.5rem", maxWidth: 560, width: "100%", boxShadow: "0 24px 80px rgba(0,0,0,0.6)" }}
             >
               <button
                 onClick={() => setSelected(null)}

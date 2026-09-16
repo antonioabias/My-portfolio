@@ -14,15 +14,23 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   const scrollRef = useRef(0);
 
-  const currentIndex = projects.findIndex(p => p.id === selectedProject?.id);
+  const currentIndex = projects.findIndex((p) => p.id === selectedProject?.id);
 
-  const handleNext = currentIndex < projects.length - 1
-    ? () => { setSelectedProject(projects[currentIndex + 1]); window.scrollTo({ top: 0, behavior: "instant" }); }
-    : null;
+  const handleNext =
+    currentIndex < projects.length - 1
+      ? () => {
+          setSelectedProject(projects[currentIndex + 1]);
+          window.scrollTo({ top: 0, behavior: "instant" });
+        }
+      : null;
 
-  const handlePrev = currentIndex > 0
-    ? () => { setSelectedProject(projects[currentIndex - 1]); window.scrollTo({ top: 0, behavior: "instant" }); }
-    : null;
+  const handlePrev =
+    currentIndex > 0
+      ? () => {
+          setSelectedProject(projects[currentIndex - 1]);
+          window.scrollTo({ top: 0, behavior: "instant" });
+        }
+      : null;
 
   const handleSelectProject = (project) => {
     scrollRef.current = window.scrollY;
@@ -72,11 +80,40 @@ export default function App() {
         }}
       >
         <div className="react-cursor-spin">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" role="presentation">
+          <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            role="presentation"
+          >
             <ellipse cx="12" cy="12" rx="4" ry="1.7" fill="var(--cyan)" />
-            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="var(--cyan)" strokeWidth="1.4" />
-            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="var(--cyan)" strokeWidth="1.4" transform="rotate(60 12 12)" />
-            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="var(--cyan)" strokeWidth="1.4" transform="rotate(120 12 12)" />
+            <ellipse
+              cx="12"
+              cy="12"
+              rx="10"
+              ry="4"
+              stroke="var(--cyan)"
+              strokeWidth="1.4"
+            />
+            <ellipse
+              cx="12"
+              cy="12"
+              rx="10"
+              ry="4"
+              stroke="var(--cyan)"
+              strokeWidth="1.4"
+              transform="rotate(60 12 12)"
+            />
+            <ellipse
+              cx="12"
+              cy="12"
+              rx="10"
+              ry="4"
+              stroke="var(--cyan)"
+              strokeWidth="1.4"
+              transform="rotate(120 12 12)"
+            />
           </svg>
         </div>
       </div>
@@ -93,7 +130,10 @@ export default function App() {
         ) : (
           <>
             <Hero setIsHovering={setIsHovering} />
-            <About setIsHovering={setIsHovering} onSelectProject={handleSelectProject} />
+            <About
+              setIsHovering={setIsHovering}
+              onSelectProject={handleSelectProject}
+            />
             <Contact setIsHovering={setIsHovering} />
           </>
         )}
@@ -103,4 +143,3 @@ export default function App() {
     </>
   );
 }
-

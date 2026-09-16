@@ -1,4 +1,3 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useEffect } from "react";
 
 const TOTAL = 10;
@@ -18,7 +17,7 @@ const SKILL_ICONS = new Set([
 ]);
 
 const LOGO_URLS = {
-  framer: "https://thesvg.org/icons/framer/default.svg", webflow: "https://thesvg.org/icons/webflow/default.svg",
+  shopify: "https://thesvg.org/icons/shopify/default.svg", webflow: "https://thesvg.org/icons/webflow/default.svg",
   wordpress: "https://thesvg.org/icons/wordpress/default.svg", wix: "https://thesvg.org/icons/wix/default.svg",
   canva: "https://thesvg.org/icons/canva/default.svg", claude: "https://thesvg.org/icons/claude/default.svg",
   openai: "https://thesvg.org/icons/openai/default.svg", cursor: "https://thesvg.org/icons/cursor/default.svg",
@@ -44,15 +43,11 @@ const IconBadge = ({ icon }) => {
 const PowerBars = ({ level }) => (
   <div style={{ display: "flex", gap: 3, flex: 1, minWidth: 60 }}>
     {Array.from({ length: TOTAL }).map((_, i) => (
-      <motion.div
+      <div
         key={i}
-        initial={{ scaleY: 0, opacity: 0 }}
-        whileInView={{ scaleY: 1, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: i < level ? i * 0.06 : 0, duration: 0.25 }}
         style={{
-          flex: 1, height: 8, borderRadius: 2, transformOrigin: "bottom",
-          background: i < level ? "#f0fdf4" : "rgba(255,255,255,0.06)",
+          flex: 1, height: 8, borderRadius: 2,
+          background: i < level ? "rgba(253, 253, 253, 0.86)" : "rgba(255,255,255,0.06)",
         }}
       />
     ))}
@@ -84,7 +79,7 @@ const StatBar = ({ name, icon, level, isMobile }) => {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.45rem 0", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
       <IconBadge icon={icon} />
-      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(255,255,255,0.8)", width: 90, flexShrink: 0, letterSpacing: "0.02em" }}>
+      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(255, 255, 255, 0.88)", width: 90, flexShrink: 0, letterSpacing: "0.02em" }}>
         {name}
       </span>
       <PowerBars level={level} />
@@ -95,30 +90,11 @@ const StatBar = ({ name, icon, level, isMobile }) => {
   );
 };
 
-function TiltCard({ children }) {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { damping: 20, stiffness: 150 });
-  const springY = useSpring(mouseY, { damping: 20, stiffness: 150 });
-  const rotateX = useTransform(springY, [-0.5, 0.5], ["6deg", "-6deg"]);
-  const rotateY = useTransform(springX, [-0.5, 0.5], ["-6deg", "6deg"]);
-
-  const handleMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
-    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
-  };
-  const handleLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
-
+function CategoryCard({ children }) {
   return (
-    <motion.div
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
+    <div
+      className="skill-category-card"
       style={{
-        rotateX, rotateY, transformStyle: "preserve-3d",
         marginBottom: "1.25rem", borderRadius: 16, padding: "1.25rem 1.5rem",
         background: "linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015))",
         border: "1px solid rgba(255,255,255,0.1)",
@@ -126,31 +102,30 @@ function TiltCard({ children }) {
       }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
 const CategoryBlock = ({ category, items, isMobile }) => (
-  <TiltCard>
+  <CategoryCard>
     <div style={{ fontFamily: "var(--font-display)", fontSize: "0.85rem", color: "#ffffff", letterSpacing: "0.25em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.85rem", paddingBottom: "0.5rem", borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
       {category}
     </div>
     {items.map((item) => (
       <StatBar key={item.name} {...item} isMobile={isMobile} />
     ))}
-  </TiltCard>
+  </CategoryCard>
 );
 
 const leftGroups = [
   {
     category: "No-Code and Prototyping",
     items: [
-      { name: "Framer", icon: "framer", level: 8 },
+      { name: "Shopify", icon: "shopify", level: 8 },
       { name: "Figma", icon: "figma", level: 7 },
       { name: "Webflow", icon: "webflow", level: 5 },
       { name: "WordPress", icon: "wordpress", level: 5 },
       { name: "Canva", icon: "canva", level: 10 },
-      { name: "Wix", icon: "wix", level: 5 },
     ],
   },
   {
@@ -251,6 +226,20 @@ export default function Skills() {
         @media (max-width: 768px) {
           .skills-grid {
             grid-template-columns: 1fr;
+          }
+        }
+        .skill-category-card {
+          transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .skill-category-card:hover {
+          background: linear-gradient(160deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
+          border-color: rgba(255,255,255,0.35);
+          transform: translateY(-4px) scale(1.02);
+          box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 26px rgba(255,255,255,0.12);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .skill-category-card {
+            transition: none;
           }
         }
       `}</style>
