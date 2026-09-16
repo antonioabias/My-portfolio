@@ -16,7 +16,7 @@ const highlights = [
       { name: "Warcraft III", caption: "Where it all started. The game that got me into gaming.", image: "https://i.pinimg.com/736x/81/e3/4c/81e34c6c9894c19f9748b65cc7816d3e.jpg" },
       { name: "Dota 2", caption: "Still can't uninstall. 6000+ hours and counting.", image: "https://i.pinimg.com/736x/86/c9/58/86c958db7a90145f4ff566e819a4b284.jpg" },
       { name: "PUBG Mobile", caption: "Mobile survival tactics at its best.", image: "https://i.pinimg.com/736x/35/61/cc/3561ccebadac5b4a1db3bbe731a2f8a3.jpg" },
-      { name: "Mobile Legends", caption: "Rapid MOBA action. Classic Friday nights.", image: "https://i.pinimg.com/736x/29/1c/42/291c42e91ca95d339c832e05b74b8e3f.jpg" },
+      { name: "Mobile Legends", caption: "Rapid MOBA action. Classic Friday nights.", image: "https://media.tenor.com/TXtYVnrto5gAAAAM/mobile-legends.gif" },
       { name: "PUBG PC", caption: "Tactical battle royale. Way harder than mobile.", image: "https://i.pinimg.com/1200x/d4/3f/26/d43f26c0feb995992405ce05cb248309.jpg" },
       { name: "GTA Series", caption: "San Andreas to GTA V. Never gets old.", image: "https://i.pinimg.com/1200x/00/a7/bf/00a7bf0ec1548105dee8314de81a0a1e.jpg" },
       { name: "State of Decay", caption: "Zombie survival management done right.", image: "https://wallpapers.com/images/high/giant-zombie-state-of-decay-2-vwd7vpgxw5hwhxhw.webp" },
@@ -391,15 +391,18 @@ export default function About({ setIsHovering, onSelectProject }) {
           gap: 2.5rem;
           align-items: center;
           width: 100%;
-          max-width: min(640px, 92vw);
+          max-width: min(860px, 94vw);
           margin: 0 auto 3rem;
-        @media (max-width: 640px) {
-        .ig-header {
-          flex-direction: column;
-          text-align: center;
-          gap: 1.25rem;
         }
-      }
+        @media (max-width: 640px) {
+          .ig-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 1.25rem;
+          }
+        }
+        .ig-header > div:last-child {
+          min-width: 0;
         }
         .ig-avatar {
           aspect-ratio: 1/1;
@@ -473,13 +476,19 @@ export default function About({ setIsHovering, onSelectProject }) {
         .tab-btn:hover .tab-tooltip {
           opacity: 1;
         }
-        .ig-fullname { font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 1.7rem); font-weight: 600; color: #ffffff; }
+        .ig-fullname {
+          font-family: var(--font-display);
+          font-size: clamp(1.2rem, 2vw, 1.7rem);
+          font-weight: 600;
+          color: #ffffff;
+        }
         .ig-handle { font-family: var(--font-body); font-size: 0.95rem; color: var(--ink-faint); margin-top: 0.05rem; }
         .ig-stats-line { display: flex; gap: 1.5rem; font-family: var(--font-body); font-size: 0.85rem; color: var(--ink-soft); margin: 1.1rem 0; }
         .ig-stats-line strong { color: var(--ink); font-weight: 700; }
         .ig-bio { font-size: clamp(0.95rem, 1.1vw, 1.05rem); line-height: 1.75; color: var(--ink-soft); margin: 0; max-width: 700px; }
         @media (max-width: 640px) {
           .ig-stats-line { justify-content: center; gap: 1.2rem; }
+          .ig-fullname { justify-content: center; width: 100%; }
         }
       `}</style>
 
@@ -493,11 +502,11 @@ export default function About({ setIsHovering, onSelectProject }) {
             <img src={pic} alt="Antonio Abias Jr." style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover", display: "block" }} />
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", width: "100%", minWidth: 0 }}>
             <div className="ig-fullname" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}>
             Antonio V. Abias Jr.
             <svg width="18" height="18" viewBox="0 0 24 24" aria-label="Verified" style={{ flexShrink: 0 }}>
-              <path d="M12 2l2.4 1.4 2.75-.3 1.4 2.4 2.4 1.4-.3 2.75 1.4 2.4-1.4 2.4.3 2.75-2.4 1.4-1.4 2.4-2.75-.3L12 22l-2.4-1.4-2.75.3-1.4-2.4-2.4-1.4.3-2.75L2 12l1.4-2.4-.3-2.75 2.4-1.4 1.4-2.4 2.75.3z" fill="var(--cyan)" />
+              <path d="M12 2l2.4 1.4 2.75-.3 1.4 2.4 2.4 1.4-.3 2.75 1.4 2.4-1.4 2.4.3 2.75-2.4 1.4-1.4 2.4-2.75-.3L12 22l-2.4-1.4-2.75.3-1.4-2.4-2.4-1.4.3-2.75L2 12l1.4-2.4-.3-2.75 2.4-1.4 1.4-2.4 2.75.3z" fill="#3B82F6" />
               <path d="M8.5 12.5l2.2 2.2 4.3-4.9" stroke="var(--paper)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
             </svg>
           </div>
@@ -509,7 +518,7 @@ export default function About({ setIsHovering, onSelectProject }) {
               <span><strong>{CERT_COUNT}</strong> Certifications</span>
             </div>
 
-            <p className="ig-bio">I don't just build software. I design it. Computer Science grad with a Visual Arts background.
+            <p className="ig-bio">I'm a web developer with a Computer Science background. I code with AI tools like Claude and Cursor to move faster and ship cleaner work. I love turning rough ideas into real things people can use.
             </p>
 
             <div className="ig-buttons-row">

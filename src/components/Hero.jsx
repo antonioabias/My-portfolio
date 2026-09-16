@@ -87,6 +87,9 @@ export default function Hero({ setIsHovering }) {
           width: 100%;
           height: clamp(110px, 16vw, 200px);
         }
+        .hero-layer-one { width: 2000px !important; height: 2000px !important; }
+        .hero-layer-two { width: 1000px !important; height: 1000px !important; }
+        .hero-layer-three { width: 800px !important; height: 800px !important; }
         .hero-name {
           font-size: clamp(1.4rem, 2.5vw, 2rem);
           margin-top: 0;
@@ -108,6 +111,9 @@ export default function Hero({ setIsHovering }) {
         @media (max-width: 768px) {
           .hero-content { padding: 7rem 1.25rem 3rem; }
           .hero-role-canvas { height: clamp(90px, 20vw, 130px); }
+          .hero-layer-one { width: 900px !important; height: 900px !important; }
+          .hero-layer-two { width: 550px !important; height: 550px !important; }
+          .hero-layer-three { width: 420px !important; height: 420px !important; }
           .hero-name { font-size: clamp(1.1rem, 5vw, 1.6rem); }
         }
         @media (prefers-reduced-motion: reduce) {
@@ -124,7 +130,7 @@ export default function Hero({ setIsHovering }) {
         }}
       >
         <div className="hero-spin" style={{ position: "absolute", inset: 0 }}>
-          <div style={{
+          <div className="hero-layer-one" style={{
             position: "absolute", top: "50%", left: "50%",
             width: 2000, height: 2000,
             transform: "translate(-50%, -50%) rotate(279.05deg)",
@@ -139,7 +145,7 @@ export default function Hero({ setIsHovering }) {
         </div>
 
         <div className="hero-spin-reverse" style={{ position: "absolute", inset: 0 }}>
-          <div style={{
+          <div className="hero-layer-two" style={{
             position: "absolute", top: "50%", left: "50%",
             width: 1000, height: 1000,
             transform: "translate(-50%, -50%) rotate(304.42deg)",
@@ -154,7 +160,7 @@ export default function Hero({ setIsHovering }) {
         </div>
 
         <div className="hero-spin" style={{ position: "absolute", inset: 0 }}>
-          <div style={{
+          <div className="hero-layer-three" style={{
             position: "absolute", top: "50%", left: "50%",
             width: 800, height: 800,
             transform: "translate(-50%, -50%) rotate(48.33deg)",
