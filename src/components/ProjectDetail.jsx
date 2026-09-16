@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import AboutMeButton from "./AboutMeButton";
 
 const contactLinks = [
   { icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/1280px-Gmail_icon_%282020%29.svg.png", label: "antonioabias23.aa@gmail.com", href: "https://mail.google.com/mail/?view=cm&to=antonioabias23.aa@gmail.com" },
@@ -19,31 +20,36 @@ export default function ProjectDetail({ project, onBack, onNext, onPrev, setIsHo
     >
       <style>{`
         .detail-wrapper {
-          max-width: 1200px;
+          max-width: 1600px;
           margin: 0 auto;
-          width: 96%;
+          width: 94%;
           padding-bottom: 4rem;
         }
         .breadcrumb {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
-          font-family: var(--font-mono);
-          font-size: 0.75rem;
+          gap: 0.6rem;
+          font-family: var(--font-body);
+          font-size: 1.05rem;
           color: var(--muted);
-          margin-bottom: 2.5rem;
+          margin-bottom: 3rem;
         }
         .breadcrumb-link {
-          color: var(--cyan);
+          color: var(--muted);
           background: none;
           border: none;
-          font-family: var(--font-mono);
-          font-size: 0.75rem;
+          font-family: var(--font-body);
+          font-size: 1.05rem;
           cursor: none;
           padding: 0;
-          transition: opacity 0.2s;
+          transition: color 0.2s;
         }
-        .breadcrumb-link:hover { opacity: 0.7; }
+        .breadcrumb-link:hover { color: var(--white); }
+        .breadcrumb-current {
+          font-family: var(--font-body);
+          font-weight: 700;
+          color: var(--white);
+        }
         .detail-desc-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -94,7 +100,28 @@ export default function ProjectDetail({ project, onBack, onNext, onPrev, setIsHo
           transition: all 0.2s;
         }
         .contact-link-row:hover { padding-left: 6px; }
+        .together-shine {
+          position: relative;
+          display: inline-block;
+          background: linear-gradient(115deg, rgba(200,200,200,0.5) 25%, #F5F5F5 45%, rgba(200,200,200,0.5) 65%);
+          background-size: 220% 100%;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          animation: together-shine-sweep 3s ease-in-out infinite;
+        }
+        @keyframes together-shine-sweep {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .together-shine { animation: none; }
+        }
         @media (max-width: 768px) {
+          .breadcrumb {
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+          }
           .detail-desc-grid {
             grid-template-columns: 1fr;
           }
@@ -119,7 +146,7 @@ export default function ProjectDetail({ project, onBack, onNext, onPrev, setIsHo
             Projects
           </button>
           <span style={{ opacity: 0.4 }}>/</span>
-          <span>{project.title}</span>
+          <span className="breadcrumb-current">{project.title}</span>
         </div>    
 
         {/* Accent line */}
@@ -213,38 +240,20 @@ export default function ProjectDetail({ project, onBack, onNext, onPrev, setIsHo
             <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
               {project.tags.map((tag) => (
                 <span key={tag} style={{
-                  background: "rgba(108,59,255,0.12)",
-                  border: "1px solid rgba(108,59,255,0.25)",
+                  background: "rgba(255,255,255,0.06)",
+                  border: "1px solid rgba(255,255,255,0.18)",
                   borderRadius: 100, padding: "0.2rem 0.65rem",
-                  fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "#a78bfa"
+                  fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "var(--white)"
                 }}>{tag}</span>
               ))}
             </div>
             {project.link && (
-              <motion.a
+              <AboutMeButton
                 href={project.link}
-                target="_blank"
-                rel="noreferrer"
+                label="Visit Site"
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: "0.5rem",
-                  padding: "0.65rem 1.3rem", borderRadius: 8,
-                  fontFamily: "var(--font-mono)", fontSize: "0.78rem",
-                  fontWeight: 700, letterSpacing: "0.05em",
-                  background: "var(--cyan)", color: "var(--navy)",
-                  border: "1px solid var(--cyan)", cursor: "none"
-                }}
-              >
-                Visit Site
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                  <polyline points="15 3 21 3 21 9" />
-                  <line x1="10" y1="14" x2="21" y2="3" />
-                </svg>
-              </motion.a>
+              />
             )}
           </div>
         </motion.div>
@@ -257,70 +266,42 @@ export default function ProjectDetail({ project, onBack, onNext, onPrev, setIsHo
           gap: "1rem",
           marginBottom: "5rem",
         }}>
-          <motion.button
+          <AboutMeButton
+            shape="circle"
+            size={44}
             onClick={onPrev}
+            disabled={!onPrev}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
-            whileHover={onPrev ? { x: -4 } : {}}
-            disabled={!onPrev}
-            style={{
-              display: "flex", alignItems: "center", justifyContent: "center",
-              width: 44, height: 44, borderRadius: "50%",
-              background: "none",
-              border: "1px solid rgba(255,255,255,0.12)",
-              color: onPrev ? "var(--muted)" : "rgba(255,255,255,0.15)",
-              opacity: onPrev ? 1 : 0.3,
-              cursor: onPrev ? "none" : "default",
-              flexShrink: 0,
-            }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="19" y1="12" x2="5" y2="12" />
-              <polyline points="12 19 5 12 12 5" />
-            </svg>
-          </motion.button>
+            icon={
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+              </svg>
+            }
+          />
 
-          <motion.button
+          <AboutMeButton
+            label="All Projects"
             onClick={onBack}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
-            whileHover={{ y: -2 }}
-            style={{
-              background: "none",
-              border: "1px solid rgba(0,212,255,0.25)",
-              borderRadius: 8,
-              padding: "0.6rem 1.5rem",
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.75rem",
-              color: "var(--cyan)",
-              cursor: "none",
-            }}
-          >
-            All Projects
-          </motion.button>
+          />
 
-          <motion.button
+          <AboutMeButton
+            shape="circle"
+            size={44}
             onClick={onNext}
+            disabled={!onNext}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
-            whileHover={onNext ? { x: 4 } : {}}
-            disabled={!onNext}
-            style={{
-              display: "flex", alignItems: "center", justifyContent: "center",
-              width: 44, height: 44, borderRadius: "50%",
-              background: "none",
-              border: "1px solid rgba(255,255,255,0.12)",
-              color: onNext ? "var(--muted)" : "rgba(255,255,255,0.15)",
-              opacity: onNext ? 1 : 0.3,
-              cursor: onNext ? "none" : "default",
-              flexShrink: 0,
-            }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
-          </motion.button>
+            icon={
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            }
+          />
         </div>
 
       </div>
@@ -343,7 +324,7 @@ export default function ProjectDetail({ project, onBack, onNext, onPrev, setIsHo
               marginBottom: "1rem"
             }}>
               Let's build something<br />
-              <em style={{ fontStyle: "italic", color: "var(--cyan)" }}>together.</em>
+              <em className="together-shine" style={{ fontStyle: "italic" }}>together.</em>
             </h2>
             <p style={{ fontSize: "1rem", color: "var(--muted)", maxWidth: 360 }}>
               Open to freelance, full-time, or collaboration. Drop me a message anytime.

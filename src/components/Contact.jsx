@@ -18,10 +18,31 @@ export default function Contact() {
   }, []);
 
   return (
-    <section id="contact" className="contact-section">
+    <section id="contact" className="contact-section">                                              
       <style>{`
+       .together-shine {
+        position: relative;
+        display: inline-block;
+        background: linear-gradient(115deg, rgba(200,200,200,0.5) 25%, #F5F5F5 45%, rgba(200,200,200,0.5) 65%);
+        background-size: 220% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: together-shine-sweep 3s ease-in-out infinite;
+      }
+      @keyframes together-shine-sweep {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .together-shine { animation: none; }
+      }
         .contact-section {
-          padding: 8rem 4rem;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 6rem 4rem;
           border-bottom: 1px solid #2f3336;
           background: #000000;
         }
@@ -56,18 +77,6 @@ export default function Contact() {
         }
       `}</style>
 
-      <motion.p
-        initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        style={{
-          fontFamily: "var(--font-mono)", fontSize: "0.75rem",
-          color: "var(--cyan)", letterSpacing: "0.2em",
-          textTransform: "uppercase", marginBottom: "1.5rem",
-          maxWidth: 1200, margin: "0 auto 1.5rem",
-        }}
-      >
-        Contact
-      </motion.p>
 
       <div className="contact-grid">
         <motion.div
@@ -84,7 +93,7 @@ export default function Contact() {
             }}
           >
             Let's build something<br />
-            <em style={{ fontStyle: "italic", color: "var(--cyan)" }}>together.</em>
+            <em className="together-shine" style={{ fontStyle: "italic" }}>together.</em>
           </h2>
           <p style={{ fontSize: "1rem", maxWidth: 400 }}>
             Open to freelance, full-time, or collaboration. Drop me a message anytime.

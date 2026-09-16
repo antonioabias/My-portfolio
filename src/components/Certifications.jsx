@@ -48,14 +48,14 @@ const CertRow = ({ cert, i, setIsHovering, onClick }) => (
     <img src={ISSUER_LOGOS[cert.issuer]} alt={cert.issuer} loading="lazy"
       style={{ width: 48, height: 48, objectFit: "contain", flexShrink: 0 }} />
     <div style={{ flex: 1, minWidth: 0 }}>
-      <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", color: "var(--cyan)", opacity: 0.75, textTransform: "uppercase", letterSpacing: "0.1em", display: "block", marginBottom: "0.3rem" }}>
+      <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", color: "var(--white)", opacity: 0.75, textTransform: "uppercase", letterSpacing: "0.1em", display: "block", marginBottom: "0.3rem" }}>
         {cert.issuer}
       </span>
       <span style={{ fontFamily: "var(--font-display)", fontSize: "1.05rem", fontWeight: 700, color: "var(--white)", display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", letterSpacing: "-0.01em" }}>
         {cert.title}
       </span>
     </div>
-    <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--cyan)", opacity: 0.5, flexShrink: 0 }}>View →</span>
+    <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--white)", opacity: 0.5, flexShrink: 0 }}>View →</span>
   </motion.button>
 );
 
@@ -137,7 +137,7 @@ export default function Certifications({ setIsHovering }) {
                 style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "rgba(255,255,255,0.07)", border: "none", color: "var(--white)", width: 32, height: 32, borderRadius: "50%", fontSize: "1rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
               >&#x2715;</button>
 
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", color: "var(--cyan)", textTransform: "uppercase", letterSpacing: "0.12em", display: "block", marginBottom: "0.4rem" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", color: "var(--white)", textTransform: "uppercase", letterSpacing: "0.12em", display: "block", marginBottom: "0.4rem" }}>
                 {selected.issuer}
               </span>
               <div style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 700, marginBottom: "1.25rem", color: "var(--white)" }}>
@@ -147,20 +147,20 @@ export default function Certifications({ setIsHovering }) {
                 <img src={selected.image} alt={selected.alt || selected.title} style={{ width: "100%", height: "auto", display: "block", borderRadius: 10 }} />
               </div>
               {selected.href && (
-                <a
-                  href={selected.href} target="_blank" rel="noopener noreferrer"
-                  style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.6rem", width: "100%", marginTop: "1.5rem", padding: "0.85rem 1.5rem", background: "rgba(0,212,255,0.1)", border: "1px solid var(--cyan)", borderRadius: 10, color: "var(--cyan)", fontFamily: "var(--font-mono)", fontSize: "0.85rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", textDecoration: "none", transition: "all 0.3s ease" }}
-                  onMouseEnter={(e) => { setIsHovering(true); e.currentTarget.style.background = "var(--cyan)"; e.currentTarget.style.color = "var(--navy)"; e.currentTarget.style.boxShadow = "0 0 15px rgba(0,212,255,0.4)"; }}
-                  onMouseLeave={(e) => { setIsHovering(false); e.currentTarget.style.background = "rgba(0,212,255,0.1)"; e.currentTarget.style.color = "var(--cyan)"; e.currentTarget.style.boxShadow = "none"; }}
-                >
-                  Verify Credentials
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
-                </a>
-              )}
+              <a        
+                href={selected.href} target="_blank" rel="noopener noreferrer"
+                style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.6rem", width: "100%", marginTop: "1.5rem", padding: "0.85rem 1.5rem", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 10, color: "var(--white)", fontFamily: "var(--font-mono)", fontSize: "0.85rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", textDecoration: "none", transition: "all 0.3s ease" }}
+                onMouseEnter={(e) => { setIsHovering(true); e.currentTarget.style.background = "#ffffff"; e.currentTarget.style.color = "var(--navy)"; e.currentTarget.style.boxShadow = "0 0 15px rgba(255,255,255,0.3)"; }}
+                onMouseLeave={(e) => { setIsHovering(false); e.currentTarget.style.background = "rgba(255,255,255,0.08)"; e.currentTarget.style.color = "var(--white)"; e.currentTarget.style.boxShadow = "none"; }}
+              >
+                Verify Credentials
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+              </a>
+            )}
             </motion.div>
           </motion.div>
         )}

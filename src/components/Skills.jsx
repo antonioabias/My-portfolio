@@ -1,3 +1,6 @@
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useState, useEffect } from "react";
+
 const TOTAL = 10;
 
 const levelInfo = (n) => {
@@ -38,7 +41,23 @@ const IconBadge = ({ icon }) => {
   return <img src={src} alt={icon} style={{ width: 22, height: 22, flexShrink: 0, objectFit: "contain" }} />;
 };
 
-import { useState, useEffect } from "react";
+const PowerBars = ({ level }) => (
+  <div style={{ display: "flex", gap: 3, flex: 1, minWidth: 60 }}>
+    {Array.from({ length: TOTAL }).map((_, i) => (
+      <motion.div
+        key={i}
+        initial={{ scaleY: 0, opacity: 0 }}
+        whileInView={{ scaleY: 1, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: i < level ? i * 0.06 : 0, duration: 0.25 }}
+        style={{
+          flex: 1, height: 8, borderRadius: 2, transformOrigin: "bottom",
+          background: i < level ? "#f0fdf4" : "rgba(255,255,255,0.06)",
+        }}
+      />
+    ))}
+  </div>
+);
 
 const StatBar = ({ name, icon, level, isMobile }) => {
   const { label, color } = levelInfo(level);
@@ -48,17 +67,15 @@ const StatBar = ({ name, icon, level, isMobile }) => {
       <div style={{ padding: "0.55rem 0", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
           <IconBadge icon={icon} />
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "rgba(255,255,255,0.8)", flex: 1, letterSpacing: "0.02em" }}>
+          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(255,255,255,0.8)", flex: 1, letterSpacing: "0.02em" }}>
             {name}
           </span>
           <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", color, letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0 }}>
             {label}
           </span>
         </div>
-        <div style={{ display: "flex", gap: 3, marginTop: "0.35rem" }}>
-          {Array.from({ length: TOTAL }).map((_, i) => (
-            <div key={i} style={{ flex: 1, height: 8, borderRadius: 2, background: i < level ? "#f0fdf4" : "rgba(255,255,255,0.06)" }} />
-          ))}
+        <div style={{ marginTop: "0.35rem" }}>
+          <PowerBars level={level} />
         </div>
       </div>
     );
@@ -67,14 +84,10 @@ const StatBar = ({ name, icon, level, isMobile }) => {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.45rem 0", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
       <IconBadge icon={icon} />
-      <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "rgba(255,255,255,0.8)", width: 90, flexShrink: 0, letterSpacing: "0.02em" }}>
+      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(255,255,255,0.8)", width: 90, flexShrink: 0, letterSpacing: "0.02em" }}>
         {name}
       </span>
-      <div style={{ display: "flex", gap: 3, flex: 1, minWidth: 60 }}>
-        {Array.from({ length: TOTAL }).map((_, i) => (
-          <div key={i} style={{ flex: 1, height: 8, borderRadius: 2, background: i < level ? "#f0fdf4" : "rgba(255,255,255,0.06)" }} />
-        ))}
-      </div>
+      <PowerBars level={level} />
       <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", color, letterSpacing: "0.1em", minWidth: 48, textAlign: "right", flexShrink: 0, textTransform: "uppercase" }}>
         {label}
       </span>
@@ -82,15 +95,50 @@ const StatBar = ({ name, icon, level, isMobile }) => {
   );
 };
 
+function TiltCard({ children }) {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { damping: 20, stiffness: 150 });
+  const springY = useSpring(mouseY, { damping: 20, stiffness: 150 });
+  const rotateX = useTransform(springY, [-0.5, 0.5], ["6deg", "-6deg"]);
+  const rotateY = useTransform(springX, [-0.5, 0.5], ["-6deg", "6deg"]);
+
+  const handleMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+  const handleLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
+  return (
+    <motion.div
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+      style={{
+        rotateX, rotateY, transformStyle: "preserve-3d",
+        marginBottom: "1.25rem", borderRadius: 16, padding: "1.25rem 1.5rem",
+        background: "linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015))",
+        border: "1px solid rgba(255,255,255,0.1)",
+        boxShadow: "0 20px 50px rgba(0,0,0,0.45)",
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 const CategoryBlock = ({ category, items, isMobile }) => (
-  <div style={{ marginBottom: "1.25rem", background: "var(--navy)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 16, padding: "1.25rem 1.5rem" }}>
-    <div style={{ fontFamily: "var(--font-display)", fontSize: "0.85rem", color: "#ffffff", letterSpacing: "0.25em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.85rem", paddingBottom: "0.5rem", borderBottom: "1px solid rgba(74,222,128,0.15)" }}>
+  <TiltCard>
+    <div style={{ fontFamily: "var(--font-display)", fontSize: "0.85rem", color: "#ffffff", letterSpacing: "0.25em", textTransform: "uppercase", fontWeight: 600, marginBottom: "0.85rem", paddingBottom: "0.5rem", borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
       {category}
     </div>
     {items.map((item) => (
       <StatBar key={item.name} {...item} isMobile={isMobile} />
     ))}
-  </div>
+  </TiltCard>
 );
 
 const leftGroups = [

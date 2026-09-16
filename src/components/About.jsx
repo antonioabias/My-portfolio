@@ -168,7 +168,7 @@ function HighlightCircle({ group, onOpen, setIsHovering }) {
       onMouseLeave={() => setIsHovering(false)}
       style={{ background: "none", border: "none", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.6rem", flexShrink: 0, width: "clamp(88px, 8vw, 104px)" }}
     >
-      <div style={{ width: "clamp(78px, 7vw, 92px)", height: "clamp(78px, 7vw, 92px)", borderRadius: "50%", padding: 3, background: "conic-gradient(from 180deg, var(--cyan), #ffffff, var(--cyan))" }}>
+      <div style={{ width: "clamp(78px, 7vw, 92px)", height: "clamp(78px, 7vw, 92px)", borderRadius: "50%", padding: 3, background: "conic-gradient(from 180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.15), rgba(255,255,255,0.9))" }}>
         <div style={{ width: "100%", height: "100%", borderRadius: "50%", padding: 3, background: "var(--paper)" }}>
           <img src={group.items[0].image} alt={group.label} style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover", display: "block" }} />
         </div>
@@ -282,30 +282,89 @@ function StoryModal({ group, onClose, setIsHovering }) {
   );
 }
 
-function TimelineEntry({ post }) {
+function formatCount(n) {
+  if (n >= 1000000) {
+    return (n / 1000000).toFixed(n % 1000000 === 0 ? 0 : 1) + "M";
+  }
+  if (n >= 1000) {
+    return (n / 1000).toFixed(n % 1000 === 0 ? 0 : 1) + "K";
+  }
+  return String(n);
+}
+
+function useLikeCount(seed) {
+  const [count, setCount] = useState(seed);
+  const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (Math.random() > 0.6) {
+        setCount((c) => c + Math.floor(50 + Math.random() * 400));
+      }
+    }, 6000 + Math.random() * 6000);
+    return () => clearInterval(id);
+  }, []);
+
+  const toggleLike = () => {
+    setCount((c) => (liked ? c - 1 : c + 1));
+    setLiked((l) => !l);
+  };
+
+  return { count, liked, toggleLike };
+}
+
+function HeartButton({ count, liked, onToggle, setIsHovering }) {
+  return (
+    <button
+      onClick={onToggle}
+      onMouseEnter={() => setIsHovering && setIsHovering(true)}
+      onMouseLeave={() => setIsHovering && setIsHovering(false)}
+      style={{
+        display: "flex", alignItems: "center", gap: "0.4rem",
+        background: "none", border: "none", cursor: "pointer",
+        color: liked ? "#ff4d6d" : "var(--ink-faint)",
+        fontFamily: "var(--font-body)", fontSize: "0.85rem",
+      }}
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill={liked ? "#ff4d6d" : "none"} stroke="currentColor" strokeWidth="1.8">
+        <path d="M12 21s-7.5-4.6-10-9.1C0.3 8.4 2 4.8 5.6 4.2c2-.3 3.9.8 4.9 2.4 1-1.6 2.9-2.7 4.9-2.4 3.6.6 5.3 4.2 3.6 7.7C19.5 16.4 12 21 12 21z" />
+      </svg>
+      <span>{formatCount(count)}</span>
+    </button>
+  );
+}
+
+function TimelineEntry({ post, setIsHovering }) {
+  const seed = 100000 + ((post.id.length * 91234) % 900000);
+  const { count, liked, toggleLike } = useLikeCount(seed);
+
   return (
     <div style={{ padding: "1.75rem 0", borderBottom: "1px solid var(--line)" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.9rem" }}>
         <img src={pic} alt="Antonio Abias Jr." style={{ width: 38, height: 38, borderRadius: "50%", objectFit: "cover", flexShrink: 0 }} />
-        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.88rem", fontWeight: 700, color: "var(--ink)" }}>antonioabias_</span>
-        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--ink-faint)", marginLeft: "auto" }}>{post.period}</span>
+        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 700, color: "var(--ink)" }}>antonioabias_</span>
+        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--ink-faint)", marginLeft: "auto" }}>{post.period}</span>
       </div>
 
-      <div style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(1.3rem, 1.8vw, 1.55rem)", fontWeight: 600, color: "var(--ink)", marginBottom: "0.2rem" }}>
+      <div style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1.2rem, 1.8vw, 1.5rem)", fontWeight: 700, color: "var(--ink)", marginBottom: "0.2rem" }}>
         {post.role}
       </div>
-      <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.78rem", color: "var(--accent)", marginBottom: "0.85rem" }}>
+      <div style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 500, color: "var(--white)", marginBottom: "0.85rem" }}>
         {post.company}
       </div>
-      <p style={{ fontSize: "1rem", lineHeight: 1.75, color: "var(--ink-soft)", marginBottom: "0.9rem" }}>
+      <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", lineHeight: 1.75, color: "var(--ink-soft)", marginBottom: "0.9rem" }}>
         {post.desc}
       </p>
-      <div style={{ display: "flex", gap: "0.7rem", flexWrap: "wrap" }}>
-        {post.tags.map((t) => (
-          <span key={t} style={{ fontFamily: "var(--font-mono)", fontSize: "0.8rem", color: "var(--accent)" }}>
-            #{t}
-          </span>
-        ))}
+
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.7rem" }}>
+        <div style={{ display: "flex", gap: "0.7rem", flexWrap: "wrap" }}>
+          {post.tags.map((t) => (
+            <span key={t} style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--white)" }}>
+              #{t}
+            </span>
+          ))}
+        </div>
+        <HeartButton count={count} liked={liked} onToggle={toggleLike} setIsHovering={setIsHovering} />
       </div>
     </div>
   );
@@ -365,7 +424,7 @@ export default function About({ setIsHovering, onSelectProject }) {
           }
         }
         .ig-btn {
-          flex: 1; text-align: center; font-family: var(--font-mono); font-size: 0.88rem;
+          flex: 1; text-align: center; font-family: var(--font-display); font-size: 0.88rem;
           font-weight: 700; padding: 0.75rem 1.1rem; border-radius: 8px; cursor: pointer;
           border: 1px solid var(--line); background: var(--paper-elevated); color: var(--ink);
           transition: background 0.2s;
@@ -511,7 +570,7 @@ export default function About({ setIsHovering, onSelectProject }) {
         </div>
 
         <div style={{ paddingTop: "1.5rem" }}>
-          {activeTab === "timeline" && posts.map((post) => <TimelineEntry key={post.id} post={post} />)}
+          {activeTab === "timeline" && posts.map((post) => <TimelineEntry key={post.id} post={post} setIsHovering={setIsHovering} />)}  
           {activeTab === "projects" && <Projects setIsHovering={setIsHovering} onSelectProject={onSelectProject} />}
           {activeTab === "skills" && <Skills />}
           {activeTab === "certifications" && <Certifications setIsHovering={setIsHovering} />}

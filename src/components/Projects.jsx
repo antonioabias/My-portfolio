@@ -103,7 +103,7 @@ function ProjectCard({ project, onClick, setIsHovering }) {
       onMouseLeave={() => { setIsHovering(false); setHovered(false); }}
       style={{
         position: "relative",
-        borderRadius: 14,
+        borderRadius: 0,
         overflow: "hidden",
         cursor: "none",
         aspectRatio: "4/3",
@@ -170,19 +170,14 @@ export default function Projects({ setIsHovering, onSelectProject }) {
     <section id="projects" style={{ padding: "1rem 0 2rem", position: "relative", zIndex: 1 }}>
       <style>{`
         .projects-wrapper {
-          max-width: 1400px;
-          margin: 0 auto;
-          width: min(92%, 1200px);
+          width: 100%;
         }
         .projects-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 0.75rem;
+          gap: 0;
         }
         @media (max-width: 768px) {
-          .projects-wrapper {
-            width: 92%;
-          }
           .projects-grid {
             grid-template-columns: 1fr;
           }
