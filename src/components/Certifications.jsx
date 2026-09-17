@@ -6,7 +6,8 @@ import claude101 from "../assets/Certificate/claude101.jpg";
 const ISSUER_LOGOS = {
   "Cisco": "https://thesvg.org/icons/cisco/default.svg",
   "Google Cloud Skills Boost": "https://images.seeklogo.com/logo-png/33/2/google-cloud-logo-png_seeklogo-336116.png",
-  "Amazon Web Services (AWS)": "https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/aws-color.png",
+  //"Amazon Web Services (AWS)": "https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/aws-color.png",
+  "Amazon Web Services (AWS)": "https://thesvg.org/icons/amazon-web-services/dark.svg",
   "Amazon": "https://learnsecurity.amazon.com/img/global/logo.svg",
   "Sololearn": "https://blob.sololearn.com/avatars/sololearn.png",
   "Anthropic": "https://thesvg.org/icons/anthropic/default.svg"

@@ -12,13 +12,13 @@ const levelInfo = (n) => {
 
 const SKILL_ICONS = new Set([
   "react", "javascript", "typescript", "html", "css", "bootstrap", "tailwind", "jquery",
-  "nodejs", "php", "python", "java", "cpp", "mysql", "mongodb", "firebase", "github",
+  "nodejs", "php", "python", "java", "cpp", "mysql", "firebase", "github",
   "vscode", "figma", "aws", "gcp", "angular", "vue", "nextjs",
 ]);
 
 const LOGO_URLS = {
   shopify: "https://thesvg.org/icons/shopify/default.svg", webflow: "https://thesvg.org/icons/webflow/default.svg",
-  wordpress: "https://thesvg.org/icons/wordpress/default.svg", wix: "https://thesvg.org/icons/wix/default.svg",
+  wordpress: "https://thesvg.org/icons/wordpress/default.svg",
   canva: "https://thesvg.org/icons/canva/default.svg", claude: "https://thesvg.org/icons/claude/default.svg",
   openai: "https://thesvg.org/icons/openai/default.svg", cursor: "https://thesvg.org/icons/cursor/default.svg",
   zapier: "https://thesvg.org/icons/zapier/default.svg", make: "https://thesvg.org/icons/make/default.svg",
@@ -28,7 +28,7 @@ const LOGO_URLS = {
   hubspot: "https://thesvg.org/icons/hubspot/default.svg", notion: "https://thesvg.org/icons/notion/default.svg",
   gsheets: "https://thesvg.org/icons/google-sheets-2026/default.svg", trello: "https://thesvg.org/icons/trello/default.svg",
   clickup: "https://thesvg.org/icons/clickup/default.svg", monday: "https://thesvg.org/icons/monday/mono.svg",
-  slack: "https://thesvg.org/icons/slack/default.svg", netlify: "https://thesvg.org/icons/netlify/default.svg",
+  slack: "https://thesvg.org/icons/slack/default.svg", 
   antigravity: "https://thesvg.org/icons/google-antigravity/default.svg",
 };
 

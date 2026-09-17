@@ -89,7 +89,7 @@ const PROJECT_FONTS = {
   zombie: "'Creepster', cursive",
 };
 
-function ProjectCard({ project, onClick, setIsHovering }) {
+function ProjectCard({ project, onClick, setIsHovering, index }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -113,24 +113,24 @@ function ProjectCard({ project, onClick, setIsHovering }) {
         boxShadow: hovered ? "0 24px 64px rgba(0,0,0,0.6)" : "none",
       }}
     >
-      {/* Background image */}
-      <div style={{
-        position: "absolute", inset: 0,
-        backgroundImage: `url(${project.coverImg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        filter: hovered ? "blur(3px) brightness(0.55)" : "brightness(1)",
-        transform: hovered ? "scale(1.12)" : "scale(1)",
-        transition: "filter 0.5s ease, transform 0.6s ease",
-      }} />
-
-      {/* Overlay */}
+      <img
+        src={project.coverImg}
+        alt={project.title}
+        loading={index < 3 ? "eager" : "lazy"}
+        decoding="async"
+        style={{
+          position: "absolute", inset: 0,
+          width: "100%", height: "100%",
+          objectFit: "cover",
+          filter: hovered ? "blur(3px) brightness(0.55)" : "brightness(1)",
+          transform: hovered ? "scale(1.12)" : "scale(1)",
+          transition: "filter 0.5s ease, transform 0.6s ease",
+        }}
+      />
       <div style={{
         position: "absolute", inset: 0,
         background: "rgba(0,0,0,0.3)",
       }} />
-
-      {/* Title */}
       <div style={{
         position: "absolute", inset: 0,
         display: "flex",
@@ -142,9 +142,7 @@ function ProjectCard({ project, onClick, setIsHovering }) {
         zIndex: 2,
       }}>
         <motion.h3
-          animate={{
-            fontSize: hovered ? "1.50rem" : "1.75rem",
-          }}
+          animate={{ fontSize: hovered ? "1.50rem" : "1.75rem" }}
           transition={{ duration: 0.3 }}
           style={{
             fontFamily: PROJECT_FONTS[project.id] || "var(--font-display)",
