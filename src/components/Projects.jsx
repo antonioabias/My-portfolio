@@ -27,7 +27,7 @@ const ebGallery = Object.entries(
 export const projects = [
   {
     id: "archi", link: "https://ac-archi-demo.vercel.app/", num: "01", title: "AC Architectural Studio", subtitle: "Portfolio Website",
-    status: "IN PROGRESS", statusColor: "#00D4FF", tags: ["React.js", "Framer Motion"],
+    status: "Private", statusColor: "#00D4FF", tags: ["React.js", "Framer Motion"],
     shortDesc: "Visual-first portfolio site for an architectural design studio.",
     fullDesc: "A portfolio website for AC Architectural Studio showcasing projects, services, and design philosophy with a clean, visual-first approach. Built with React and Framer Motion for smooth page transitions. Designed to feel as refined as the architecture it represents.",
     highlights: ["Visual-first layout, imagery-led", "Framer Motion page transitions", "CMS-ready project grid", "Mobile-first responsive design"],
@@ -39,9 +39,27 @@ export const projects = [
     status: "PLANNED", statusColor: "#7A8BA0", tags: ["React.js", "Booking System"],
     shortDesc: "Booking and reservation scheduler for a small car rental business.",
     fullDesc: "A scheduling and reservation system for a car rental business running a small fleet of 2 cars. Handles booking requests, availability tracking, and reservation management so the fleet stays organized without double bookings.",
-    highlights: ["Real time availability tracking", "Booking and reservation flow", "Built for a 2 car fleet", "In progress"],
+    highlights: ["Real time availability tracking", "Booking and reservation flow", "Built for a 3 car fleet"],
     gallery: [PLACEHOLDER("Autona · Coming Soon")],
     coverImg: "https://kenh14cdn.com/203336854389633024/2024/11/6/fpperformance-14561046-1730870958640-1730870959348632333986.jpeg",
+  },
+  {
+    id: "wedding", link: null, num: "07", title: "Wedding", subtitle: "Invitation & Gallery",
+    status: "PLANNED", statusColor: "#7A8BA0", tags: ["React.js", "Invitation", "Gallery"],
+    shortDesc: "Wedding website with a digital invitation and a photo gallery.",
+    fullDesc: "A wedding website that combines a digital invitation with RSVP and a photo and video gallery for the couple. Guests can view event details, confirm attendance, and browse memories in one place.",
+    highlights: ["Digital invitation with RSVP form", "Photo and video gallery", "Event details and schedule", "Not yet developed"],
+    gallery: [PLACEHOLDER("Wedding Site · Coming Soon")],
+    coverImg: "https://i.pinimg.com/736x/aa/96/8e/aa968e2215b48f72279e80a49f4e1175.jpg",
+  },
+  {
+    id: "kicksfits", link: null, num: "07", title: "Kicks & Fits", subtitle: "Streetwear Shopify Store",
+    status: "PLANNED", statusColor: "#7A8BA0", tags: ["Shopify", "E-commerce", "Liquid"],
+    shortDesc: "Bold streetwear and sneaker store built on Shopify.",
+    fullDesc: "A full Shopify store for a streetwear and sneaker brand. Dark, high contrast homepage design with a drop countdown feature for hype marketing. Product pages support size and colorway variants with a size chart. Built to show real store setup skills, not just a themed demo.",
+    highlights: ["Product variants for size and colorway", "Drop countdown timer for hype marketing", "Sticky add to cart bar on mobile", "Bold high contrast homepage design", "Not yet developed"],
+    gallery: [PLACEHOLDER("Kicks & Fits · Coming Soon")],
+    coverImg: "https://i.pinimg.com/1200x/fa/a6/08/faa608fa243ea96d4db679a6fbbe4f2d.jpg",
   },
   {
     id: "arvsdentist", link: null, num: "06", title: "Doc Arvs", subtitle: "Appointment Scheduler",
@@ -51,6 +69,15 @@ export const projects = [
     highlights: ["Patient appointment booking", "Schedule management for the clinic", "Reminder ready structure", "Not yet developed"],
     gallery: [PLACEHOLDER("Doc Arvs · Coming Soon")],
     coverImg: "https://c1.wallpaperflare.com/preview/289/347/808/zahnreinigung-dental-repairs-treat-teeth-brushing-teeth.jpg",
+  },
+  {
+    id: "nookco", link: null, num: "08", title: "Nook & Co.", subtitle: "Home Decor WooCommerce Store",
+    status: "PLANNED", statusColor: "#7A8BA0", tags: ["WooCommerce", "WordPress", "E-commerce"],
+    shortDesc: "Warm home decor store built on WooCommerce.",
+    fullDesc: "A full WooCommerce store for a home decor brand. Soft, warm homepage design with a filterable shop page for wall art, vases, furniture, and rugs. Product pages support size and material variants. Built with a custom checkout style, not the default WooCommerce look.",
+    highlights: ["Product variants for size and material", "Custom WooCommerce checkout styling", "Category filters on the shop page", "Soft warm homepage design", "Not yet developed"],
+    gallery: [PLACEHOLDER("Nook & Co. · Coming Soon")],
+    coverImg: "https://i.pinimg.com/736x/47/01/c4/4701c44b8edc7ba67a0de0562aebf2c1.jpg",
   },
   {
     id: "ebuddy", link: "https://e-buddy-8c08f.web.app/", num: "02", title: "e-Buddy", subtitle: "Adaptive Board Exam Reviewer",
@@ -87,6 +114,8 @@ const PROJECT_FONTS = {
   ebuddy: "'Space Grotesk', sans-serif",
   sales: "'Roboto Condensed', sans-serif",
   zombie: "'Creepster', cursive",
+  kicksfits: "'Space Grotesk', sans-serif",
+  nookco: "'Fraunces', serif",
 };
 
 function ProjectCard({ project, onClick, setIsHovering, index }) {
@@ -103,61 +132,88 @@ function ProjectCard({ project, onClick, setIsHovering, index }) {
       onMouseLeave={() => { setIsHovering(false); setHovered(false); }}
       style={{
         position: "relative",
-        borderRadius: 0,
         overflow: "hidden",
         cursor: "none",
         aspectRatio: "4/3",
         border: "1px solid rgba(255,255,255,0.06)",
-        transition: "transform 0.3s, box-shadow 0.3s",
         transform: hovered ? "translateY(-8px)" : "translateY(0)",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
         boxShadow: hovered ? "0 24px 64px rgba(0,0,0,0.6)" : "none",
       }}
     >
       <img
         src={project.coverImg}
         alt={project.title}
-        loading={index < 3 ? "eager" : "lazy"}
+        loading="eager"
+        fetchpriority={index < 3 ? "high" : "low"}
         decoding="async"
+        width={800}
+        height={500}
         style={{
-          position: "absolute", inset: 0,
-          width: "100%", height: "100%",
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
           objectFit: "cover",
-          filter: hovered ? "blur(3px) brightness(0.55)" : "brightness(1)",
           transform: hovered ? "scale(1.12)" : "scale(1)",
-          transition: "filter 0.5s ease, transform 0.6s ease",
+          transition: "transform 0.5s ease",
         }}
       />
-      <div style={{
-        position: "absolute", inset: 0,
-        background: "rgba(0,0,0,0.3)",
-      }} />
-      <div style={{
-        position: "absolute", inset: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "1.5rem",
-        textAlign: "center",
-        isolation: "isolate",
-        zIndex: 2,
-      }}>
-        <motion.h3
-          animate={{ fontSize: hovered ? "1.50rem" : "1.75rem" }}
-          transition={{ duration: 0.3 }}
+      <img
+        src={project.coverImg}
+        alt=""
+        aria-hidden="true"
+        loading="eager"
+        fetchpriority="low"
+        decoding="async"
+        width={800}
+        height={500}
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          filter: "blur(3px) brightness(0.55)",
+          transform: hovered ? "scale(1.12)" : "scale(1)",
+          opacity: hovered ? 1 : 0,
+          transition: "opacity 0.4s ease, transform 0.5s ease",
+          willChange: "opacity",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(0,0,0,0.3)",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "1.5rem",
+          textAlign: "center",
+          zIndex: 2,
+        }}
+      >
+        <h3
           style={{
             fontFamily: PROJECT_FONTS[project.id] || "var(--font-display)",
             fontWeight: 700,
+            fontSize: hovered ? "1.50rem" : "1.75rem",
             color: "var(--white)",
             letterSpacing: project.id === "zombie" ? "0.15em" : "-0.01em",
             lineHeight: 1.2,
             textShadow: "0 2px 20px rgba(0,0,0,0.95)",
-            willChange: "transform",
-            position: "relative",
-            zIndex: 2,
+            transition: "font-size 0.3s ease",
           }}
         >
           {project.title}
-        </motion.h3>
+        </h3>
       </div>
     </motion.div>
   );
@@ -165,7 +221,7 @@ function ProjectCard({ project, onClick, setIsHovering, index }) {
 
 export default function Projects({ setIsHovering, onSelectProject }) {
   return (
-    <section id="projects" style={{ padding: "1rem 0 2rem", position: "relative", zIndex: 1 }}>
+    <section id="projects" style={{ padding: "1.5rem 0 1.5rem", position: "relative", zIndex: 1 }}>
       <style>{`
         .projects-wrapper {
           width: 100%;

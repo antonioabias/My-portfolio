@@ -59,10 +59,17 @@ export default function Contact() {
         .contact-link-label {
           font-size: 0.82rem;
         }
-        .contact-back-to-top {
-          display: flex;
-          justify-content: center;
-          margin-top: 2.2rem;
+        .fly-back-top {
+          position: fixed;
+          right: 1.75rem;
+          bottom: 7.5rem;
+          z-index: 500;
+        }
+        @media (max-width: 768px) {
+          .fly-back-top {
+            right: 1.1rem;
+            bottom: 5.5rem;
+          }
         }
         @media (max-width: 768px) {
           .contact-section {
@@ -145,30 +152,29 @@ export default function Contact() {
         </motion.div>
             </div>
 
-      <div className="contact-back-to-top">
-        <AnimatePresence>
-          {showTop && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              style={{ zIndex: 20 }}
-            >
-              <AboutMeButton
-                shape="circle"
-                size={48}
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                icon={
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="12" y1="19" x2="12" y2="5" />
-                    <polyline points="5 12 12 5 19 12" />
-                  </svg>
-                }
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      <AnimatePresence>
+        {showTop && (
+          <motion.div
+            className="fly-back-top"
+            initial={{ opacity: 0, y: 60, scale: 0.6 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 40, scale: 0.6 }}
+            transition={{ type: "spring", stiffness: 260, damping: 20 }}
+          >
+            <AboutMeButton
+              shape="circle"
+              size={48}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              icon={
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="12" y1="19" x2="12" y2="5" />
+                  <polyline points="5 12 12 5 19 12" />
+                </svg>
+              }
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

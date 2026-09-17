@@ -37,7 +37,7 @@ const IconBadge = ({ icon }) => {
     ? `https://skillicons.dev/icons?i=${icon}`
     : LOGO_URLS[icon] || null;
   if (!src) return <div style={{ width: 22, height: 22, flexShrink: 0 }} />;
-  return <img src={src} alt={icon} style={{ width: 22, height: 22, flexShrink: 0, objectFit: "contain" }} />;
+    return <img src={src} alt={icon} loading="lazy" decoding="async" style={{ width: 22, height: 22, flexShrink: 0, objectFit: "contain" }} />;
 };
 
 const PowerBars = ({ level }) => (

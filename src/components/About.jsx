@@ -88,9 +88,9 @@ const posts = [
   {
     id: "working-student",
     period: "2022 to 2024",
-    role: "Working Student",
+    role: "Completing the Degree",
     company: "University of Nueva Caceres",
-    desc: "Balanced coursework with real work at the same time. Graduated with a Computer Science degree.",
+    desc: "Went back as a working student to finish coursework. Graduated with a Computer Science degree.",
     tags: ["ComputerScience", "Graduated"],
   },
   {
@@ -98,7 +98,7 @@ const posts = [
     period: "2021 to 2023",
     role: "Data and Advertising Operations",
     company: "Wide-out Workforces Inc. (Broadlume)",
-    desc: "Paused college to work full time. Managed product datasets across hundreds of client websites, data audits, catalog accuracy, and cross team marketing alignment.",
+    desc: "Paused college to work full time during the pandemic. Managed product datasets across hundreds of client websites, data audits, catalog accuracy, and cross team marketing alignment.",
     tags: ["Salesforce", "Excel", "Floorforce"],
   },
   {
@@ -106,7 +106,7 @@ const posts = [
     period: "2018 to 2020",
     role: "Bacherlor of Science in Computer Science",
     company: "University of Nueva Caceres",
-    desc: "Started the Computer Science program. This is where the real foundation got built.",
+    desc: "Started the Computer Science program, building on what got started in high school.",
     tags: ["ComputerScience"],
   },
   {
@@ -114,7 +114,7 @@ const posts = [
     period: "2016 to 2018",
     role: "Computer Programming",
     company: "Camarines Sur National High School",
-    desc: "Developed Zombie Maze and a Sales Information System. First real taste of shipping software.",
+    desc: "Developed Zombie Maze and a Sales Information System as school projects. This is where the real foundation got built.",
     tags: ["Java", "PHP", "MySQL"],
   },
   {
@@ -439,8 +439,8 @@ export default function About({ setIsHovering, onSelectProject }) {
       id="about"
       ref={ref}
       style={{
-        minHeight: "100vh",
-        padding: "7.5rem 0 4rem",
+        minHeight: "80vh",
+        padding: "7.5rem 0",
         position: "relative",
         isolation: "isolate",
         background: "var(--paper)",
@@ -553,10 +553,11 @@ export default function About({ setIsHovering, onSelectProject }) {
         .ig-handle { font-family: var(--font-body); font-size: 0.95rem; color: var(--ink-faint); margin-top: 0.05rem; }
         .ig-stats-line { display: flex; gap: 1.5rem; font-family: var(--font-body); font-size: 0.85rem; color: var(--ink-soft); margin: 1.1rem 0; }
         .ig-stats-line strong { color: var(--ink); font-weight: 700; }
-        .ig-bio { font-size: clamp(0.95rem, 1.1vw, 1.05rem); line-height: 1.75; color: var(--ink-soft); margin: 0; max-width: 700px; }
+        .ig-bio { font-size: clamp(0.95rem, 1.1vw, 1.05rem); line-height: 1.75; color: var(--ink-soft); margin: 0; max-width: 700px; text-align: justify; text-justify: inter-word; }
         @media (max-width: 640px) {
           .ig-stats-line { justify-content: center; gap: 1.2rem; }
           .ig-fullname { justify-content: center; width: 100%; }
+          .ig-bio { text-align: center; }
         }
       `}</style>
 
