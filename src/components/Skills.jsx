@@ -16,6 +16,11 @@ const SKILL_ICONS = new Set([
   "vscode", "figma", "aws", "gcp", "angular", "vue", "nextjs",
 ]);
 
+const iconSrc = (icon) =>
+  SKILL_ICONS.has(icon)
+    ? `https://skillicons.dev/icons?i=${icon}`
+    : LOGO_URLS[icon] || null;
+
 const LOGO_URLS = {
   shopify: "https://thesvg.org/icons/shopify/default.svg", webflow: "https://thesvg.org/icons/webflow/default.svg",
   wordpress: "https://thesvg.org/icons/wordpress/default.svg",
@@ -33,11 +38,9 @@ const LOGO_URLS = {
 };
 
 const IconBadge = ({ icon }) => {
-  const src = SKILL_ICONS.has(icon)
-    ? `https://skillicons.dev/icons?i=${icon}`
-    : LOGO_URLS[icon] || null;
+  const src = iconSrc(icon);
   if (!src) return <div style={{ width: 22, height: 22, flexShrink: 0 }} />;
-    return <img src={src} alt={icon} loading="lazy" decoding="async" style={{ width: 22, height: 22, flexShrink: 0, objectFit: "contain" }} />;
+  return <img src={src} alt={icon} loading="lazy" decoding="async" style={{ width: 22, height: 22, flexShrink: 0, objectFit: "contain" }} />;
 };
 
 const PowerBars = ({ level }) => (
@@ -201,6 +204,17 @@ const rightGroups = [
 
 export default function Skills() {
   const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const allIcons = [...leftGroups, ...rightGroups].flatMap((g) => g.items.map((item) => item.icon));
+    allIcons.forEach((icon) => {
+      const src = iconSrc(icon);
+      if (src) {
+        const img = new Image();
+        img.src = src;
+      }
+    });
+  }, []);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);

@@ -36,7 +36,7 @@ const CertRow = ({ cert, i, setIsHovering, onClick }) => (
     viewport={{ once: true }}
     transition={{ delay: i * 0.05, duration: 0.4 }}
     whileHover={{ x: 6 }}
-    onMouseEnter={() => setIsHovering(true)}
+    onMouseEnter={() => { setIsHovering(true); const img = new Image(); img.src = cert.image; }}
     onMouseLeave={() => setIsHovering(false)}
     onClick={onClick}
     style={{
@@ -72,6 +72,17 @@ export default function Certifications({ setIsHovering }) {
     const onKey = (e) => { if (e.key === "Escape") setSelected(null); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  useEffect(() => {
+  Object.values(ISSUER_LOGOS).forEach((src) => {
+    const img = new Image();
+    img.src = src;
+  });
+  certs.forEach((cert) => {
+      const img = new Image();
+      img.src = cert.image;
+    });
   }, []);
 
   const left = certs.slice(0, 6);
@@ -144,8 +155,12 @@ export default function Certifications({ setIsHovering }) {
               <div style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 700, marginBottom: "1.25rem", color: "var(--white)" }}>
                 {selected.title}
               </div>
-              <div style={{ width: "100%", background: "rgba(255,255,255,0.04)", borderRadius: 10, overflow: "hidden" }}>
-                <img src={selected.image} alt={selected.alt || selected.title} style={{ width: "100%", height: "auto", display: "block", borderRadius: 10 }} />
+              <div style={{ width: "100%", aspectRatio: "4/3", background: "rgba(255,255,255,0.04)", borderRadius: 10, overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <img
+                  src={selected.image}
+                  alt={selected.alt || selected.title}
+                  style={{ width: "100%", height: "100%", objectFit: "contain", display: "block", borderRadius: 10 }}
+                />
               </div>
               {selected.href && (
               <a        

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import coverZombie from "../assets/Zombie Maze/covers.zombie.jpeg";
 
@@ -220,6 +220,17 @@ function ProjectCard({ project, onClick, setIsHovering, index }) {
 }
 
 export default function Projects({ setIsHovering, onSelectProject }) {
+  useEffect(() => {
+    projects.forEach((project) => {
+      const cover = new Image();
+      cover.src = project.coverImg;
+      project.gallery.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+      });
+    });
+  }, []);
+  
   return (
     <section id="projects" style={{ padding: "1.5rem 0 1.5rem", position: "relative", zIndex: 1 }}>
       <style>{`
