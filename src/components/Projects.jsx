@@ -111,11 +111,14 @@ export const projects = [
 
 const PROJECT_FONTS = {
   archi: "'Cormorant Garamond', 'Times New Roman', serif",
+  autona: "'Oswald', sans-serif",
+  wedding: "'Dancing Script', cursive",
+  kicksfits: "'Anton', sans-serif",
+  arvsdentist: "'Quicksand', sans-serif",
+  nookco: "'Fraunces', serif",
   ebuddy: "'Space Grotesk', sans-serif",
   sales: "'Roboto Condensed', sans-serif",
   zombie: "'Creepster', cursive",
-  kicksfits: "'Space Grotesk', sans-serif",
-  nookco: "'Fraunces', serif",
 };
 
 function ProjectCard({ project, onClick, setIsHovering, index }) {
@@ -230,7 +233,7 @@ export default function Projects({ setIsHovering, onSelectProject }) {
       });
     });
   }, []);
-  
+
   return (
     <section id="projects" style={{ padding: "1.5rem 0 1.5rem", position: "relative", zIndex: 1 }}>
       <style>{`

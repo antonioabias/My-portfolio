@@ -3,12 +3,28 @@ import { useState, useEffect } from "react";
 
 export default function Footer() {
   const [isMobile, setIsMobile] = useState(false);
+  const [time, setTime] = useState("");
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 640);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
+  }, []);
+
+  useEffect(() => {
+    const updateTime = () => {
+      const formatted = new Date().toLocaleTimeString("en-US", {
+        timeZone: "Asia/Manila",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+      setTime(formatted);
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000 * 30);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -25,7 +41,7 @@ export default function Footer() {
       }}
     >
       <div
-        style={{
+       style={{
           maxWidth: 1400,
           margin: "0 auto",
           width: isMobile ? "90%" : "63%",
@@ -35,16 +51,12 @@ export default function Footer() {
           justifyContent: "space-between",
           gap: isMobile ? "0.5rem" : "0",
           textAlign: isMobile ? "center" : "left",
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.75rem",
+          fontFamily: "var(--font-body)",
+          fontSize: "0.8rem",
           color: "var(--muted)",
         }}
       >
-        <span>
-          <span style={{ color: "var(--cyan)" }}>&lt;</span>
-          AA
-          <span style={{ color: "var(--cyan)" }}>/&gt;</span>
-        </span>
+        <span>{time} PHT</span>
         <span>Built by Antonio Abias Jr. © 2025</span>
         <span>John 3:16</span>
       </div>

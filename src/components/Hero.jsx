@@ -27,7 +27,10 @@ export default function Hero({ setIsHovering }) {
     let timeout;
     if (!deleting) {
       if (cmd.length < current.length) {
-        timeout = setTimeout(() => setCmd(current.slice(0, cmd.length + 1)), 110);
+        timeout = setTimeout(
+          () => setCmd(current.slice(0, cmd.length + 1)),
+          110,
+        );
       } else {
         timeout = setTimeout(() => setDeleting(true), 1800);
       }
@@ -50,7 +53,14 @@ export default function Hero({ setIsHovering }) {
   }, []);
 
   return (
-    <section style={{ position: "relative", minHeight: "100vh", overflow: "hidden", background: "#05070f" }}>
+    <section
+      style={{
+        position: "relative",
+        minHeight: "100vh",
+        overflow: "hidden",
+        background: "#05070f",
+      }}
+    >
       <style>{`
         @keyframes spin-slow {
           from { transform: rotate(0deg); }
@@ -119,7 +129,41 @@ export default function Hero({ setIsHovering }) {
         @media (prefers-reduced-motion: reduce) {
           .hero-spin, .hero-spin-reverse, .hero-name-shine { animation: none; }
         }
+
+        .hero-corner {
+          position: absolute;
+          z-index: 25;
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          font-family: var(--font-body);
+          font-size: 0.78rem;
+          color: var(--muted);
+        }
+        .hero-corner-tr { top: 1.75rem; right: 1.75rem; }
+
+        .hero-status-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #4ade80;
+          box-shadow: 0 0 8px rgba(74, 222, 128, 0.7);
+          flex-shrink: 0;
+        }
+
+        @media (max-width: 640px) {
+          .hero-corner {
+            font-size: 0.68rem;
+            gap: 0.4rem;
+          }
+          .hero-corner-tr { top: 1.1rem; right: 1.1rem; }
+        }
       `}</style>
+
+      <div className="hero-corner hero-corner-tr">
+        <span className="hero-status-dot" />
+        <span>Available for work</span>
+      </div>
 
       <div
         className="hero-bg-layer"
@@ -130,46 +174,82 @@ export default function Hero({ setIsHovering }) {
         }}
       >
         <div className="hero-spin" style={{ position: "absolute", inset: 0 }}>
-          <div className="hero-layer-one" style={{
-            position: "absolute", top: "50%", left: "50%",
-            width: 2000, height: 2000,
-            transform: "translate(-50%, -50%) rotate(279.05deg)",
-            zIndex: 0,
-          }}>
+          <div
+            className="hero-layer-one"
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              width: 2000,
+              height: 2000,
+              transform: "translate(-50%, -50%) rotate(279.05deg)",
+              zIndex: 0,
+            }}
+          >
             <img
               src="https://cdn.21st.dev/assets/mirror/c6/c66b4f0c389b961a3676312892ca1387d7f8bd1973f44a33c7d47840d297633f.png"
               alt=""
-              style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.5 }}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                opacity: 0.5,
+              }}
             />
           </div>
         </div>
 
-        <div className="hero-spin-reverse" style={{ position: "absolute", inset: 0 }}>
-          <div className="hero-layer-two" style={{
-            position: "absolute", top: "50%", left: "50%",
-            width: 1000, height: 1000,
-            transform: "translate(-50%, -50%) rotate(304.42deg)",
-            zIndex: 1,
-          }}>
+        <div
+          className="hero-spin-reverse"
+          style={{ position: "absolute", inset: 0 }}
+        >
+          <div
+            className="hero-layer-two"
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              width: 1000,
+              height: 1000,
+              transform: "translate(-50%, -50%) rotate(304.42deg)",
+              zIndex: 1,
+            }}
+          >
             <img
               src="https://cdn.21st.dev/assets/mirror/75/75f75d84f07a61893dc2a16aad0c781c32b9e758c8f0adda2a8b252c431fdd82.png"
               alt=""
-              style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.6 }}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                opacity: 0.6,
+              }}
             />
           </div>
         </div>
 
         <div className="hero-spin" style={{ position: "absolute", inset: 0 }}>
-          <div className="hero-layer-three" style={{
-            position: "absolute", top: "50%", left: "50%",
-            width: 800, height: 800,
-            transform: "translate(-50%, -50%) rotate(48.33deg)",
-            zIndex: 2,
-          }}>
+          <div
+            className="hero-layer-three"
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              width: 800,
+              height: 800,
+              transform: "translate(-50%, -50%) rotate(48.33deg)",
+              zIndex: 2,
+            }}
+          >
             <img
               src="https://cdn.21st.dev/assets/mirror/e0/e08cdf40df3bedc96255e0e30240d7583b0a309da36bcd8a760d3c35cc67a286.png"
               alt=""
-              style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                opacity: 0.8,
+              }}
             />
           </div>
         </div>
@@ -179,20 +259,40 @@ export default function Hero({ setIsHovering }) {
         className="hero-bg-layer"
         style={{
           zIndex: 10,
-          background: "linear-gradient(to top, #05070f 10%, rgba(5,7,15,0.8) 40%, transparent 100%), linear-gradient(180deg, rgba(5,7,15,0.6) 0%, transparent 30%)",
+          background:
+            "linear-gradient(to top, #05070f 10%, rgba(5,7,15,0.8) 40%, transparent 100%), linear-gradient(180deg, rgba(5,7,15,0.6) 0%, transparent 30%)",
         }}
       />
 
       <div className="hero-content">
-        <motion.div variants={containerVariants} initial="hidden" animate="visible" style={{ width: "100%" }}>
-          <motion.div variants={itemVariants} style={{
-            fontFamily: "var(--font-mono)", fontSize: "0.85rem",
-            color: "#ffffff", marginTop: "1rem", marginBottom: "0.5rem",
-            display: "flex", alignItems: "center", justifyContent: "center", gap: "0.4rem",
-          }}>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          style={{ width: "100%" }}
+        >
+          <motion.div
+            variants={itemVariants}
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.85rem",
+              color: "#ffffff",
+              marginTop: "1rem",
+              marginBottom: "0.5rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.4rem",
+            }}
+          >
             <span style={{ opacity: 0.6 }}>~/antonio $</span>
             <span>{cmd}</span>
-            <motion.span animate={{ opacity: [1, 0, 1] }} transition={{ duration: 1, repeat: Infinity }}>▋</motion.span>
+            <motion.span
+              animate={{ opacity: [1, 0, 1] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            >
+              ▋
+            </motion.span>
           </motion.div>
 
           <motion.div variants={itemVariants} className="hero-role-canvas">
@@ -204,22 +304,48 @@ export default function Hero({ setIsHovering }) {
             />
           </motion.div>
 
-          <motion.p
-            variants={itemVariants}
-            className="hero-name"
-          >
+          <motion.p variants={itemVariants} className="hero-name">
             <span
               className="hero-name-shine"
-              style={{ fontFamily: "var(--font-serif)", fontWeight: 700, letterSpacing: "0.01em" }}
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontWeight: 700,
+                letterSpacing: "0.01em",
+              }}
             >
               Antonio V. Abias Jr.
             </span>
           </motion.p>
 
-          <motion.div variants={itemVariants} style={{ display: "flex", justifyContent: "center", marginTop: "2.5rem" }}>
+          <motion.p
+            variants={itemVariants}
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "clamp(0.62rem, 2.6vw, 0.95rem)",
+              color: "var(--muted)",
+              marginTop: "0.9rem",
+              maxWidth: 420,
+              marginLeft: "auto",
+              marginRight: "auto",
+              whiteSpace: "nowrap",
+            }}
+          >
+            I design clean interfaces and build them faster with AI.
+          </motion.p>
+
+          <motion.div
+            variants={itemVariants}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "2.5rem",
+            }}
+          >
             <AboutMeButton
               onClick={() => {
-                document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+                document
+                  .getElementById("about")
+                  ?.scrollIntoView({ behavior: "smooth" });
               }}
               label="About Me"
               onMouseEnter={() => setIsHovering(true)}

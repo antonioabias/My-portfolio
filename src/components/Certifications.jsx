@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import aca2022 from "../assets/Certificate/ACA-2022.png";
 import claude101 from "../assets/Certificate/claude101.jpg";
 
@@ -131,6 +132,8 @@ export default function Certifications({ setIsHovering }) {
         </div>
       </div>
 
+      
+  {createPortal(
       <AnimatePresence>
         {selected && (
           <motion.div
@@ -180,7 +183,9 @@ export default function Certifications({ setIsHovering }) {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+       document.body
+      )}
     </section>
   );
 }

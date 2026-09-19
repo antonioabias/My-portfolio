@@ -636,7 +636,7 @@ export default function About({ setIsHovering, onSelectProject }) {
               </span>
             </div>
 
-            <p className="ig-bio">
+            <p className="ig-bio" style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem"}}>
               I'm a web developer with a Computer Science background. I code
               with AI tools like Claude and Cursor to move faster and ship
               cleaner work. I love turning rough ideas into real things people
