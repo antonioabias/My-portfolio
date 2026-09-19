@@ -320,19 +320,22 @@ export default function ProjectDetail({ project, onBack, onNext, onPrev, setIsHo
             <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "var(--cyan)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "1rem" }}>
               Like what you see?
             </div>
-            <h2 style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(2rem, 4vw, 3.2rem)",
-              fontWeight: 900, lineHeight: 1.05,
-              letterSpacing: "-0.03em", color: "var(--white)",
-              marginBottom: "1rem"
-            }}>
-              Let's build something<br />
-              <em className="together-shine" style={{ fontStyle: "italic" }}>together.</em>
-            </h2>
-            <p style={{ fontSize: "1rem", color: "var(--muted)", maxWidth: 360 }}>
-              Open to freelance, full-time, or collaboration. Drop me a message anytime.
-            </p>
+
+            <div className="detail-heading-group">
+              <h2 style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(2rem, 4vw, 3.2rem)",
+                fontWeight: 900, lineHeight: 1.05,
+                letterSpacing: "-0.03em", color: "var(--white)",
+                marginBottom: "1rem"
+              }}>
+                Let's build something<br />
+                <em className="together-shine" style={{ fontStyle: "italic" }}>together.</em>
+              </h2>
+              <p className="detail-note">
+                Open to freelance, full-time, or collaboration. Drop me a message anytime.
+              </p>
+            </div>
           </motion.div>
 
           <motion.div
@@ -379,8 +382,23 @@ export default function ProjectDetail({ project, onBack, onNext, onPrev, setIsHo
           width: 92%;
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 4rem;
+          gap: 5rem;
           align-items: start;
+        }
+        .detail-heading-group {
+          width: fit-content;
+          max-width: 100%;
+        }
+        .detail-note {
+          width: 0;
+          min-width: 100%;
+          font-size: 1rem;
+          color: var(--muted);
+        }
+        @media (min-width: 769px) {
+          .detail-note {
+            text-align: justify;
+          }
         }
         .contact-link-row {
           display: flex;
@@ -397,15 +415,15 @@ export default function ProjectDetail({ project, onBack, onNext, onPrev, setIsHo
           position: relative;
           display: inline-block;
           background: linear-gradient(115deg, rgba(200,200,200,0.5) 25%, #F5F5F5 45%, rgba(200,200,200,0.5) 65%);
-          background-size: 220% 100%;
+          background-size: 200% 100%;
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
-          animation: together-shine-sweep 3s ease-in-out infinite;
+          animation: together-shine-sweep 4s linear infinite;
         }
         @keyframes together-shine-sweep {
           0% { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
+          100% { background-position: 0% 0; }
         }
         @media (prefers-reduced-motion: reduce) {
           .together-shine { animation: none; }

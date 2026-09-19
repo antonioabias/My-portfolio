@@ -32,7 +32,7 @@ export const projects = [
     fullDesc: "A portfolio website for AC Architectural Studio showcasing projects, services, and design philosophy with a clean, visual-first approach. Built with React and Framer Motion for smooth page transitions. Designed to feel as refined as the architecture it represents.",
     highlights: ["Visual-first layout, imagery-led", "Framer Motion page transitions", "CMS-ready project grid", "Mobile-first responsive design"],
     gallery: [PLACEHOLDER("Archi Studio · Coming Soon")],
-    coverImg: "https://i.pinimg.com/1200x/a0/25/81/a025811caddd217f972b2cc88b40f03c.jpg",
+    coverImg: "https://i.pinimg.com/1200x/af/9d/bd/af9dbdd64edd4dcd64eb0033ff9813d7.jpg",
   },
   {
     id: "autona", link: null, num: "05", title: "Autona", subtitle: "Car Rental Scheduler",
@@ -50,7 +50,7 @@ export const projects = [
     fullDesc: "A wedding website that combines a digital invitation with RSVP and a photo and video gallery for the couple. Guests can view event details, confirm attendance, and browse memories in one place.",
     highlights: ["Digital invitation with RSVP form", "Photo and video gallery", "Event details and schedule", "Not yet developed"],
     gallery: [PLACEHOLDER("Wedding Site · Coming Soon")],
-    coverImg: "https://i.pinimg.com/736x/aa/96/8e/aa968e2215b48f72279e80a49f4e1175.jpg",
+    coverImg: "https://i.pinimg.com/1200x/2e/4b/8e/2e4b8e6d75a1bdbe04011e8991729199.jpg",
   },
   {
     id: "kicksfits", link: null, num: "07", title: "Kicks & Fits", subtitle: "Streetwear Shopify Store",
@@ -68,7 +68,7 @@ export const projects = [
     fullDesc: "An appointment scheduling system for a dental clinic. Lets patients book and reschedule appointments while giving the clinic a clear view of the daily schedule.",
     highlights: ["Patient appointment booking", "Schedule management for the clinic", "Reminder ready structure", "Not yet developed"],
     gallery: [PLACEHOLDER("Doc Arvs · Coming Soon")],
-    coverImg: "https://c1.wallpaperflare.com/preview/289/347/808/zahnreinigung-dental-repairs-treat-teeth-brushing-teeth.jpg",
+    coverImg: "https://i.pinimg.com/1200x/00/82/6e/00826e3d088932c3ab8e490ededae096.jpg",
   },
   {
     id: "nookco", link: null, num: "08", title: "Nook & Co.", subtitle: "Home Decor WooCommerce Store",
@@ -86,7 +86,7 @@ export const projects = [
     fullDesc: "E-Buddy is a personalized web-based board exam reviewer for criminology students. It uses the C4.5 decision tree algorithm to adapt study sessions dynamically, recommending topics to retake based on the student's actual performance data. Built with React on the front-end, Node.js for the API layer, and Firebase for real-time data and auth.",
     highlights: ["C4.5 decision tree algorithm for adaptive sessions", "Real-time performance tracking via Firebase", "Auth system with role-based access", "Mobile-responsive reviewer interface"],
     gallery: ebGallery,
-    coverImg: "https://i.pinimg.com/736x/2a/86/27/2a86276bd2decac2301941f90d6780d8.jpg",
+    coverImg: "https://i.pinimg.com/1200x/6c/2d/91/6c2d91fd14d8cdf2850137cd0ddeba4f.jpg",
   },
   {
     id: "sales", link: null, num: "03", title: "Sales Information System", subtitle: "Inventory & Sales Management",
@@ -111,7 +111,7 @@ export const projects = [
 
 const PROJECT_FONTS = {
   archi: "'Cormorant Garamond', 'Times New Roman', serif",
-  autona: "'Oswald', sans-serif",
+  autona: "'Asimovian', sans-serif",
   wedding: "'Dancing Script', cursive",
   kicksfits: "'Anton', sans-serif",
   arvsdentist: "'Quicksand', sans-serif",
@@ -120,6 +120,8 @@ const PROJECT_FONTS = {
   sales: "'Roboto Condensed', sans-serif",
   zombie: "'Creepster', cursive",
 };
+
+
 
 function ProjectCard({ project, onClick, setIsHovering, index }) {
   const [hovered, setHovered] = useState(false);
@@ -207,6 +209,7 @@ function ProjectCard({ project, onClick, setIsHovering, index }) {
           style={{
             fontFamily: PROJECT_FONTS[project.id] || "var(--font-display)",
             fontWeight: 700,
+            fontWeight: project.id === "autona" ? 400 : 700,
             fontSize: hovered ? "1.50rem" : "1.75rem",
             color: "var(--white)",
             letterSpacing: project.id === "zombie" ? "0.15em" : "-0.01em",

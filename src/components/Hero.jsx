@@ -108,15 +108,15 @@ export default function Hero({ setIsHovering }) {
           position: relative;
           display: inline-block;
           background: linear-gradient(115deg, rgba(255,255,255,0.5) 25%, #ffffff 45%, rgba(255,255,255,0.5) 65%);
-          background-size: 220% 100%;
+          background-size: 200% 100%;
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
-          animation: hero-shine-sweep 9s ease-in-out infinite;
+          animation: hero-shine-sweep 4s linear infinite;
         }
         @keyframes hero-shine-sweep {
           0% { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
+          100% { background-position: 0% 0; }
         }
         @media (max-width: 768px) {
           .hero-content { padding: 7rem 1.25rem 3rem; }

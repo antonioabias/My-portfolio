@@ -24,15 +24,15 @@ export default function Contact() {
         position: relative;
         display: inline-block;
         background: linear-gradient(115deg, rgba(200,200,200,0.5) 25%, #F5F5F5 45%, rgba(200,200,200,0.5) 65%);
-        background-size: 220% 100%;
+        background-size: 200% 100%;
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
-        animation: together-shine-sweep 3s ease-in-out infinite;
+        animation: together-shine-sweep 3s linear infinite;
       }
       @keyframes together-shine-sweep {
         0% { background-position: 200% 0; }
-        100% { background-position: -200% 0; }
+        100% { background-position: 0% 0; }
       }
       @media (prefers-reduced-motion: reduce) {
         .together-shine { animation: none; }
@@ -56,8 +56,23 @@ export default function Contact() {
         .contact-heading {
           font-size: clamp(2.5rem, 4vw, 4.5rem);
         }
-        .contact-link-label {
-          font-size: 0.82rem;
+        @media (max-width: 768px) {
+          .contact-section {
+            padding: 5rem 1.5rem;
+          }
+          .contact-grid {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+          }
+          .contact-heading {
+            font-size: clamp(1.25rem, 6.6vw, 2.5rem);
+          }
+          .contact-line {
+            white-space: nowrap;
+          }
+          .contact-link-label {
+            font-size: 0.72rem;
+          }
         }
         .fly-back-top {
           position: fixed;
@@ -106,7 +121,7 @@ export default function Contact() {
               marginBottom: "1.5rem",
             }}
           >
-            Let's build something
+            <span className="contact-line">Let's build something</span>
             <br />
             <em className="together-shine" style={{ fontStyle: "italic" }}>
               together.

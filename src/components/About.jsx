@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import pic from "../assets/pic.jpg";
@@ -6,7 +6,7 @@ import Projects from "./Projects";
 import Certifications from "./Certifications";
 import Skills from "./Skills";
 
-const STORY_DURATION = 4500;
+const STORY_DURATION = 5000;
 const CERT_COUNT = 11;
 
 const highlights = [
@@ -17,7 +17,7 @@ const highlights = [
       { name: "Warcraft III", caption: "Where it all started. The game that got me into gaming.", image: "https://i.pinimg.com/736x/81/e3/4c/81e34c6c9894c19f9748b65cc7816d3e.jpg" },
       { name: "Dota 2", caption: "Still can't uninstall. 6000+ hours and counting.", image: "https://i.pinimg.com/736x/86/c9/58/86c958db7a90145f4ff566e819a4b284.jpg" },
       { name: "PUBG Mobile", caption: "Mobile survival tactics at its best.", image: "https://i.pinimg.com/736x/35/61/cc/3561ccebadac5b4a1db3bbe731a2f8a3.jpg" },
-      { name: "Mobile Legends", caption: "Rapid MOBA action. Classic Friday nights.", image: "https://www.youtube.com/shorts/DT0_bn7djOk?feature=share" },
+      { name: "Mobile Legends", caption: "Rapid MOBA action. Classic Friday nights.", image: "https://i.pinimg.com/736x/7b/6e/33/7b6e333f23ee41ed249a8737207060f9.jpg" },
       { name: "PUBG PC", caption: "Tactical battle royale. Way harder than mobile.", image: "https://i.pinimg.com/1200x/d4/3f/26/d43f26c0feb995992405ce05cb248309.jpg" },
       { name: "GTA Series", caption: "San Andreas to GTA V. Never gets old.", image: "https://i.pinimg.com/1200x/00/a7/bf/00a7bf0ec1548105dee8314de81a0a1e.jpg" },
       { name: "State of Decay", caption: "Zombie survival management done right.", image: "https://wallpapers.com/images/high/giant-zombie-state-of-decay-2-vwd7vpgxw5hwhxhw.webp" },
@@ -161,7 +161,7 @@ const TAB_ICONS = {
   ),
 };
 
-function HighlightCircle({ group, onOpen, setIsHovering }) {
+function HighlightCircle({ group, onOpen, setIsHovering, viewed }) {
   return (
     <button
       onClick={() => onOpen(group)}
@@ -169,7 +169,17 @@ function HighlightCircle({ group, onOpen, setIsHovering }) {
       onMouseLeave={() => setIsHovering(false)}
       style={{ background: "none", border: "none", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.6rem", flexShrink: 0, width: "clamp(88px, 8vw, 104px)" }}
     >
-      <div style={{ width: "clamp(78px, 7vw, 92px)", height: "clamp(78px, 7vw, 92px)", borderRadius: "50%", padding: 3, background: "linear-gradient(135deg, #1877F2, #42A5F5, #1877F2)" }}>
+      <div
+        style={{
+          width: "clamp(78px, 7vw, 92px)",
+          height: "clamp(78px, 7vw, 92px)",
+          borderRadius: "50%",
+          padding: 3,
+          background: viewed
+            ? "rgba(242,242,242,0.28)"
+            : "linear-gradient(135deg, #1877F2, #42A5F5, #1877F2)",
+        }}
+      >
         <div style={{ width: "100%", height: "100%", borderRadius: "50%", padding: 3, background: "var(--paper)" }}>
           <img src={group.items[0].image} alt={group.label} style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover", display: "block" }} />
         </div>
@@ -181,7 +191,114 @@ function HighlightCircle({ group, onOpen, setIsHovering }) {
   );
 }
 
-function StoryModal({ group, onClose, setIsHovering }) {
+const HEART_COLORS = ["#ff4d6d", "#ff758f", "#ff2e63", "#ff8fa3", "#ffb3c1"];
+const MAX_HEARTS = 40;
+const HEART_PATH =
+  "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z";
+
+function HeartReact({ setIsHovering }) {
+  const [hearts, setHearts] = useState([]);
+  const idRef = useRef(0);
+  const reduceMotion = useReducedMotion();
+
+  const burst = () => {
+    const count = 1 + Math.floor(Math.random() * 3);
+    const fresh = Array.from({ length: count }, () => ({
+      id: idRef.current++,
+      size: 16 + Math.random() * 16,
+      x: -60 + Math.random() * 75,
+      rise: 160 + Math.random() * 140,
+      rotate: -30 + Math.random() * 60,
+      duration: 1.3 + Math.random() * 0.9,
+      color: HEART_COLORS[Math.floor(Math.random() * HEART_COLORS.length)],
+    }));
+    setHearts((current) => [...current, ...fresh].slice(-MAX_HEARTS));
+  };
+
+  const removeHeart = (id) =>
+    setHearts((current) => current.filter((h) => h.id !== id));
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        right: 14,
+        bottom: 18,
+        width: 48,
+        height: 48,
+        zIndex: 5,
+      }}
+    >
+      <div
+        aria-hidden="true"
+        style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
+      >
+        {hearts.map((h) => (
+          <motion.svg
+            key={h.id}
+            viewBox="0 0 24 24"
+            width={h.size}
+            height={h.size}
+            fill={h.color}
+            initial={{ opacity: 1, x: 0, y: 0, scale: 0.4, rotate: 0 }}
+            animate={
+              reduceMotion
+                ? { opacity: 0, scale: 1 }
+                : {
+                    opacity: [1, 1, 0],
+                    x: h.x,
+                    y: -h.rise,
+                    scale: [0.4, 1.1, 1],
+                    rotate: h.rotate,
+                  }
+            }
+            transition={{ duration: h.duration, ease: "easeOut" }}
+            onAnimationComplete={() => removeHeart(h.id)}
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              marginLeft: -h.size / 2,
+              marginTop: -h.size / 2,
+              filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.35))",
+            }}
+          >
+            <path d={HEART_PATH} />
+          </motion.svg>
+        ))}
+      </div>
+
+      <motion.button
+        onClick={burst}
+        whileTap={{ scale: 0.82 }}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+        aria-label="Send a heart"
+        title="Send a heart"
+        style={{
+          position: "relative",
+          width: 48,
+          height: 48,
+          borderRadius: "50%",
+          border: "none",
+          background: "rgba(0,0,0,0.35)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer",
+          touchAction: "manipulation",
+          zIndex: 1,
+        }}
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#ff4d6d">
+          <path d={HEART_PATH} />
+        </svg>
+      </motion.button>
+    </div>
+  );
+}
+
+function StoryModal({ group, onClose, onFinish, setIsHovering }) {
   const [index, setIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -192,13 +309,19 @@ function StoryModal({ group, onClose, setIsHovering }) {
 
   const total = group.items.length;
   const current = group.items[index];
+  const duration = Math.min(
+    12000,
+    Math.max(STORY_DURATION, current.caption.length * 90)
+  );
 
   const goNext = useCallback(() => {
-    setIndex((i) => {
-      if (i >= total - 1) { onClose(); return i; }
-      return i + 1;
-    });
-  }, [total, onClose]);
+    if (index >= total - 1) {
+      onFinish?.(group.key);
+      onClose();
+    } else {
+      setIndex(index + 1);
+    }
+  }, [index, total, onClose, onFinish, group.key]);
 
   const goPrev = useCallback(() => setIndex((i) => Math.max(0, i - 1)), []);
 
@@ -206,21 +329,26 @@ function StoryModal({ group, onClose, setIsHovering }) {
     setProgress(0);
     elapsedRef.current = 0;
     startRef.current = null;
+    setPaused(false);
   }, [index]);
 
   useEffect(() => {
-    if (paused) { cancelAnimationFrame(rafRef.current); return; }
+    if (paused) {
+      cancelAnimationFrame(rafRef.current);
+      startRef.current = null;
+      return;
+    }
     const tick = (t) => {
       if (startRef.current === null) startRef.current = t - elapsedRef.current;
       elapsedRef.current = t - startRef.current;
-      const pct = Math.min(100, (elapsedRef.current / STORY_DURATION) * 100);
+      const pct = Math.min(100, (elapsedRef.current / duration) * 100);
       setProgress(pct);
       if (pct >= 100) goNext();
       else rafRef.current = requestAnimationFrame(tick);
     };
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [paused, index, goNext]);
+  }, [paused, index, goNext, duration]);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -318,20 +446,62 @@ function StoryModal({ group, onClose, setIsHovering }) {
           />
         </AnimatePresence>
 
-        {/* Caption */}
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "3rem 1.25rem 1.5rem", background: "linear-gradient(to top, rgba(0,0,0,0.85), transparent)" }}>
-          <div style={{ fontFamily: "var(--font-serif)", fontSize: "1.3rem", fontWeight: 600, color: "#fff", marginBottom: "0.3rem" }}>{current.name}</div>
-          <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.82rem", color: "rgba(255,255,255,0.75)" }}>{current.caption}</div>
+                {/* Caption */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            padding: "3rem 5rem 1.5rem 1.25rem",
+            background: "linear-gradient(to top, rgba(0,0,0,0.85), transparent)",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "1.3rem",
+              fontWeight: 600,
+              color: "#fff",
+              marginBottom: "0.3rem",
+              overflowWrap: "anywhere",
+            }}
+          >
+            {current.name}
+          </div>
+          <div
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.82rem",
+              color: "rgba(255,255,255,0.75)",
+              overflowWrap: "anywhere",
+              display: "-webkit-box",
+              WebkitLineClamp: 5,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
+            {current.caption}
+          </div>
         </div>
 
         {/* Tap zones */}
         <div onClick={goPrev} style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: "40%", zIndex: 2, cursor: "pointer" }} />
         <div onClick={goNext} style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: "60%", zIndex: 2, cursor: "pointer" }} />
+
+        {/* Heart react */}
+        <HeartReact setIsHovering={setIsHovering} />
       </motion.div>
     </motion.div>,
     document.body
   );
 }
+
+
+
+
+
+
 
 function formatCount(n) {
   if (n >= 1000000) {
@@ -429,10 +599,36 @@ function TimelineEntry({ post, setIsHovering }) {
   );
 }
 
+const VIEWED_KEY = "highlightsViewed";
+
+const readViewed = () => {
+  try {
+    const raw = sessionStorage.getItem(VIEWED_KEY);
+    return new Set(raw ? JSON.parse(raw) : []);
+  } catch {
+    return new Set();
+  }
+};
+
 export default function About({ setIsHovering, onSelectProject }) {
   const [openGroup, setOpenGroup] = useState(null);
   const [activeTab, setActiveTab] = useState("projects");
+  const [viewed, setViewed] = useState(readViewed);
   const ref = useRef(null);
+
+  const markViewed = useCallback((key) => {
+    setViewed((prev) => (prev.has(key) ? prev : new Set(prev).add(key)));
+  }, []);
+
+  const closeGroup = useCallback(() => setOpenGroup(null), []);
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(VIEWED_KEY, JSON.stringify([...viewed]));
+    } catch {
+      // storage blocked, ignore
+    }
+  }, [viewed]);
 
   return (
     <section
@@ -676,13 +872,14 @@ export default function About({ setIsHovering, onSelectProject }) {
           className="highlights-row"
         >
           {highlights.map((group) => (
-            <HighlightCircle
-              key={group.key}
-              group={group}
-              onOpen={setOpenGroup}
-              setIsHovering={setIsHovering}
-            />
-          ))}
+        <HighlightCircle
+          key={group.key}
+          group={group}
+          viewed={viewed.has(group.key)}
+          onOpen={setOpenGroup}
+          setIsHovering={setIsHovering}
+        />
+      ))}
         </motion.div>
 
         <div className="tab-bar">
@@ -737,7 +934,8 @@ export default function About({ setIsHovering, onSelectProject }) {
         {openGroup && (
           <StoryModal
             group={openGroup}
-            onClose={() => setOpenGroup(null)}
+            onClose={closeGroup}
+            onFinish={markViewed}
             setIsHovering={setIsHovering}
           />
         )}
