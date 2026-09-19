@@ -16,12 +16,12 @@ const highlights = [
     items: [
       { name: "Warcraft III", caption: "Where it all started. The game that got me into gaming.", image: "https://i.pinimg.com/736x/81/e3/4c/81e34c6c9894c19f9748b65cc7816d3e.jpg" },
       { name: "Dota 2", caption: "Still can't uninstall. 6000+ hours and counting.", image: "https://i.pinimg.com/736x/86/c9/58/86c958db7a90145f4ff566e819a4b284.jpg" },
-      { name: "PUBG Mobile", caption: "Mobile survival tactics at its best.", image: "https://i.pinimg.com/736x/35/61/cc/3561ccebadac5b4a1db3bbe731a2f8a3.jpg" },
+      { name: "PUBG Mobile", caption: "Mobile survival tactics at its best.", image: "https://wallpaperaccess.com/full/1311512.jpg" },
       { name: "Mobile Legends", caption: "Rapid MOBA action. Classic Friday nights.", image: "https://i.pinimg.com/736x/7b/6e/33/7b6e333f23ee41ed249a8737207060f9.jpg" },
-      { name: "PUBG PC", caption: "Tactical battle royale. Way harder than mobile.", image: "https://i.pinimg.com/1200x/d4/3f/26/d43f26c0feb995992405ce05cb248309.jpg" },
+      { name: "PUBG: Battlegrounds", caption: "Tactical battle royale. Way harder than mobile.", image: "https://wallpaperaccess.com/full/840167.jpg" },
       { name: "GTA Series", caption: "San Andreas to GTA V. Never gets old.", image: "https://i.pinimg.com/1200x/00/a7/bf/00a7bf0ec1548105dee8314de81a0a1e.jpg" },
-      { name: "State of Decay", caption: "Zombie survival management done right.", image: "https://wallpapers.com/images/high/giant-zombie-state-of-decay-2-vwd7vpgxw5hwhxhw.webp" },
-      { name: "Assassin's Creed", caption: "Every era, every blade. Best open worlds ever.", image: "https://images.hdqwalls.com/wallpapers/assassins-creed-odyssey-fight-4k-tb.jpg" },
+      { name: "State of Decay 2", caption: "Zombie survival management done right.", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/495420/page_bg_raw.jpg?t=1741378867" },
+      { name: "Assassin's Creed", caption: "Every era, every blade. Best open worlds ever.", image: "https://i.pinimg.com/736x/4e/1e/43/4e1e4352dda5bb6a52a7a35f35882c9a.jpg" },
     ],
   },
   {
@@ -30,7 +30,7 @@ const highlights = [
     items: [
       { name: "Billiards", caption: "I see the angles.", image: "https://i.pinimg.com/736x/10/3b/76/103b76913b8ab538c82ea76d31fef1c0.jpg" },
       { name: "Badminton", caption: "Speed and reflexes. Best played with my gf.", image: "https://i.pinimg.com/736x/30/0b/83/300b83676693906ceea86a960b3425c8.jpg" },
-      { name: "Basketball", caption: "Shooting only!", image: "https://i.pinimg.com/1200x/df/25/26/df2526fe4b20a4e8ae39923e8444645a.jpg" },
+      { name: "Basketball", caption: "Shooting only!", image: "https://i.pinimg.com/736x/a4/52/96/a4529608dee54df24321e4badb4efcea.jpg" },
       { name: "Archery", caption: "Breathe, aim, release. Requires a lot of focus.", image: "https://i.pinimg.com/736x/dd/dc/b4/dddcb4f4b02a899077658d6bbba7ba79.jpg" },
     ],
   },
@@ -38,9 +38,9 @@ const highlights = [
     key: "passions",
     label: "Passions",
     items: [
-      { name: "UI/UX Design", caption: "If it feels obvious, I did it right.", image: "https://miro.medium.com/v2/resize:fit:2000/1*FgUVo0m0AwnNRPICeKS7KA.jpeg" },
-      { name: "Visual Arts", caption: "Started with pencil, now it's all pixels.", image: "https://i.pinimg.com/736x/de/3b/86/de3b86bb28e29933c7f77ea4bdafc24b.jpg" },
       { name: "Web Dev", caption: "Building things for the modern web.", image: "https://i.pinimg.com/736x/03/17/16/031716e4bfd0ffbc554b76740f5075a1.jpg" },
+      { name: "UI/UX Design", caption: "If it feels obvious, I did it right.", image: "https://i.pinimg.com/736x/78/08/4c/78084cbc246fba79b7baa7d0b2f1c42c.jpg" },
+      { name: "Visual Arts", caption: "Started with pencil, now it's all pixels.", image: "https://i.pinimg.com/736x/de/3b/86/de3b86bb28e29933c7f77ea4bdafc24b.jpg" },
       { name: "Content Creation", caption: "Still building the brand. One post at a time.", image: "https://i.pinimg.com/736x/cb/25/63/cb2563c1afdc4a836765b00bbe2fed01.jpg" },
     ],
   },
@@ -48,7 +48,7 @@ const highlights = [
     key: "cinema",
     label: "Cinema",
     items: [
-      { name: "Marvel", caption: "Epic cinematic storytelling. Phase 1 to now.", image: "https://i.pinimg.com/736x/71/d0/8c/71d08caf066e888827ab1b888415f320.jpg" },
+      { name: "Marvel", caption: "Epic cinematic storytelling. Phase 1 to now.", image: "https://i.pinimg.com/736x/6b/ff/90/6bff90d97cfa128acb006300609e444e.jpg" },
       { name: "The Walking Dead", caption: "Gritty apocalypse survival. Best character arcs ever.", image: "https://i.pinimg.com/736x/f4/67/9c/f4679cb7ec47e9f135eb356804637604.jpg" },
       { name: "The Chosen", caption: "Groundbreaking historical drama. Highly recommend.", image: "https://i.pinimg.com/736x/ef/b1/c9/efb1c948e7bd484dbc6784f41e146021.jpg" },
       { name: "Monsterverse", caption: "Godzilla x Kong. Pure spectacle every time.", image: "https://i.pinimg.com/736x/16/68/08/1668080cf4dd4776a65e9a0a4966402f.jpg" },
@@ -394,7 +394,7 @@ function StoryModal({ group, onClose, onFinish, setIsHovering }) {
 
         {/* Top bar: label + controls */}
         <div style={{ position: "absolute", top: 22, left: 14, right: 14, display: "flex", alignItems: "center", justifyContent: "space-between", zIndex: 3, gap: "0.5rem" }}>
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.78rem", color: "#fff", letterSpacing: "0.05em", flex: 1 }}>{group.label}</span>
+          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 500, color: "#fff", letterSpacing: "0.02em", flex: 1 }}>{group.label}</span>
           <div style={{ display: "flex", gap: "0.4rem", alignItems: "center" }}>
             {/* Pause / Play */}
             <button
@@ -471,9 +471,10 @@ function StoryModal({ group, onClose, onFinish, setIsHovering }) {
           </div>
           <div
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.82rem",
-              color: "rgba(255,255,255,0.75)",
+              fontFamily: "var(--font-body)",
+              fontSize: "0.9rem",
+              lineHeight: 1.5,
+              color: "rgba(255,255,255,0.8)",
               overflowWrap: "anywhere",
               display: "-webkit-box",
               WebkitLineClamp: 5,
@@ -540,15 +541,34 @@ function HeartButton({ count, liked, onToggle, setIsHovering }) {
       onClick={onToggle}
       onMouseEnter={() => setIsHovering && setIsHovering(true)}
       onMouseLeave={() => setIsHovering && setIsHovering(false)}
+      aria-label={liked ? "Unlike" : "Like"}
       style={{
-        display: "flex", alignItems: "center", gap: "0.4rem",
-        background: "none", border: "none", cursor: "pointer",
+        display: "flex",
+        alignItems: "center",
+        gap: "0.4rem",
+        background: "none",
+        border: "none",
+        cursor: "pointer",
         color: liked ? "#ff4d6d" : "var(--ink-faint)",
-        fontFamily: "var(--font-body)", fontSize: "0.85rem",
+        fontFamily: "var(--font-body)",
+        fontSize: "0.85rem",
+        minHeight: 44,
+        padding: "0 0.25rem",
+        touchAction: "manipulation",
       }}
     >
-      <svg width="18" height="18" viewBox="0 0 24 24" fill={liked ? "#ff4d6d" : "none"} stroke="currentColor" strokeWidth="1.8">
-        <path d="M12 21s-7.5-4.6-10-9.1C0.3 8.4 2 4.8 5.6 4.2c2-.3 3.9.8 4.9 2.4 1-1.6 2.9-2.7 4.9-2.4 3.6.6 5.3 4.2 3.6 7.7C19.5 16.4 12 21 12 21z" />
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill={liked ? "#ff4d6d" : "none"}
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+        style={{ flexShrink: 0, overflow: "visible" }}
+      >
+        <path d={HEART_PATH} />
       </svg>
       <span>{formatCount(count)}</span>
     </button>
