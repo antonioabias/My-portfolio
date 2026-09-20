@@ -26,15 +26,15 @@ export default function Contact() {
           padding-right: 0.15em;
           padding-bottom: 0.08em;
           background: linear-gradient(115deg, rgba(200,200,200,0.5) 25%, #F5F5F5 45%, rgba(200,200,200,0.5) 65%);
-          background-size: 220% 100%;
+          background-size: 200% 100%;
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
-          animation: together-shine-sweep 3s ease-in-out infinite;
+          animation: together-shine-sweep 3s linear infinite;
         }
         @keyframes together-shine-sweep {
           0% { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
+          100% { background-position: 0% 0; }
         }
         @media (prefers-reduced-motion: reduce) {
           .together-shine { animation: none; }
