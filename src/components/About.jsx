@@ -14,99 +14,113 @@ const highlights = [
     key: "esports",
     label: "Esports",
     items: [
-      { name: "Warcraft III", caption: "Where it all started. The game that got me into gaming.", image: "https://i.pinimg.com/736x/81/e3/4c/81e34c6c9894c19f9748b65cc7816d3e.jpg" },
-      { name: "Dota 2", caption: "Still can't uninstall. 6000+ hours and counting.", image: "https://i.pinimg.com/736x/86/c9/58/86c958db7a90145f4ff566e819a4b284.jpg" },
-      { name: "PUBG Mobile", caption: "Mobile survival tactics at its best.", image: "https://wallpaperaccess.com/full/1311512.jpg" },
-      { name: "Mobile Legends", caption: "Rapid MOBA action. Classic Friday nights.", image: "https://i.pinimg.com/736x/7b/6e/33/7b6e333f23ee41ed249a8737207060f9.jpg" },
-      { name: "PUBG: Battlegrounds", caption: "Tactical battle royale. Way harder than mobile.", image: "https://wallpaperaccess.com/full/840167.jpg" },
-      { name: "GTA Series", caption: "San Andreas to GTA V. Never gets old.", image: "https://i.pinimg.com/1200x/00/a7/bf/00a7bf0ec1548105dee8314de81a0a1e.jpg" },
-      { name: "State of Decay 2", caption: "Zombie survival management done right.", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/495420/page_bg_raw.jpg?t=1741378867" },
-      { name: "Assassin's Creed", caption: "Every era, every blade. Best open worlds ever.", image: "https://i.pinimg.com/736x/4e/1e/43/4e1e4352dda5bb6a52a7a35f35882c9a.jpg" },
+      { name: "Warcraft III", caption: "Where it all started. The game that got me into gaming", image: "https://i.pinimg.com/736x/81/e3/4c/81e34c6c9894c19f9748b65cc7816d3e.jpg" },
+      { name: "Dota 2", caption: "Still can't uninstall. 6000+ hours and counting", image: "https://i.pinimg.com/736x/86/c9/58/86c958db7a90145f4ff566e819a4b284.jpg" },
+      { name: "PUBG Mobile", caption: "Chicken dinners with friends and cousins", image: "https://wallpaperaccess.com/full/1311512.jpg" },
+      { name: "Mobile Legends", caption: "Playing with my girl, spamming TP, laughing nonstop, and still winning", image: "https://i.pinimg.com/736x/7b/6e/33/7b6e333f23ee41ed249a8737207060f9.jpg" },
+      { name: "PUBG: Battlegrounds", caption: "Late nights with the boys, just newbies having fun, still trying to figure out where the enemies were", image: "https://wallpaperaccess.com/full/840167.jpg" },
+      { name: "GTA Series", caption: "San Andreas to GTA V. It never gets old", image: "https://i.pinimg.com/1200x/00/a7/bf/00a7bf0ec1548105dee8314de81a0a1e.jpg" },
+      { name: "State of Decay 2", caption: "JJust me against the apocalypse, surviving on my own terms", image: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/495420/page_bg_raw.jpg?t=1741378867" },
+      { name: "Assassin's Creed", caption: "Every era, every blade. Best open worlds ever", image: "https://i.pinimg.com/736x/4e/1e/43/4e1e4352dda5bb6a52a7a35f35882c9a.jpg" },
     ],
   },
   {
     key: "sports",
     label: "Sports",
     items: [
-      { name: "Billiards", caption: "I see the angles.", image: "https://i.pinimg.com/736x/10/3b/76/103b76913b8ab538c82ea76d31fef1c0.jpg" },
-      { name: "Badminton", caption: "Speed and reflexes. Best played with my gf.", image: "https://i.pinimg.com/736x/30/0b/83/300b83676693906ceea86a960b3425c8.jpg" },
+      { name: "Billiards", caption: "I see the angles", image: "https://i.pinimg.com/736x/10/3b/76/103b76913b8ab538c82ea76d31fef1c0.jpg" },
+      { name: "Badminton", caption: "Speed and reflexes. Best played with my gf", image: "https://i.pinimg.com/736x/30/0b/83/300b83676693906ceea86a960b3425c8.jpg" },
       { name: "Basketball", caption: "Shooting only!", image: "https://i.pinimg.com/736x/a4/52/96/a4529608dee54df24321e4badb4efcea.jpg" },
-      { name: "Archery", caption: "Breathe, aim, release. Requires a lot of focus.", image: "https://i.pinimg.com/736x/dd/dc/b4/dddcb4f4b02a899077658d6bbba7ba79.jpg" },
+      { name: "Archery", caption: "No pressure, just for fun. Aim, breathe, release", image: "https://i.pinimg.com/1200x/72/06/0d/72060de3458e8bc3eb368ce175a3901d.jpg" },
     ],
   },
   {
     key: "passions",
     label: "Passions",
     items: [
-      { name: "Web Dev", caption: "Building things for the modern web.", image: "https://i.pinimg.com/736x/03/17/16/031716e4bfd0ffbc554b76740f5075a1.jpg" },
-      { name: "UI/UX Design", caption: "If it feels obvious, I did it right.", image: "https://i.pinimg.com/736x/78/08/4c/78084cbc246fba79b7baa7d0b2f1c42c.jpg" },
-      { name: "Visual Arts", caption: "Started with pencil, now it's all pixels.", image: "https://i.pinimg.com/736x/de/3b/86/de3b86bb28e29933c7f77ea4bdafc24b.jpg" },
-      { name: "Content Creation", caption: "Still building the brand. One post at a time.", image: "https://i.pinimg.com/736x/cb/25/63/cb2563c1afdc4a836765b00bbe2fed01.jpg" },
+      { name: "Web Dev", caption: "Building things for the modern web", image: "https://i.pinimg.com/736x/f0/ec/cd/f0eccdfe8f9bcafa3022b5d792b4d542.jpg" },
+      { name: "UI/UX Design", caption: "Designing flows so smooth you never notice them", image: "https://i.pinimg.com/736x/26/82/37/2682378ad7c57a65995e78d58f527329.jpg" },
+      { name: "Visual Arts", caption: "Started with pencil, now it's all pixels", image: "https://i.pinimg.com/736x/de/3b/86/de3b86bb28e29933c7f77ea4bdafc24b.jpg" },
+      { name: "Content Creation", caption: "Still building the brand. One post at a time", image: "https://i.pinimg.com/736x/01/cc/ec/01ccec952586d124ebb44fe6217acd9b.jpg" },
     ],
   },
   {
     key: "cinema",
     label: "Cinema",
     items: [
-      { name: "Marvel", caption: "Epic cinematic storytelling. Phase 1 to now.", image: "https://i.pinimg.com/736x/6b/ff/90/6bff90d97cfa128acb006300609e444e.jpg" },
-      { name: "The Walking Dead", caption: "Gritty apocalypse survival. Best character arcs ever.", image: "https://i.pinimg.com/736x/f4/67/9c/f4679cb7ec47e9f135eb356804637604.jpg" },
-      { name: "The Chosen", caption: "Groundbreaking historical drama. Highly recommend.", image: "https://i.pinimg.com/736x/ef/b1/c9/efb1c948e7bd484dbc6784f41e146021.jpg" },
-      { name: "Monsterverse", caption: "Godzilla x Kong. Pure spectacle every time.", image: "https://i.pinimg.com/736x/16/68/08/1668080cf4dd4776a65e9a0a4966402f.jpg" },
+      { name: "Marvel", caption: "Epic cinematic storytelling. Phase 1 to now", image: "https://i.pinimg.com/736x/6b/ff/90/6bff90d97cfa128acb006300609e444e.jpg" },
+      { name: "The Walking Dead", caption: "From the original to the spinoffs, the best survival stories out there", image: "https://i.pinimg.com/736x/f4/67/9c/f4679cb7ec47e9f135eb356804637604.jpg" },
+      { name: "The Chosen", caption: "A story that strengthens my faith every time I watch it", image: "https://i.pinimg.com/736x/ef/b1/c9/efb1c948e7bd484dbc6784f41e146021.jpg" },
+      { name: "Monsterverse", caption: "Godzilla x Kong. The fight scenes hit different on the big screen", image: "https://i.pinimg.com/736x/16/68/08/1668080cf4dd4776a65e9a0a4966402f.jpg" },
     ],
   },
   {
     key: "pets",
     label: "Pets",
     items: [
-      { name: "Combi", caption: "Baby combs", image: "https://i.pinimg.com/736x/7e/8c/94/7e8c94fd5b1ede675e97297091253fe9.jpg" },
-      { name: "Mochi", caption: "My babyba", image: "https://i.pinimg.com/736x/14/f3/9d/14f39d4473009970549c659366a4cf92.jpg" },
-      { name: "Koki", caption: "Koking pasaway", image: "https://i.pinimg.com/736x/e6/9b/90/e69b90326c604901611cf13665649785.jpg" },
-      { name: "Kobe", caption: "Kobeng bait", image: "https://i.pinimg.com/736x/7e/8c/94/7e8c94fd5b1ede675e97297091253fe9.jpg" },
-      { name: "Rococo", caption: "Big boy", image: "https://i.pinimg.com/736x/7e/8c/94/7e8c94fd5b1ede675e97297091253fe9.jpg" },
-      { name: "Oli", caption: "Oliko", image: "https://i.pinimg.com/736x/7e/8c/94/7e8c94fd5b1ede675e97297091253fe9.jpg" },
-      { name: "Bulldog", caption: "Qt bulldog", image: "https://i.pinimg.com/736x/7e/8c/94/7e8c94fd5b1ede675e97297091253fe9.jpg" },
+      { name: "Combi", caption: "Baby combs", image: "https://i.pinimg.com/736x/c2/cc/19/c2cc191c67cbb4c949ab88dbf4b5d9b6.jpg" },
+      { name: "Mochi", caption: "My babyba", image: "https://i.pinimg.com/736x/70/d9/f3/70d9f3b44afe76b167d73a7c9363ed2c.jpg" },
+      { name: "Koki", caption: "Koking pasaway", image: "https://i.pinimg.com/736x/26/21/6a/26216ae015d001a5485962891316453b.jpg" },
+      { name: "Kobe", caption: "Kobeng bait", image: "https://i.pinimg.com/736x/11/72/50/11725029c0c8d419a48d48357a38b8e9.jpg" },
+      { name: "Rococo", caption: "Big boy", image: "https://i.pinimg.com/736x/e9/6d/fb/e96dfb95ce14003939aaa9cc5cf6579f.jpg" },
+      { name: "Oli", caption: "Oliko", image: "https://i.pinimg.com/736x/9f/ba/be/9fbabe7b9331a111d051490b8f2ead4f.jpg" },
+      { name: "Bulldog", caption: "Qt bulldog", image: "https://i.pinimg.com/736x/42/44/81/424481164efbcdcd4cfa2938511ec503.jpg" },
       { name: "Eli", caption: "Eli ganda", image: "https://i.pinimg.com/736x/59/1b/93/591b93314e3290cc7b34d74f6f4ae829.jpg" },
       { name: "Yuri", caption: "Yuripotpot", image: "https://i.pinimg.com/736x/db/40/21/db40219179199a90cf0b77110479aa97.jpg" },
+      /* No photos :<
       { name: "Puri", caption: "Puriiii", image: "https://i.pinimg.com/736x/7e/8c/94/7e8c94fd5b1ede675e97297091253fe9.jpg" },
       { name: "Charm", caption: "Charrrm", image: "https://i.pinimg.com/736x/7e/8c/94/7e8c94fd5b1ede675e97297091253fe9.jpg" },
       { name: "Bruce", caption: "Banner", image: "https://i.pinimg.com/736x/7e/8c/94/7e8c94fd5b1ede675e97297091253fe9.jpg" },
       { name: "Tyrone", caption: "Banner", image: "https://i.pinimg.com/736x/7e/8c/94/7e8c94fd5b1ede675e97297091253fe9.jpg" },
       { name: "Sweet sweet", caption: "Banner", image: "https://i.pinimg.com/736x/7e/8c/94/7e8c94fd5b1ede675e97297091253fe9.jpg" },
+       */
     ],
   },
 ];
+
+const profileStory = {
+  key: "profile",
+  label: "Antonio",
+  items: [
+    {
+      name: " ",
+      caption: "Looking for full time job WFH setup.",
+      image: "https://thumbs.dreamstime.com/b/jobless-man-sign-hire-me-searching-job-male-character-unemployed-showing-table-candidate-work-looking-vacancy-189585050.jpg",
+    },
+  ],
+};
 
 const posts = [
   {
     id: "ac-archi",
     period: "2024 to Present",
     role: "Freelance Web Developer",
-    company: "AC Architectural Studio",
-    desc: "Building a full company website from scratch. Project gallery, services, client inquiry system, and a Gemini AI chatbot for international client acquisition.",
+    company: "Multiple Clients",
+    desc: "Working freelance on a mix of projects, company websites, booking tools, online stores, and AI integrations for clients.",
     tags: ["ReactJS", "GeminiAPI", "FramerMotion"],
   },
   {
     id: "working-student",
     period: "2022 to 2024",
-    role: "Completing the Degree",
+    role: "Getting the Degree",
     company: "University of Nueva Caceres",
-    desc: "Went back as a working student to finish coursework. Graduated with a Computer Science degree.",
+    desc: "Came back as a working student to finish what I started. Graduated with a Computer Science degree.",
     tags: ["ComputerScience", "Graduated"],
   },
   {
     id: "broadlume",
     period: "2021 to 2023",
-    role: "Data and Advertising Operations",
+    role: "Data and Advertising Operations Specialist",
     company: "Wide-out Workforces Inc. (Broadlume)",
-    desc: "Paused college to work full time during the pandemic. Managed product datasets across hundreds of client websites, data audits, catalog accuracy, and cross team marketing alignment.",
+    desc: "Paused college to work full-time during the pandemic. Handled product data across hundreds of client websites, ran data audits, kept catalogs accurate, and worked closely with the marketing team.",
     tags: ["Salesforce", "Excel", "Floorforce"],
   },
   {
     id: "college",
     period: "2018 to 2020",
-    role: "Bacherlor of Science in Computer Science",
+    role: "Bachelor of Science in Computer Science",
     company: "University of Nueva Caceres",
-    desc: "Started the Computer Science program, building on what got started in high school.",
+    desc: "Started college for Computer Science, building on the foundation from senior high school.",
     tags: ["ComputerScience"],
   },
   {
@@ -114,7 +128,7 @@ const posts = [
     period: "2016 to 2018",
     role: "Computer Programming",
     company: "Camarines Sur National High School",
-    desc: "Developed Zombie Maze and a Sales Information System as school projects. This is where the real foundation got built.",
+    desc: "Built Zombie Maze and a Sales Information System as school projects. This is where the real foundation started.",
     tags: ["Java", "PHP", "MySQL"],
   },
   {
@@ -122,7 +136,7 @@ const posts = [
     period: "2012 to 2016",
     role: "Visual Arts",
     company: "Camarines Sur National High School",
-    desc: "Trained in painting, drawing, and sculpture. Still shapes every design decision I make now.",
+    desc: "Trained in painting, drawing, and sculpture. It still shapes every design decision I make today.",
     tags: ["Painting", "Drawing", "Sculpture"],
   },
 ];
@@ -195,7 +209,7 @@ const HEART_COLORS = ["#ff4d6d", "#ff758f", "#ff2e63", "#ff8fa3", "#ffb3c1"];
 const MAX_HEARTS = 40;
 const HEART_PATH =
   "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z";
-
+  
 function HeartReact({ setIsHovering }) {
   const [hearts, setHearts] = useState([]);
   const idRef = useRef(0);
@@ -683,15 +697,28 @@ export default function About({ setIsHovering, onSelectProject }) {
         .ig-header > div:last-child {
           min-width: 0;
         }
+        .ig-avatar-btn {
+          background: none;
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          flex-shrink: 0;
+        }
         .ig-avatar {
           aspect-ratio: 1/1;
           width: clamp(90px, 22vw, 220px);
           height: auto;
           max-width: 220px;
           border-radius: 50%;
-          flex-shrink: 0;
-          border: 1px solid var(--line);
-          padding: 4px;
+          padding: 3px;
+          transition: background 0.3s ease;
+        }
+        .ig-avatar-inner {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          padding: 3px;
+          background: var(--paper);
         }
         @media (max-width: 640px) {
           .ig-avatar {
@@ -785,19 +812,36 @@ export default function About({ setIsHovering, onSelectProject }) {
           transition={{ duration: 0.6 }}
           className="ig-header"
         >
-          <div className="ig-avatar">
-            <img
-              src={pic}
-              alt="Antonio Abias Jr."
+          <button
+            className="ig-avatar-btn"
+            onClick={() => setOpenGroup(profileStory)}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+            aria-label="View my story"
+          >
+            <div
+              className="ig-avatar"
               style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: "50%",
-                objectFit: "cover",
-                display: "block",
+                background: viewed.has("profile")
+                  ? "rgba(242,242,242,0.28)"
+                  : "linear-gradient(135deg, #1877F2, #42A5F5, #1877F2)",
               }}
-            />
-          </div>
+            >
+              <div className="ig-avatar-inner">
+                <img
+                  src={pic}
+                  alt="Antonio Abias Jr."
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
+              </div>
+            </div>
+          </button>
 
           <div
             style={{

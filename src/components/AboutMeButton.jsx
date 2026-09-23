@@ -87,6 +87,15 @@ export default function LiquidButton({
     };
   }, []);
 
+  useEffect(() => {
+    if (!shaderRef.current) return;
+    const resizeObserver = new ResizeObserver(() => {
+      shaderMount.current?.resize?.();
+    });
+    resizeObserver.observe(shaderRef.current);
+    return () => resizeObserver.disconnect();
+  }, []);
+
   const handleMouseEnter = () => {
     if (disabled) return;
     setIsHovered(true);
@@ -200,6 +209,7 @@ export default function LiquidButton({
         >
           <div
             style={{
+              position: "relative",
               width: "100%",
               height: "100%",
               borderRadius: radius,
@@ -215,6 +225,12 @@ export default function LiquidButton({
               aria-hidden="true"
               style={{ position: "relative", width: "100%", height: "100%", borderRadius: radius, overflow: "hidden", filter: "contrast(1.35) brightness(1.25)" }}
             />
+            {disabled && (
+              <div
+                aria-hidden="true"
+                style={{ position: "absolute", inset: 0, background: "#fdfdfd" }}
+              />
+            )}
           </div>
         </div>
 
