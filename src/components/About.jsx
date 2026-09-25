@@ -513,11 +513,6 @@ function StoryModal({ group, onClose, onFinish, setIsHovering }) {
 }
 
 
-
-
-
-
-
 function formatCount(n) {
   if (n >= 1000000) {
     return (n / 1000000).toFixed(n % 1000000 === 0 ? 0 : 1) + "M";

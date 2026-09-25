@@ -54,34 +54,46 @@ export default function LiquidButton({
       document.head.appendChild(style);
     }
 
-    if (shaderMount.current?.destroy) {
-      shaderMount.current.destroy();
-      shaderMount.current = null;
-    }
+    let cancelled = false;
 
-    if (shaderRef.current) {
-      shaderMount.current = new ShaderMount(
-        shaderRef.current,
-        liquidMetalFragmentShader,
-        {
-          u_repetition: 4,
-          u_softness: 0.5,
-          u_shiftRed: 0.3,
-          u_shiftBlue: 0.3,
-          u_distortion: 0,
-          u_contour: 0,
-          u_angle: 45,
-          u_scale: 8,
-          u_shape: 1,
-          u_offsetX: 0.1,
-          u_offsetY: -0.1,
-        },
-        undefined,
-        0.6
-      );
-    }
+    const initTimer = setTimeout(() => {
+      if (cancelled) return;
+
+      if (shaderMount.current?.destroy) {
+        shaderMount.current.destroy();
+        shaderMount.current = null;
+      }
+
+      if (shaderRef.current) {
+        shaderMount.current = new ShaderMount(
+          shaderRef.current,
+          liquidMetalFragmentShader,
+          {
+            u_repetition: 4,
+            u_softness: 0.5,
+            u_shiftRed: 0.3,
+            u_shiftBlue: 0.3,
+            u_distortion: 0,
+            u_contour: 0,
+            u_angle: 45,
+            u_scale: 8,
+            u_shape: 1,
+            u_offsetX: 0.1,
+            u_offsetY: -0.1,
+          },
+          undefined,
+          0.6,
+        );
+      }
+    }, 120);
 
     return () => {
+      cancelled = true;
+      clearTimeout(initTimer);
+      const canvas = shaderRef.current?.querySelector("canvas");
+      const gl = canvas?.getContext("webgl") || canvas?.getContext("webgl2");
+      gl?.getExtension("WEBGL_lose_context")?.loseContext();
+
       shaderMount.current?.destroy?.();
       shaderMount.current = null;
     };
@@ -126,7 +138,9 @@ export default function LiquidButton({
       };
       setRipples((current) => [...current, ripple]);
       window.setTimeout(() => {
-        setRipples((current) => current.filter((item) => item.id !== ripple.id));
+        setRipples((current) =>
+          current.filter((item) => item.id !== ripple.id),
+        );
       }, 600);
     }
 
@@ -166,7 +180,11 @@ export default function LiquidButton({
             {label ? (
               <span
                 className="liquid-btn-label"
-                style={{ fontWeight: 400, textShadow: "0 1px 2px rgba(0,0,0,0.5)", whiteSpace: "nowrap" }}
+                style={{
+                  fontWeight: 400,
+                  textShadow: "0 1px 2px rgba(0,0,0,0.5)",
+                  whiteSpace: "nowrap",
+                }}
               >
                 {label}
               </span>
@@ -223,12 +241,23 @@ export default function LiquidButton({
               ref={shaderRef}
               className="liquid-button-shader"
               aria-hidden="true"
-              style={{ position: "relative", width: "100%", height: "100%", borderRadius: radius, overflow: "hidden", filter: "contrast(1.35) brightness(1.25)" }}
+              style={{
+                position: "relative",
+                width: "100%",
+                height: "100%",
+                borderRadius: radius,
+                overflow: "hidden",
+                filter: "contrast(1.35) brightness(1.25)",
+              }}
             />
             {disabled && (
               <div
                 aria-hidden="true"
-                style={{ position: "absolute", inset: 0, background: "#fdfdfd" }}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: "#fdfdfd",
+                }}
               />
             )}
           </div>
@@ -271,7 +300,8 @@ export default function LiquidButton({
                 width: 20,
                 height: 20,
                 borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%)",
+                background:
+                  "radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%)",
                 pointerEvents: "none",
                 animation: "liquid-button-ripple 0.6s ease-out",
               }}
